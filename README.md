@@ -5,11 +5,11 @@ git init
 
 git add
 
-git commit
+git commit -m "msg"
 
 git remote add origin <URL mới>
 
-git push -u origin main
+git push -u origin master
 
 git log
 
