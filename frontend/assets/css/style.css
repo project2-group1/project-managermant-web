@@ -1,0 +1,26 @@
+/* Reset CSS */
+* {
+    padding: 0;
+    margin: 0;
+    /* box-sizing: border-box; */
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: Arial,Tahoma, Verdana, sans-serif;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    width: 100%;
+    overflow-x: hidden;
+    /* theo chieu ngang */
+}
+
+:root {
+    --topmenu-color: #e9e9d5;
+    --left-nav-text: #337ab7;
+    --left-nav-hover-text: #9e100e;
+    --left-nav-hover-backgr-text: #ebebeb;
+}
