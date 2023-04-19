@@ -1,6 +1,8 @@
 # project-management-website
 Project II - Group 1
 
+Chúng mình là nhóm 1 nè
+
 git init
 git remote add origin <URL mới>
 
