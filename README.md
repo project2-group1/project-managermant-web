@@ -3,25 +3,27 @@ Project II - Group 1
 
 Chúng mình là nhóm 1 nè
 
-git init
-git remote add origin <URL mới>
+git init #tạo git trong folder đang chọn
+git remote add origin <URL mới> #add remote vào máy
 
 # push code
-git add --all
-git commit -m "msg"
-git push -u origin master
+git add --all # add code mới
+git commit -m "msg" # commit code kèm thèm theo message
+git push -u origin master # pull code lên github
+git pull --rebase origin master #lỗi k truy cập được link
+git push origin master
 
 # status
-git log
-git status
+git log # lịch sử git
+git status # trạng thái các file trong folder chứa git
 
-# remote
+# remote/merge
 git fetch origin master
 git merge origin master
 
-git remote -v
-git remote rm origin
-git show-ref
+git remote -v # xem link remote
+git remote rm origin # remove remote gốc
+git show-ref # hiển thị các thành phần trong ref
 
 # git branch
 git branch
