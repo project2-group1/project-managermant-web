@@ -30,7 +30,7 @@ body {
 /* Start Header */
 .wrapper-header {
     height: 48px;
-    width: 80%;    
+    width: 100%;
     float: right;
     background-color: var(--backgr-light);
 }
@@ -121,10 +121,10 @@ body {
     background-color: var(--backgr-hover);
 }
 
-/* End Header-avatar */
+/* #End Header-avatar */
 
 
-/* Start Navagation bar */
+/* #Start Navagation bar */
 .wrapper-nav {
     background-color: var(--backgr-middle);
     width: 20%;
