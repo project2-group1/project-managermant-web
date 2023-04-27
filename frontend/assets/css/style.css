@@ -17,14 +17,14 @@ body {
 }
 
 :root {
-    --backgr-light: rgb(146, 146, 146);
-    --backgr-middle: rgb(188, 196, 255);
-    --backgr-dark: rgb(205, 144, 144);
-    --backgr-hover: rgb(252, 250, 121);
-    --text-light: rgb(249, 250, 246);
-    --text-dark: rgb(24, 22, 22);
+    --backgr-light: rgb(255, 255, 255);
+    --backgr-middle: rgb(232, 232, 232);
+    --backgr-dark: rgb(113, 113, 113);
+    --backgr-hover: rgb(220, 220, 220);
+    --text-light: rgb(39, 39, 39);
+    --text-dark: rgb(31, 31, 31);
     --icon-light: rgb(24, 22, 22);
-    --icon-dark: rgb(26, 33, 127);
+    --icon-dark: rgb(0, 0, 0);
 }
 
 /* Start Header */
@@ -87,7 +87,7 @@ body {
     text-align: left;
     line-height: 32px;
     list-style: none;
-    background-color: var(--backgr-middle);
+    background-color: var(--backgr-light);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); 
     /* x | y | blur-radius | color */
 }
@@ -126,7 +126,7 @@ body {
 
 /* #Start Navagation bar */
 .wrapper-nav {
-    background-color: var(--backgr-middle);
+    background-color: var(--backgr-light);
     width: 20%;
     height: 90vh;
 }
@@ -193,7 +193,7 @@ body {
 
 .wrapper-footer{
     height: 48px;
-    background-color: #ccc;
+    background-color: var(--backgr-light);
 }
 
 .footer-pane{

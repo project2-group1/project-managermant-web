@@ -13,6 +13,9 @@ git push -u origin master # pull code lên github
 git pull --rebase origin master #lỗi k truy cập được link
 git push origin master
 
+# pull code
+git pull
+
 # status
 git log # lịch sử git
 git status # trạng thái các file trong folder chứa git
