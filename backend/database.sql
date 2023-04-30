@@ -34,4 +34,22 @@ CREATE TABLE `student`(
     `projectname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `coursecode` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
+--
+-- Cấu trúc bảng `group`
+--
+CREATE TABLE `group`(
+	`group_id` int(8) NOT NULL
+)
+--
+-- Cấu trúc bảng `metting`
+--
+CREATE TABLE `metting`(
+    `group_id` int(8) NOT NULL,
+    `teacher_id` int(8) NOT NULL,
+	`metting_id` int(8) NOT NULL,
+    `date` DATE DEFAULT NULL,
+    `reportdeadline` DATE DEFAULT NULL,
+    `note` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `next_metting_id` int(8) NOT NULL,
+  	`report` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
