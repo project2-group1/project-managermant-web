@@ -3,7 +3,7 @@ Project II - Group 1
 
 Chúng mình là nhóm 1 nè
 
-git init #tạo git trong folder đang chọn
+git init #tạo git trong folder đang chọn<br>
 git remote add origin <URL mới> #add remote vào máy
 
 # push code
