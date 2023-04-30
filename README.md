@@ -34,6 +34,6 @@ git branch master<br>
 git branch -d main<br>
 git branch -m master<br>
 
-
-// test git
-a
+# Các lỗi có thể gặp <br>
+1. lỗi master -> master (fetch first)
+    - đã có người khác push code lên github trước bạn. bạn cần 'git pull' trước để cập nhật code của họ rồi mới 'git push'

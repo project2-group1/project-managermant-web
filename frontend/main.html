@@ -13,45 +13,40 @@
 <body>
     <div class="master">
         <!-- Header -->
-
         <div class="wrapper-header">
-            <div class="header-pane">
-                <div class="header-pane-start">
-                    <div class="btn btn-home">
-                        <a href="#"><i class="fa-solid fa-house"></i></a>
-                        <div class="logo-page"><img src="" alt=""></div>
+            <div class="header">
+                <div class="header-start">
+                    <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <div class="btn-logo">
+                        <a class="logo-page" href="#"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
                     </div>
                 </div>
-                <!-- <div class="displaymode-button">
-                    
-                    </div> -->
-                <div class="header-pane-center">
+                <div class="header-center">
                     <div class="search-bar">
-                        <input type="text" placeholder="search...">
-                    </div>
-                    <div class="search-icon">
-                        <i></i>
+                        <input type="text" placeholder="Tìm kiếm">
+                        <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
-                <div class="header-pane-end">
-                    <div class="account">
-                        <div class="avatar">
-                            <a href="#" class="avatar-img">
-                                <img src="./assets/img/avatar.png" alt="">
-                            </a>
-                            <ul class="avatar-nav">
-                                <li class="avatar-nav-item"><i class="fa-regular fa-bell"></i><a href="#">Thông báo</a>
-                                </li>
-                                <li class="avatar-nav-item"><i class="fa-regular fa-calendar"></i><a href="#">Lịch</a>
-                                </li>
-                                <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="#">Cài đặt</a>
-                                </li>
-                                <li class="avatar-nav-item"><i
-                                        class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i><a href="#">Đăng
-                                        xuất</a></li>
-                            </ul>
-                        </div>
+                <div class="header-end">
+                    <button class="btn icon-add-calendar"><i class="fa-regular fa-calendar-plus"></i></button>
 
+                    <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
+
+                    <button class="btn icon-avatar">
+                        <a href="#" class="avatar-img">
+                            <img src="./assets/img/avatar.png" alt="">
+                        </a>
+                        <ul class="avatar-nav">
+                            <li class="avatar-nav-item"><i class="fa-regular fa-bell"></i><a href="#">Thông báo</a>
+                            </li>
+                            <li class="avatar-nav-item"><i class="fa-regular fa-calendar"></i><a href="#">Lịch</a>
+                            </li>
+                            <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="#">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item"><i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i><a
+                                    href="#">Đăng xuất</a>
+                            </li>
+                        </ul>
                         <!-- <div class="login-controller">
                                         <div class="signup">
                                             
@@ -60,7 +55,7 @@
                                             
                                         </div>
                                     </div> -->
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -68,85 +63,208 @@
 
         <!-- Main content -->
         <div class="wrapper-content">
-            <div class="content">
-                <div class="content-yearbox">
-                    <div class="content-yearbox-button">
-                        <label for="years">Choose a year:</label>
-                        <select name="years" id="years">
-                            <option value="">2022.1</option>
-                            <option value="">2022.2</option>
-                            <option value="">2022.3</option>
-                            <option value="">2023.1</option>
-                        </select>
-                    </div>
+            <div class="calendar">
+                <!-- Timeline -->
+                <div class="timeline">
+                    <div class="space"></div>
+                    <div class="time-marker">7 AM</div>
+                    <div class="time-marker">8 AM</div>
+                    <div class="time-marker">9 AM</div>
+                    <div class="time-marker">10 AM</div>
+                    <div class="time-marker">11 AM</div>
+                    <div class="time-marker">12 AM</div>
+                    <div class="time-marker">1 PM</div>
+                    <div class="time-marker">2 PM</div>
+                    <div class="time-marker">3 PM</div>
+                    <div class="time-marker">4 PM</div>
+                    <div class="time-marker">5 PM</div>
+                    <div class="time-marker">6 PM</div>
                 </div>
-                <div class="grid-container">
-                    <div class="grid-item">Project I</div>
-                    <div class="grid-item">Project II</div>
-                    <div class="grid-item">Project III</div>
-                    <div class="grid-item">4</div>
-                    <div class="grid-item">5</div>
-                    <div class="grid-item">6</div>
-                    <div class="grid-item">7</div>
-                    <div class="grid-item">8</div>
-                    <div class="grid-item">9</div>
+                <!-- Days -->
+                <div class="days">
+                    <div class="day mon">
+                        <div class="date">
+                            <div class="box-change-date">
+                                <button class="btn-prev-week btn-week">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </button>
+                            </div>
+                            <p class="date-num">9</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 2</p>
+                            <div class="box-change-date"></div>
+                        </div>
+                        <div class="events">
+                            <div class="event start-2pm end-5pm securities">
+                                <p class="title">Securities Regulation</p>
+                                <p class="time">2 PM - 5 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day tues">
+                        <div class="date">
+                            <div class="box-change-date"></div>
+                            <p class="date-num">12</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 3</p>
+                            <div class="box-change-date"></div>
+                        </div>
+                        <div class="events">
+                            <div class="event start-10am end-12am corp-fi">
+                                <p class="title">Corporate Finance</p>
+                                <p class="time">10 AM - 12 AM</p>
+                            </div>
+                            <div class="event start-1pm end-4pm ent-law">
+                                <p class="title">Entertainment Law</p>
+                                <p class="time">1 PM - 4 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day wed">
+                        <div class="date">
+                            <div class="box-change-date"></div>
+                            <p class="date-num">11</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 4</p>
+                            <div class="box-change-date"></div>
+                        </div>
+                        <div class="events">
+                            <div class="event start-11am end-12pm writing">
+                                <p class="title">Writing Seminar</p>
+                                <p class="time">11 AM - 12 AM</p>
+                            </div>
+                            <div class="event start-2pm end-5pm securities">
+                                <p class="title">Securities Regulation</p>
+                                <p class="time">2 PM - 5 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day thurs">
+                        <div class="date">
+                            <div class="box-change-date"></div>
+                            <p class="date-num">12</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 5</p>
+                            <div class="box-change-date"></div>
+                        </div>
+                        <div class="events">
+                            <div class="event start-10am end-12am corp-fi">
+                                <p class="title">Corporate Finance</p>
+                                <p class="time">10 AM - 12 AM</p>
+                            </div>
+                            <div class="event start-1pm end-4pm ent-law">
+                                <p class="title">Entertainment Law</p>
+                                <p class="time">1 PM - 4 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day fri">
+                        <div class="date">
+                            <div class="box-change-date"></div>
+                            <p class="date-num">13</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 6</p>
+                            <div class="box-change-date"></div>
+                        </div>
+                        <div class="events">
+                        </div>
+                    </div>
+                    <div class="day sat">
+                        <div class="date">
+                            <div class="box-change-date"></div>
+                            <p class="date-num">14</p>
+                            <p class="date-space">|</p>
+                            <p class="date-day">Thứ 7</p>
+                            <div class="box-change-date">
+                                <button class="btn-prev-week btn-week">
+                                    <i class="fa-solid fa-angle-left fa-rotate-180"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="events">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <!-- Navigation bar -->
-    <div class="sidebar">
-        <div class="wrapper-nav">
+        <!-- Navigation bar -->
+        <div class="wrapper-sidebar">
             <!-- box & box open icon -->
-            <div class="nav">
-                <div class="nav-block nav-week">
-                    <button>Lịch trong tuần</button>
-                    <div class="nav-week-days">
-                        <div class="day"><span>T2</span></div>
-                        <div class="day"><span>T3</span></div>
-                        <div class="day"><span>T4</span></div>
-                        <div class="day"><span>T5</span></div>
-                        <div class="day"><span>T6</span></div>
-                        <div class="day"><span>T7</span></div>
-                        <div class="day"><span>CN</span></div>
+            <div class="sidebar">
+                <div class="sidebar-item sidebar-week">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <p>Lịch trong tuần</p>
+                    </button>
+                    <div class="sidebar-week-days mside-12">
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T2</p>
+                        </div>
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T3</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T4</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T5</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T6</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T7</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>CN</p>
+                        </div>
                     </div>
-
                 </div>
-                <div class="nav-block nav-recent">
-                    <button>Mở gần đây</button>
-                    <ul class="nav-recent-list">
+                <div class="sidebar-item sidebar-recent">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-arrow-rotate-right "></i>
+                        <p>Mở gần đây</p>
+                    </button>
+                    <ul class="sidebar-recent-list mside-12">
                         <li>20204767</li>
                         <li>20204769</li>
                     </ul>
                 </div>
-                <div class="nav-block nav-stored">
-                    <button>Lưu trữ</button>
-                    <ul class="nav-stored-list">
+                <div class="sidebar-item sidebar-stored">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-box"></i>
+                        <p>Lưu trữ</p>
+                    </button>
+                    <ul class="sidebar-stored-list mside-12">
                         <li>D/code</li>
                         <li>C/frontend</li>
                     </ul>
                 </div>
-                <div class="nav-block nav-teacher">
-                    <button>Tạo meeting (nút này chỉ có của giáo viên)</button>
+                <div class="sidebar-item sidebar-teacher">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-laptop"></i>
+                        <p>Lịch rảnh</p>
+                    </button>
                 </div>
-                <div class="nav-block nav-student">
-                    <button>Gửi yêu cầu meeting (sinh viên)</button>
+                <!-- <div class="sidebar-item sidebar-student">
+                    <button class="btn-sidebar-item">
+                        <p>Gửi yêu cầu meeting (sinh viên)</p>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <div class="wrapper-footer">
+            <div class="footer">
+                <div class="contact">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <div class="wrapper-footer">
-        <div class="footer-pane">
-            <div class="contact">
-                Footer
-            </div>
-        </div>
-    </div>
-    </div>
 </body>
 
 </html>
