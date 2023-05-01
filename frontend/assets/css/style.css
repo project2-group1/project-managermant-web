@@ -5,6 +5,8 @@
     /* box-sizing: border-box; */
 }
 
+/* Global */
+
 html {
     scroll-behavior: smooth;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -30,11 +32,18 @@ button {
 }
 
 :root {
+
+    --numDays: 6;
+    --numHours: 12;
+    --timeHeight: 50px;
     --icon-font-size: 20px;
     --text-font-size: 20px;
+
     --backgr-color-light: rgb(255, 255, 255);
-    --backgr-color-middle: rgb(204, 199, 199);
-    --backgr-color-hover: rgb(204, 204, 204);
+    --backgr-color-middle: rgb(250, 250, 250);
+    --backgr-color-hover: rgb(244, 244, 244);
+    --border-color-light: rgb(204, 204, 204);
+    --box-shadow-color: rgb(160, 160, 160);
     --text-color-light: rgb(39, 39, 39);
     --text-color-fade: rgb(100, 96, 96);
     --text-color-green: rgb(102, 221, 89);
@@ -42,9 +51,7 @@ button {
     --icon-color-dark: rgb(65, 65, 65);
     --icon-color-hover: rgb(0, 0, 0);
 
-    --numDays: 6;
-    --numHours: 12;
-    --timeHeight: 50px;
+    /* Calendar color */
     --calBgColor: #fff1f8;
     --eventBorderColor: #f2d3d8;
     --eventColor1: #ffd6d1;
@@ -69,7 +76,7 @@ button {
 
 .btn:hover {
     border-radius: 50%;
-    background-color: rgb(204, 204, 204);
+    background-color: var(--backgr-color-hover);
 }
 
 /* Start Header */
@@ -132,20 +139,20 @@ button {
     padding: 8px 16px;
     font-size: 16px;
     line-height: 24px;
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px solid var(--backgr-color-hover);
     border-radius: 20px 0 0 20px;
 }
 
 .header-center .search-icon {
     width: 64px;
     text-align: center;
-    background-color: rgb(204, 204, 204);
-    border: 1px solid rgb(204, 204, 204);
+    background-color: var(--backgr-color-middle);
+    border: 1px solid var(--border-color-light);
     border-radius: 0 20px 20px 0;
 }
 
 .header-center .search-icon:hover {
-    background: rgb(204, 204, 204);
+    background: var(--backgr-color-hover);
 }
 
 .header-center .search-icon i {
@@ -195,7 +202,7 @@ button {
     line-height: 32px;
     list-style: none;
     background-color: var(--backgr-color-light);
-    box-shadow: 2px 2px 2px rgb(81, 81, 81);
+    box-shadow: 2px 2px 2px var(--box-shadow-color);
     /* x | y | blur-radius | color */
 }
 
@@ -265,7 +272,7 @@ button {
 }
 
 .btn-sidebar-item:hover {
-    background-color: rgb(204, 204, 204);
+    background-color: var(--backgr-color-hover);
     cursor: pointer;
 }
 
@@ -321,8 +328,19 @@ button {
 .timeline {
     display: grid;
     grid-template-rows: repeat(var(--numHours), var(--timeHeight));
-    text-align: end;
+    text-align: center;
     /* repeat(số lần, kích thước) */
+}
+
+.timeline .box-change-month {
+    height: var(--timeHeight);
+    margin: 0 -10px;
+}
+
+.timeline .box-change-month .btn-change-month {
+    height: 100%;
+    width: 100%;
+    background-color: var(--backgr-color-light);
 }
 
 .days {
@@ -335,13 +353,14 @@ button {
 }
 
 .date {
+    height: var(--timeHeight);
     display: flex;
     gap: 8px;
     justify-content: space-between;
     align-items: center;
 }
 
-.date .btn-week {
+.calendar .btn-week {
     width: 100%;
     height: 40px;
     border: none;
@@ -350,13 +369,13 @@ button {
     background-color: var(--backgr-color-light);
 }
 
-.date .btn-week:hover {
+.calendar .btn-week:hover {
     background-color: var(--backgr-color-hover);
     cursor: pointer;
 }
 
-.date .btn-prev-week {
-    /* display: fl; */
+.calendar .btn-prev-week {
+
 }
 
 .date-num {
@@ -391,7 +410,7 @@ button {
     border-radius: 5px;
     padding: 0 8px;
     margin: 0 4px;
-    background: white;
+    background: var(--backgr-color-light);
 }
 
 .event .time {
@@ -402,11 +421,6 @@ button {
 .title {
     font-weight: 500;
     margin-bottom: 2px;
-}
-
-.date,
-.space {
-    height: var(--timeHeight);
 }
 
 /* // Place on Timeline */
@@ -531,8 +545,7 @@ body {
 
 /* Start Footer */
 .wrapper-footer {
-    height: 48px;
-    background-color: var(--backgr-color-light);
+
 }
 
 .footer {}
