@@ -1,0 +1,58 @@
+.meeting {
+
+}
+
+.meeting-header {
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+}
+
+.meeting-header .title {
+    
+}
+
+.meeting-header .day {
+    width: 50px;
+    display: flex;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+
+.day .date {
+
+}
+
+.day .month {
+
+}
+
+.meeting-info {
+
+}
+
+.meeting-info .info-student {
+
+}
+
+.meeting-info .file-report {
+
+}
+
+.meeting-content {
+
+}
+
+.note-content {
+
+}
+
+
+
+
+
+
+
+
+
+
