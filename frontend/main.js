@@ -25,3 +25,4 @@ btn_sidebar.onclick = function() {
         wrapperSidebar.style.display = "none";
     }
 };
+// click hiển thị event
