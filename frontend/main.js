@@ -12,7 +12,8 @@ btn_add_calendar.onclick = function () {
 btn_close_calendar.onclick = function () {
     make_calendar_container.classList.remove('show');
 }
-// kết thúc xử lý
+
+// kết thúc xử lý add calendar
 
 // hiện ẩn side bar
 const btn_sidebar = $('.btn.btn-sidebar');
