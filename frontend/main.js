@@ -19,7 +19,7 @@ btn_close_calendar.onclick = function () {
 const btn_sidebar = $('.btn.btn-sidebar');
 const wrapperSidebar = $('.wrapper-sidebar')
 // wrapperSidebar.style.display = "none"
-btn_sidebar.onclick = function() {
+btn_sidebar.onclick = function () {
     if (wrapperSidebar.style.display == "none") {
         wrapperSidebar.style.display = "block";
     } else {
@@ -27,3 +27,8 @@ btn_sidebar.onclick = function() {
     }
 };
 // click hiển thị event
+const meeting = $('.btn.meeting');
+console.log(meeting);
+meeting.onclick = function () {
+    window.location = "./meeting.html"
+}
