@@ -3,7 +3,7 @@ const $$ = document.querySelectorAll.bind(document);
 // XỬ lý add calendar
 const btn_add_calendar = $('.btn-add-calendar');
 const btn_close_calendar = $('.btn-close-calendar');
-const make_calendar_container = $('#make-calendar-container');
+const make_calendar_container = $('.make-calendar-container');
 
 console.log(btn_close_calendar);
 

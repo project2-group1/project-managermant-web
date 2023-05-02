@@ -540,7 +540,7 @@ body {
 /* End Main Content */
 
 /*Make calendar*/
-#make-calendar-container {
+.make-calendar-container {
     height: 100vh;
     background: var(--backgr-color-blur);
     position: fixed;
@@ -551,7 +551,7 @@ body {
     pointer-events: none;
 }
 
-#make-calendar-container.show {
+.make-calendar-container.show {
     height: 100vh;
     background: var(--backgr-color-blur);
     position: fixed;
@@ -562,7 +562,7 @@ body {
     pointer-events: all;
 }
 
-#modal {
+.modal {
     background: var(--backgr-color-light);
     max-width: 1000px;
     position: relative;
@@ -571,7 +571,7 @@ body {
     transform: translateX(-50%);
 }
 
-#modal .modal-header {
+.modal .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
