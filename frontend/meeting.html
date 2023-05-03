@@ -31,9 +31,7 @@
 
                 <div class="header-end">
                     <button class="btn icon-add-calendar"><i class="fa-regular fa-calendar-plus"></i></button>
-
                     <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
-
                     <button class="btn icon-avatar">
                         <a href="#" class="avatar-img">
                             <img src="./assets/img/avatar.png" alt="">
@@ -58,40 +56,6 @@
                                         </div>
                                     </div> -->
                     </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main content -->
-        <div class="wrapper-content">
-            <div class="meeting">
-                <div class="meeting-header">
-                    <div class="title">
-                        <span class="title-subject">Project II</span>
-                        <span class="title-space">-</span>
-                        <span class="title-name">Group I</span>
-                        <span class="title-space">-</span>
-                        <span class="title-topic">Website quản lý dự án</span>
-                    </div>
-                    <button class="btn-out btn">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="meeting-info">
-                    <div class="day">
-                        <p class="date">29</p>
-                        <p class="month">5</p>
-                    </div>
-                    <div class="info">
-                        <div class="info-student">
-                            <span class="student-name">Giang Trung Nghĩa</span>
-                            <span class="student-id">20204767</span>
-                        </div>
-                        <div class="file-report"><button>a</button></div>
-                    </div>
-                </div>
-                <div class="meeting-content">
-                    <textarea name="" class="note-content" cols="150" rows="10"></textarea>
                 </div>
             </div>
         </div>
@@ -156,23 +120,87 @@
                     </button>
                 </div>
                 <!-- <div class="sidebar-item sidebar-student">
-                    <button class="btn-sidebar-item">
-                        <p>Gửi yêu cầu meeting (sinh viên)</p>
-                    </button>
-                </div> -->
+                        <button class="btn-sidebar-item">
+                            <p>Gửi yêu cầu meeting (sinh viên)</p>
+                        </button>
+                    </div> -->
             </div>
+
+        </div>
+        <!-- Main content -->
+        <div class="wrapper-content">
+            <div class="meeting">
+                <div class="meeting-header">
+                    <div class="title">
+                        <span class="title-subject">Project II</span>
+                        <span class="title-space">-</span>
+                        <span class="title-name">Group I</span>
+                        <span class="title-space">-</span>
+                        <span class="title-topic">Website quản lý dự án</span>
+                        <span class="title-serial">#1</span>
+                    </div>
+                    <button class="btn-out btn-note">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="meeting-info">
+                    <div class="day">
+                        <p class="date">29</p>
+                        <p class="month">Tháng 5</p>
+                    </div>
+                    <div class="info">
+                        <div class="info-student">
+                            <span class="student-name">Giang Trung Nghĩa</span>
+                            <span class="student-id">20204767</span>
+                        </div>
+                        <div class="file-report">
+                            <label for="file">Select a file: </label>
+                            <input type="file">
+                        </div>
+                    </div>
+                    <div class="meeting-content">
+                        <div class="text-format">
+                            <select class="font-sizecur">
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16" selected>16</option>
+                                <option value="20">20</option>
+                                <option value="24">24</option>
+                            </select>
+                            <button class="font-sizeup btn-note"><img src="/frontend/assets/img/increase-font-size.png" alt=""></button>
+                            <button class="font-sizedown btn-note"><img src="/frontend/assets/img/decrease-font-size.png" alt=""></button>
+                            <button class="font-bold btn-note"><i class="fa-solid fa-bold"></i></button>
+                            <button class="font-italic btn-note"><i class="fa-solid fa-italic"></i></button>
+                            <button class="font-underline btn-note"><i class="fa-solid fa-underline"></i></button>
+                            <button class="font-highlighter btn-note"><i class="fa-solid fa-highlighter"></i></button>
+                            <button class="font-color btn-note"><i class="fa-solid fa-palette"></i></button>
+                            <button class="font-align-justify btn-note"><i class="fa-solid fa-align-justify"></i></button>
+                            <button class="font-align-center btn-note"><i class="fa-solid fa-align-center"></i></button>
+                            <button class="font-align-left btn-note"><i class="fa-solid fa-align-left"></i></button>
+                            <button class="font-align-right btn-note"><i class="fa-solid fa-align-right"></i></button>
+
+                        </div>
+                        <form action="" class="form-note">
+                            <textarea name="note" class="note" placeholder="ghi chú" ></textarea>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
 
+    </div>
 
-        <!-- Footer -->
-        <div class="wrapper-footer">
-            <div class="footer">
-                <div class="contact">
-                </div>
+    <!-- Footer -->
+    <div class="wrapper-footer">
+        <div class="footer">
+            <div class="contact">
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

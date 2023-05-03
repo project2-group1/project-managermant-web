@@ -1,6 +1,6 @@
 .meeting {
-    margin-right: 8px;
-    padding: 8px;
+    margin: 8px 8px 16px 8px;
+    padding: 10px 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
 }
@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 40px;
 }
 
 .meeting-header .title {
@@ -40,16 +41,33 @@
 .meeting-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    background-color: var(--backgr-color-hover);
 }
 
 .meeting-info .day {
+    width: 100px;
+    height: 20px;
+    font-size: 12px;
+    margin-top: -12px;
     display: flex;
+    align-items: center;
+    color: #6d6d6d;
+}
+
+.day .date {
+    margin-right: 8px;
+}
+
+.day .month {
+
 }
 
 .meeting-info .info {
     display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+
 }
 
 .info .info-student {
@@ -60,14 +78,72 @@
     width: 50%;
 }
 
+
+/* Start Meeting-content */
+
 .meeting-content {
-
+    margin-top: 8px;
 }
 
-.note-content {
-
+.meeting .btn-note {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--backgr-color-light);
 }
 
+.meeting .btn-note:hover {
+    background-color: var(--backgr-color-hover);
+}
+
+.meeting .btn-note img{
+    width: 20px;
+    height: 20px;
+}
+
+.text-format {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-format .font-sizecur {
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 0.5px solid #ccc;
+    border-radius: 5px;
+}
+
+.font-sizeup, .font-sizedown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-note {
+    margin-top: 4px; 
+    width: 100%;  
+}
+
+.form-note .note {
+    margin-right: 50px;
+    padding: 8px;
+    width: 98%;
+    min-height: 400px;
+    border-radius: 8px;
+    resize: none;
+    
+}
+
+.note:focus {
+    border: none;
+    box-shadow:none;
+}
 
 
 

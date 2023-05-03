@@ -16,3 +16,23 @@ btn_close_calendar.onclick = function(){
 }
 
 // kết thúc xử lý
+
+/* # Nghĩa : START */
+
+const btnOpenSidebar = $('.btn-sidebar')
+const wrapperSidebar = $('.wrapper-sidebar')
+const wrapperContent = $('.wrapper-content')
+
+
+btnOpenSidebar.onclick = function() {
+    if(wrapperSidebar.classList.contains('hidden')){
+        wrapperSidebar.classList.remove('hidden')
+        wrapperContent.classList.remove('fullwidth')
+    }
+    else{
+        wrapperSidebar.classList.add('hidden')
+        wrapperContent.classList.add('fullwidth')
+    }
+}
+
+/* # Nghĩa : END */
