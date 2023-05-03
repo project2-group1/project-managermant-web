@@ -19,7 +19,7 @@ themSinhVien.onclick = function () {
     renderListStudent.setAttribute('contenteditable', 'true');
 
     let newRow = document.createElement('tr');
-    newRow.innerHTML = '<td></td><td>add</td><td></td><td></td>';
+    newRow.innerHTML = '<td></td><td>add</td><td></td><td></td><td></td>';
 
     renderListStudent.appendChild(newRow);
 

@@ -66,7 +66,16 @@ button {
     font-size: var(--icon-font-size);
     color: var(--icon-color-dark);
 }
-
+.btn.table {
+    width: 150px;
+    height: 40px;
+    margin: 0 8px;
+    text-align: center;
+    line-height: 40px;
+    border: none;
+    background-color: var(--backgr-color-light);
+    border-radius: 50%;
+}
 .btn:hover {
     border-radius: 50%;
     background-color: rgb(204, 204, 204);
@@ -539,9 +548,17 @@ body {
 
 .contact {}
 
-table, th, td{
-    border:1px solid black;
+table,
+th,
+td {
+    width: auto;
+    border: 1px solid var(--icon-color-dark);
+    padding: 10px;
+    font-size: var(--text-font-size);
+    background-color: var();
+    border-radius: 10px;
 }
-table{
-    border-collapse:collapse;
+
+table {
+    border-collapse: collapse;
 }
