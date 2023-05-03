@@ -41,6 +41,7 @@ button {
 
     --backgr-color-light: rgb(255, 255, 255);
     --backgr-color-middle: rgb(250, 250, 250);
+    --backgr-color-dark: rgb(119, 119, 119);
     --backgr-color-hover: rgb(233, 233, 233);
     --backgr-color-blur: rgb(244, 244, 244, 0.5);
     --border-color-light: rgb(204, 204, 204);
@@ -62,9 +63,10 @@ button {
 }
 
 /* Style inputs with type="text", select elements and textareas */
-input[type=text],
-select,
-textarea {
+
+/* select, */
+/* textarea, */
+input[type=text]{
     font-size: var(--text-font-size);
     width: 100%;
     /* Full width */
@@ -77,7 +79,7 @@ textarea {
     box-sizing: border-box;
     /* Make sure that padding and width stays in place */
     resize: vertical
-        /* Allow the user to vertically resize the textarea (not horizontally) */
+    /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
 /* Style the submit button with a specific background color etc */
@@ -208,6 +210,11 @@ input[type=datetime-local] {
     border-radius: 20px 0 0 20px;
 }
 
+.header-center .search-bar input:focus-visible {
+    /* outline: none; */
+    /* border: 2px groove var(--backgr-color-middle); */
+}
+
 .header-center .search-icon {
     width: 64px;
     text-align: center;
@@ -252,11 +259,10 @@ input[type=datetime-local] {
 }
 
 .icon-avatar .avatar-nav {
-    display: none;
     position: absolute;
+    display: none;
     right: 4px;
     top: 56px;
-    z-index: 2;
 }
 
 .avatar-nav .avatar-nav-item {
@@ -394,8 +400,6 @@ input[type=datetime-local] {
 /* Start Main Calendar */
 .calendar {
     display: grid;
-    position: relative;
-    z-index: -1;
     gap: 10px;
     grid-template-columns: auto 1fr;
     margin: 0 8px;
@@ -450,7 +454,13 @@ input[type=datetime-local] {
     cursor: pointer;
 }
 
-.calendar .btn-prev-week {}
+.calendar .btn-prev-week {
+
+}
+
+.calendar .btn-next-week {
+
+}
 
 .date-num {
     font-size: var(--text-font-size);

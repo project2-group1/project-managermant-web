@@ -84,7 +84,7 @@
 .meeting-content {
     margin-top: 8px;
 }
-
+/* Buttons in meeting box */
 .meeting .btn-note {
     width: 30px;
     height: 30px;
@@ -133,15 +133,17 @@
 .form-note .note {
     margin-right: 50px;
     padding: 8px;
-    width: 98%;
-    min-height: 400px;
+    width: 100%;
+    min-height: 300px;
     border-radius: 8px;
-    resize: none;
-    
+    font-size: 16px;
+    /* default font-size */
+    resize: vertical;
+    box-sizing: border-box;
 }
 
 .note:focus {
-    border: none;
+    /* outline: ; */
     box-shadow:none;
 }
 
