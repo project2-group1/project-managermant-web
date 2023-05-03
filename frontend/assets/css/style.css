@@ -640,7 +640,7 @@ body {
     max-width: 1000px;
     position: relative;
     left: 50%;
-    top: 100px;
+    top: 5px;
     transform: translateX(-50%);
     border-radius: 10px;
     border-style: ridge;
