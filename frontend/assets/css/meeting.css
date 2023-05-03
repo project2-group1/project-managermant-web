@@ -1,0 +1,79 @@
+.meeting {
+    margin-right: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.meeting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meeting-header .title {
+    font-weight: 500;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.title-subject {
+
+}
+
+.title-space {
+
+}
+
+.title-name {
+
+}
+
+.title-space {
+
+}
+
+.title-topic {
+
+}
+
+.meeting-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--backgr-color-hover);
+}
+
+.meeting-info .day {
+    display: flex;
+}
+
+.meeting-info .info {
+    display: flex;
+}
+
+.info .info-student {
+    width: 50%;
+}
+
+.info .file-report {
+    width: 50%;
+}
+
+.meeting-content {
+
+}
+
+.note-content {
+
+}
+
+
+
+
+
+
+
+
+
+
