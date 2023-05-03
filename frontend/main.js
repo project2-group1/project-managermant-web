@@ -32,3 +32,5 @@ console.log(meeting);
 meeting.onclick = function () {
     window.location = "./meeting.html"
 }
+
+// chuyển hướng ds sinh viên
