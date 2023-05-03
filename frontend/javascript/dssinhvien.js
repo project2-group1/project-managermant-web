@@ -6,7 +6,7 @@ const sua = $('#sua');
 const luu = $('#luu');
 const themSinhVien = $('#themsinhvien');
 
-const dsLichGap =$('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-stored > button');
+const dsLichGap = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-stored > button');
 
 sua.onclick = function () {
     renderListStudent.setAttribute('contenteditable', 'true');

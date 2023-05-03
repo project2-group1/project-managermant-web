@@ -19,11 +19,10 @@ btn_close_calendar.onclick = function () {
 
 // click hiển thị event
 const meeting = $('.btn.meeting');
-console.log(meeting);
 meeting.onclick = function () {
-    window.location = "./meeting.html"
+    window.location.href = "./meeting.html"
 }
-// chuyển hướng ds sinh viên
+
 
 /* # Nghĩa : START */
 
@@ -44,6 +43,7 @@ btnOpenSidebar.onclick = function () {
 }
 
 /* # Nghĩa : END */
+// chuyển hướng ds sinh viên
 const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-studentlist > button');
 studentList.onclick = function(){
     window.location.href = "./dssinhvien.html"
