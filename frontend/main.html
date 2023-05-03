@@ -24,7 +24,7 @@
                 </div>
                 <div class="header-center">
                     <div class="search-bar">
-                        <input type="text" placeholder="Tìm kiếm">
+                        <input type="text" placeholder="Tìm kiếm" line-hight  >
                         <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
@@ -37,14 +37,21 @@
                             <img src="./assets/img/avatar.png" alt="">
                         </a>
                         <ul class="avatar-nav">
-                            <li class="avatar-nav-item"><i class="fa-regular fa-bell"></i><a href="#">Thông báo</a>
+                            <li class="avatar-nav-item">
+                                <i class="fa-regular fa-bell"></i>
+                                <a href="#">Thông báo</a>
                             </li>
-                            <li class="avatar-nav-item"><i class="fa-regular fa-calendar"></i><a href="#">Lịch</a>
+                            <li class="avatar-nav-item">
+                                <i class="fa-regular fa-calendar"></i>
+                                <a href="#">Lịch</a>
                             </li>
-                            <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="#">Cài đặt</a>
+                            <li class="avatar-nav-item">
+                                <i class="fa-solid fa-sliders"></i>
+                                <a href="/frontend/setting.html">Cài đặt</a>
                             </li>
-                            <li class="avatar-nav-item"><i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i><a
-                                    href="#">Đăng xuất</a>
+                            <li class="avatar-nav-item">
+                                <i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a href="/frontend/sign_up_sign_in.html">Đăng xuất</a>
                             </li>
                         </ul>
                         <!-- <div class="login-controller">
@@ -102,6 +109,7 @@
                             <div class="event start-2pm end-5pm securities">
                                 <p class="title">Securities Regulation</p>
                                 <p class="time">2 PM - 5 PM</p>
+                                <button class="btn meeting" href="./meeting.html">go</button>
                             </div>
                         </div>
                     </div>
@@ -199,7 +207,7 @@
                 <div class="sidebar-item sidebar-week">
                     <button class="btn-sidebar-item">
                         <i class="fa-regular fa-clipboard"></i>
-                        <p>Lịch trong tuần</p>
+                        <a href="#">Lịch trong tuần</a>
                     </button>
                     <div class="sidebar-week-days mside-12">
                         <div class="sidebar-day sidebar-day-passed">
@@ -228,7 +236,7 @@
                 <div class="sidebar-item sidebar-recent">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-arrow-rotate-right "></i>
-                        <p>Mở gần đây</p>
+                        <a href="#">Mở gần đây</a>
                     </button>
                     <ul class="sidebar-recent-list mside-12">
                         <li>20204767</li>
@@ -238,7 +246,7 @@
                 <div class="sidebar-item sidebar-stored">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-box"></i>
-                        <p>Lưu trữ</p>
+                        <a href="#">Lưu trữ</a>
                     </button>
                     <ul class="sidebar-stored-list mside-12">
                         <li>D/code</li>
@@ -248,7 +256,13 @@
                 <div class="sidebar-item sidebar-teacher">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-laptop"></i>
-                        <p>Lịch rảnh</p>
+                        <a href="#">Lịch rảnh</a>
+                    </button>
+                </div>
+                <div class="sidebar-item sidebar-teacher">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-rectangle-list"></i>
+                        <a href="dssinhvien.html">Danh sách sinh viên</a>
                     </button>
                 </div>
                 <!-- <div class="sidebar-item sidebar-student">
@@ -260,25 +274,32 @@
         </div>
 
         <!--Make calendar-->
-        <div id="make-calendar-container">
-            <div id="modal">
+        <div class="make-calendar-container">
+            <div class="modal">
                 <div class="modal-header">
-                    <h3>Modal title</h3>
-                    <button class="btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
+                    <h3 class="title">Thêm cuộc họp mới</h3>
+                    <button class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <p>Tạo lịch mới thì nó sẽ tạo ra modal tạo lịch sang slide số 5 Khi ấn vào mỗi cuộc gặp tại mỗi khung
-                    thời gian thì sẽ hiển ra các cuộc gặp ở slide 4
-
-                    - Ấn vào thông tin các nhân sẽ hiển thị ra modal thông tin cá nhân
-                    - Asn vào danh sách sinh viên sẽ chuyển tới slide 4 danh sacash sinh viên
-
-                    - Bỏ danh sách lịch gặp vì đã có ở ở bảng lịch rồi
-
-                    Có thể sửa, xóa lịch gặp
-                    - Khi sửa sẽ hiện ra modal sửa
-                    - Ki xóa sẽ hiện /p>
                 <div class="modal-body">
+                    <form>
+                        <label for="title">Tiêu đề:</label><br>
+                        <input type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
 
+                        <label for="start_time">Thời gian bắt đầu:</label><br>
+                        <input type="datetime-local" id="start_time" name="start_time"><br>
+
+                        <label for="group">Nhóm tham gia:</label><br>
+                        <select id="group" name="group">
+                            <option value="group1">Nhóm 1</option>
+                            <option value="group2">Nhóm 2</option>
+                            <option value="group3">Nhóm 3</option>
+                        </select><br>
+                        <label for="deadline">Deadline báo báo:</label><br>
+                        <input type="datetime-local" id="end_time" name="end_time"><br>
+                        <label for="subject">Subject</label>
+                        <textarea id="subject" name="subject" placeholder="Ghi chú" style="height:200px"></textarea>
+                        <input type="submit" value="Thêm cuộc họp mới">
+                    </form>
                 </div>
             </div>
         </div>
@@ -293,7 +314,7 @@
         </div>
     </div>
     
-    <script src="./main.js"></script>
+    <script src="./javascript/main.js"></script>
 </body>
 
 </html>
