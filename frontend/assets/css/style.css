@@ -613,7 +613,7 @@ body {
 /* End Main Content */
 
 /*Make calendar*/
-.make-calendar-container {
+.container{
     height: 100vh;
     background: var(--backgr-color-blur);
     position: fixed;
@@ -624,7 +624,7 @@ body {
     pointer-events: none;
 }
 
-.make-calendar-container.show {
+.container.show {
     height: 100vh;
     background: var(--backgr-color-blur);
     position: fixed;

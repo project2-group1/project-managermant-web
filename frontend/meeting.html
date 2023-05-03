@@ -41,10 +41,11 @@
                             </li>
                             <li class="avatar-nav-item"><i class="fa-regular fa-calendar"></i><a href="#">Lịch</a>
                             </li>
-                            <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="#">Cài đặt</a>
+                            <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="./setting.html">Cài
+                                    đặt</a>
                             </li>
                             <li class="avatar-nav-item"><i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i><a
-                                    href="#">Đăng xuất</a>
+                                    href="./sign_up_sign_in.html">Đăng xuất</a>
                             </li>
                         </ul>
                         <!-- <div class="login-controller">
@@ -168,26 +169,57 @@
                                 <option value="20">20</option>
                                 <option value="24">24</option>
                             </select>
-                            <button class="font-sizeup btn-note"><img src="/frontend/assets/img/increase-font-size.png" alt=""></button>
-                            <button class="font-sizedown btn-note"><img src="/frontend/assets/img/decrease-font-size.png" alt=""></button>
+                            <button class="font-sizeup btn-note"><img src="/frontend/assets/img/increase-font-size.png"
+                                    alt=""></button>
+                            <button class="font-sizedown btn-note"><img
+                                    src="/frontend/assets/img/decrease-font-size.png" alt=""></button>
                             <button class="font-bold btn-note"><i class="fa-solid fa-bold"></i></button>
                             <button class="font-italic btn-note"><i class="fa-solid fa-italic"></i></button>
                             <button class="font-underline btn-note"><i class="fa-solid fa-underline"></i></button>
                             <button class="font-highlighter btn-note"><i class="fa-solid fa-highlighter"></i></button>
                             <button class="font-color btn-note"><i class="fa-solid fa-palette"></i></button>
-                            <button class="font-align-justify btn-note"><i class="fa-solid fa-align-justify"></i></button>
+                            <button class="font-align-justify btn-note"><i
+                                    class="fa-solid fa-align-justify"></i></button>
                             <button class="font-align-center btn-note"><i class="fa-solid fa-align-center"></i></button>
                             <button class="font-align-left btn-note"><i class="fa-solid fa-align-left"></i></button>
                             <button class="font-align-right btn-note"><i class="fa-solid fa-align-right"></i></button>
 
                         </div>
                         <form action="" class="form-note">
-                            <textarea name="note" class="note" placeholder="ghi chú" ></textarea>
+                            <textarea name="note" class="note" placeholder="ghi chú"></textarea>
                         </form>
                     </div>
                 </div>
             </div>
+            <div class="make-calendar container">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="title">Thêm cuộc họp mới</h3>
+                        <button class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <label for="title">Tiêu đề:</label><br>
+                            <input type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
 
+                            <label for="start_time">Thời gian bắt đầu:</label><br>
+                            <input type="datetime-local" id="start_time" name="start_time"><br>
+
+                            <label for="group">Nhóm tham gia:</label><br>
+                            <select id="group" name="group">
+                                <option value="group1">Nhóm 1</option>
+                                <option value="group2">Nhóm 2</option>
+                                <option value="group3">Nhóm 3</option>
+                            </select><br>
+                            <label for="deadline">Deadline báo báo:</label><br>
+                            <input type="datetime-local" id="end_time" name="end_time"><br>
+                            <label for="subject">Subject</label>
+                            <textarea id="subject" name="subject" placeholder="Ghi chú" style="height:200px"></textarea>
+                            <input type="submit" value="Thêm cuộc họp mới">
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -201,6 +233,7 @@
             </div>
         </div>
     </div>
+    <script src="./javascript/meeting.js"></script>
 </body>
 
 </html>
