@@ -27,3 +27,9 @@ themSinhVien.onclick = function () {
 dsLichGap.onclick = function () {
     window.location.href = './main.html';
 }
+
+// chuyển tới assignment.
+const assignmentPage = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-assignment > button');
+assignmentPage.onclick = function () {
+    window.location.href = './view_assignments.html';
+}
