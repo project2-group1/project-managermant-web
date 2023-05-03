@@ -23,7 +23,6 @@ console.log(meeting);
 meeting.onclick = function () {
     window.location = "./meeting.html"
 }
-
 // chuyển hướng ds sinh viên
 
 /* # Nghĩa : START */
@@ -45,3 +44,7 @@ btnOpenSidebar.onclick = function () {
 }
 
 /* # Nghĩa : END */
+const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-studentlist > button');
+studentList.onclick = function(){
+    window.location.href = "./dssinhvien.html"
+}
