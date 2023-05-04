@@ -64,8 +64,8 @@ button {
 
 /* Style inputs with type="text", select elements and textareas */
 
-/* select, */
-/* textarea, */
+select,
+textarea,
 input[type=text]{
     font-size: var(--text-font-size);
     width: 100%;
