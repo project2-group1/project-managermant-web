@@ -24,13 +24,25 @@ meeting.onclick = function () {
 
 /* # Nghĩa : START */
 
+// Button on/off avatar nav
+const btnAvatarNav = $('.icon-avatar')
 
-// Button Tắt mở sidebar
-const btnOpenSidebar = $('.btn-sidebar')
+btnAvatarNav.onclick = function () {
+    const avatarNav = this.children
+    for(let i = 0; i < avatarNav.length; i++) {
+        if(avatarNav[i].classList.contains('avatar-nav')) {
+            avatarNav[i].classList.toggle('show')
+        }
+    }
+}
+
+// Button on/off sidebar
+const btnSidebar = $('.btn-sidebar')
 const wrapperSidebar = $('.wrapper-sidebar')
 const wrapperContent = $('.wrapper-content')
 
-btnOpenSidebar.onclick = function () {
+btnSidebar.onclick = function () {
+    console.log(btnSidebar) // check
     if (wrapperSidebar.classList.contains('hidden')) {
         wrapperSidebar.classList.remove('hidden')
         wrapperContent.classList.remove('fullwidth')
@@ -41,7 +53,7 @@ btnOpenSidebar.onclick = function () {
     }
 }
 
-// Button chuyến hướng đến meeting
+// Button move to the meeting
 const btnMoveToMeeting = $$('.btn-event-meeting')
 
 btnMoveToMeeting.forEach((element) => {
@@ -50,7 +62,7 @@ btnMoveToMeeting.forEach((element) => {
     }
 })
 
-// Button tạo events
+// Button create event
 
 /* # Nghĩa : END */
 
