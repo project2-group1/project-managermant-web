@@ -37,7 +37,8 @@ button {
     --numHours: 12;
     --timeHeight: 50px;
     --icon-font-size: 20px;
-    --text-font-size: 20px;
+    --text-font-size-small: 14px;
+    --text-font-size-big: 20px;
 
     --backgr-color-light: rgb(255, 255, 255);
     --backgr-color-middle: rgb(250, 250, 250);
@@ -67,7 +68,7 @@ button {
 /* select, */
 /* textarea, */
 input[type=text]{
-    font-size: var(--text-font-size);
+    font-size: var(--text-font-size-big);
     width: 100%;
     /* Full width */
     padding: 12px;
@@ -84,7 +85,7 @@ input[type=text]{
 
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
-    font-size: var(--text-font-size);
+    font-size: var(--text-font-size-big);
     background-color: #04AA6D;
     color: white;
     padding: 12px 20px;
@@ -99,7 +100,7 @@ input[type=submit]:hover {
 }
 
 input[type=datetime-local] {
-    font-size: var(--text-font-size);
+    font-size: var(--text-font-size-big);
     width: 100%;
     /* Full width */
     padding: 12px;
@@ -343,11 +344,13 @@ input[type=datetime-local] {
     border: none;
     border-radius: 10px;
     background-color: var(--backgr-color-light);
+    ;
 }
 
 .btn-sidebar-item:hover {
     background-color: var(--backgr-color-hover);
     cursor: pointer;
+    transition: ease-out 0.3s
 }
 
 .btn-sidebar-item i {
@@ -463,18 +466,18 @@ input[type=datetime-local] {
 }
 
 .date-num {
-    font-size: var(--text-font-size);
+    font-size: var(--text-font-size-big);
     font-weight: 600;
 }
 
 .date-space {
-    font-size: calc(var(--text-font-size) - 4px);
+    font-size: calc(var(--text-font-size-big) - 4px);
     line-height: 50px;
 }
 
 .date-day {
     white-space: nowrap;
-    font-size: var(--text-font-size);
+    font-size: var(--text-font-size-big);
 }
 
 .date .box-change-date {
@@ -492,20 +495,35 @@ input[type=datetime-local] {
 .event {
     border: 1px solid var(--eventBorderColor);
     border-radius: 5px;
-    padding: 0 8px;
     margin: 0 4px;
     background: var(--backgr-color-light);
+    overflow: hidden;
+}
+    
+.event .btn-event-meeting {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    font-size: var(--text-font-size-small);
+    border: none;
+    background-color: unset;
+
 }
 
-.event .time {
+.event .btn-event-meeting .title {
+    font-weight: 550;
+}
+
+.event .btn-event-meeting .time {
+    margin-top: 2px;
     font-size: 12px;
+    color: var(--text-color-fade);
 }
 
-
-.event .title {
-    font-weight: 500;
-    margin-bottom: 2px;
-}
 
 /* // Place on Timeline */
 

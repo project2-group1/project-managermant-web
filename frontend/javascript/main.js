@@ -13,21 +13,23 @@ btn_close_calendar.onclick = function () {
 }
 // kết thúc xử lý add calendar
 
-
+/* 
 // click hiển thị event
 const meeting = $('.btn.meeting');
 meeting.onclick = function () {
     window.location.href = "./meeting.html"
 }
+ */
 
 
 /* # Nghĩa : START */
 
+
+// Button Tắt mở sidebar
 const btnOpenSidebar = $('.btn-sidebar')
 const wrapperSidebar = $('.wrapper-sidebar')
 const wrapperContent = $('.wrapper-content')
 
-// Button Tắt mở sidebar
 btnOpenSidebar.onclick = function () {
     if (wrapperSidebar.classList.contains('hidden')) {
         wrapperSidebar.classList.remove('hidden')
@@ -39,9 +41,22 @@ btnOpenSidebar.onclick = function () {
     }
 }
 
+// Button chuyến hướng đến meeting
+const btnMoveToMeeting = $$('.btn-event-meeting')
+
+btnMoveToMeeting.forEach((element) => {
+    element.onclick = function () {
+        window.location.href = "./meeting.html"
+    }
+})
+
+// Button tạo events
+
 /* # Nghĩa : END */
+
+
 // chuyển hướng ds sinh viên
 const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-studentlist > button');
-studentList.onclick = function(){
+studentList.onclick = function () {
     window.location.href = "./dssinhvien.html"
 }
