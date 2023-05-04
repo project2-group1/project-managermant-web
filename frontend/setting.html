@@ -139,25 +139,29 @@
 
     <!-- Main content -->
     <div class="wrapper-content">
-        <h1>Cài đặt</h1>
-        <form action="" method="POST">
-          <label for="fullname">Họ và tên:</label>
-          <input type="text" id="fullname" name="fullname"><br>
+      <div class="setting">
+        <h1 class="title">Cài đặt</h1>
+        <div class="setting-content">
+          <form action="update_profile.php" method="POST">
+            <label for="fullname"><p>Họ và tên:</p></label>
+            <input type="text" id="fullname" name="fullname"><br>
 
-          <label for="password">Mật khẩu:</label>
-          <input type="password" id="password" name="password"><br>
+            <label for="password"><i class="fa-solid fa-shield-alt"></i>Mật khẩu:</label>
+            <input type="password" id="password" name="password"><br>
 
-          <label for="phone">Số điện thoại:</label>
-          <input type="text" id="phone" name="phone"><br>
+            <label for="phone"><i class="fa-solid fa-phone-alt"></i>Số điện thoại:</label>
+            <input type="text" id="phone" name="phone"><br>
 
-          <label for="theme">Chế độ sáng/tối:</label>
-          <select id="theme" name="theme">
-            <option value="light">Sáng</option>
-            <option value="dark">Tối</option>
-          </select><br><br>
+            <label for="theme"><i class="fa-solid fa-air-freshener"></i>Chế độ sáng/tối:</label>
+            <select id="theme" name="theme">
+              <option value="light">Sáng</option>
+              <option value="dark">Tối</option>
+            </select><br><br>
 
-          <input type="submit" value="Cập nhật thông tin">
-        </form>
+            <input type="submit" value="Cập nhật thông tin">
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
