@@ -34,10 +34,6 @@
         </div>
         <div class="header-end">
           <!--Thêm id cho button thêm lịch-->
-          <button class="btn btn-add-calendar icon-add-calenda">
-            <i class="fa-regular fa-calendar-plus"></i>
-          </button>
-
           <button class="btn icon-notification">
             <i class="fa-regular fa-bell"></i>
           </button>
@@ -72,17 +68,7 @@
       </div>
     </div>
 
-    <!-- Main content -->
-    <div class="setting">
-      <h1>Cài đặt</h1>
-      <div class="setting-content">
-        <nav class="setting-items">
-          <div class="setting-item">Tài khoản</div>
-          <div class="setting-item">Giao diện</div>
-          <div class="setting-item">Chế độ màn hình</div>
-        </nav>
-      </div>
-    </div>
+
 
     <!-- Navigation bar -->
     <div class="wrapper-sidebar">
@@ -150,6 +136,30 @@
                 </div> -->
       </div>
     </div>
+
+    <!-- Main content -->
+    <div class="wrapper-content">
+        <h1>Cài đặt</h1>
+        <form action="" method="POST">
+          <label for="fullname">Họ và tên:</label>
+          <input type="text" id="fullname" name="fullname"><br>
+
+          <label for="password">Mật khẩu:</label>
+          <input type="password" id="password" name="password"><br>
+
+          <label for="phone">Số điện thoại:</label>
+          <input type="text" id="phone" name="phone"><br>
+
+          <label for="theme">Chế độ sáng/tối:</label>
+          <select id="theme" name="theme">
+            <option value="light">Sáng</option>
+            <option value="dark">Tối</option>
+          </select><br><br>
+
+          <input type="submit" value="Cập nhật thông tin">
+        </form>
+    </div>
+
     <!-- Footer -->
     <div class="wrapper-footer">
       <div class="footer">

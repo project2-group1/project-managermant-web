@@ -82,6 +82,22 @@ input[type=text]{
     /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
+input[type=password]{
+    font-size: var(--text-font-size);
+    width: 100%;
+    /* Full width */
+    padding: 12px;
+    /* Some padding */
+    border: 1px solid #ccc;
+    /* Gray border */
+    border-radius: 4px;
+    /* Rounded borders */
+    box-sizing: border-box;
+    /* Make sure that padding and width stays in place */
+    resize: vertical
+    /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
     font-size: var(--text-font-size);
