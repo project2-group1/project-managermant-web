@@ -16,54 +16,51 @@
     <!-- Header -->
     <div class="wrapper-header">
       <div class="header">
-        <div class="header-start">
-          <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
-          <div class="btn-logo">
-            <a class="logo-page" href="main.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+          <div class="header-start">
+              <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+              <div class="btn-logo">
+                  <a class="logo-page" href="./main.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+              </div>
           </div>
-        </div>
-        <div class="header-center">
-          <div class="search-bar">
-            <input type="text" placeholder="Tìm kiếm">
-            <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <div class="header-center">
+              <div class="search-bar">
+                  <input type="text" placeholder="Tìm kiếm" line-hight>
+                  <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
           </div>
-        </div>
-        <div class="header-end">
-
-
-          <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
-
-          <button class="btn icon-avatar">
-            <a href="#" class="avatar-img">
-              <img src="./assets/img/avatar.png" alt="">
-            </a>
-            <ul class="avatar-nav">
-              <li class="avatar-nav-item"><i class="fa-regular fa-bell"></i><a href="#">Thông báo</a>
-              </li>
-              <li class="avatar-nav-item"><i class="fa-regular fa-calendar"></i><a href="#">Lịch</a>
-              </li>
-              <li class="avatar-nav-item"><i class="fa-solid fa-sliders"></i><a href="./setting.html">Cài
-                  đặt</a>
-              </li>
-              <li class="avatar-nav-item"><i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i><a
-                  href="./sign_up_sign_in.html">Đăng xuất</a>
-              </li>
-            </ul>
-            <!-- <div class="login-controller">
-                                  <div class="signup">
-                                      
-                                  </div>
-                                  <div class="signin">
-                                      
-                                  </div>
-                              </div> -->
-          </button>
-        </div>
+          <div class="header-end">
+              <!--Thêm id cho button thêm lịch-->
+              <button class="btn-add-calendar btn"><i class="fa-regular fa-calendar-plus"></i></button>
+              <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
+              <button class="btn icon-avatar">
+                  <a href="#" class="avatar-img">
+                      <img src="./assets/img/avatar.png" alt="">
+                  </a>
+                  <ul class="avatar-nav">
+                      <li class="avatar-nav-item">
+                          <i class="fa-regular fa-bell"></i>
+                          <a href="#">Thông báo</a>
+                      </li>
+                      <li class="avatar-nav-item">
+                          <i class="fa-regular fa-calendar"></i>
+                          <a href="#">Lịch</a>
+                      </li>
+                      <li class="avatar-nav-item">
+                          <i class="fa-solid fa-sliders"></i>
+                          <a href="./setting.html">Cài đặt</a>
+                      </li>
+                      <li class="avatar-nav-item">
+                          <i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                          <a href="./sign_up_sign_in.html">Đăng xuất</a>
+                      </li>
+                  </ul>
+              </button>
+          </div>
       </div>
-    </div>
-
+  </div>
 
     <!-- Main content -->
+    <div class="wrapper-content">
     <div class="view_assignments">
       <h1>Danh sách báo cáo</h1>
       <table>
@@ -110,73 +107,79 @@
         </tr>
       </table>
     </div>
-
+    </div>
     <!-- Navigation bar -->
     <div class="wrapper-sidebar">
       <!-- box & box open icon -->
       <div class="sidebar">
-        <div class="sidebar-item sidebar-week">
-          <button class="btn-sidebar-item">
-            <i class="fa-regular fa-clipboard"></i>
-            <p>Lịch trong tuần</p>
-          </button>
-          <div class="sidebar-week-days mside-12">
-            <div class="sidebar-day sidebar-day-passed">
-              <p>T2</p>
-            </div>
-            <div class="sidebar-day sidebar-day-passed">
-              <p>T3</p>
-            </div>
-            <div class="sidebar-day">
-              <p>T4</p>
-            </div>
-            <div class="sidebar-day">
-              <p>T5</p>
-            </div>
-            <div class="sidebar-day">
-              <p>T6</p>
-            </div>
-            <div class="sidebar-day">
-              <p>T7</p>
-            </div>
-            <div class="sidebar-day">
-              <p>CN</p>
-            </div>
+          <div class="sidebar-item sidebar-week">
+              <button class="btn-sidebar-item">
+                  <i class="fa-regular fa-clipboard"></i>
+                  <a href="#">Lịch trong tuần</a>
+              </button>
+              <div class="sidebar-week-days mside-12">
+                  <div class="sidebar-day sidebar-day-passed">
+                      <p>T2</p>
+                  </div>
+                  <div class="sidebar-day sidebar-day-passed">
+                      <p>T3</p>
+                  </div>
+                  <div class="sidebar-day">
+                      <p>T4</p>
+                  </div>
+                  <div class="sidebar-day">
+                      <p>T5</p>
+                  </div>
+                  <div class="sidebar-day">
+                      <p>T6</p>
+                  </div>
+                  <div class="sidebar-day">
+                      <p>T7</p>
+                  </div>
+                  <div class="sidebar-day">
+                      <p>CN</p>
+                  </div>
+              </div>
           </div>
-        </div>
-        <div class="sidebar-item sidebar-recent">
-          <button class="btn-sidebar-item">
-            <i class="fa-solid fa-arrow-rotate-right"></i>
-            <p>Mở gần đây</p>
-          </button>
-          <ul class="sidebar-recent-list mside-12">
-            <li>20204767</li>
-            <li>20204769</li>
-          </ul>
-        </div>
-        <div class="sidebar-item sidebar-stored">
-          <button class="btn-sidebar-item">
-            <i class="fa-solid fa-box"></i>
-            <p>Lưu trữ</p>
-          </button>
-          <ul class="sidebar-stored-list mside-12">
-            <li>D/code</li>
-            <li>C/frontend</li>
-          </ul>
-        </div>
-        <div class="sidebar-item sidebar-teacher">
-          <button class="btn-sidebar-item">
-            <i class="fa-solid fa-laptop"></i>
-            <p>Lịch rảnh</p>
-          </button>
-        </div>
-        <!-- <div class="sidebar-item sidebar-student">
-                    <button class="btn-sidebar-item">
-                        <p>Gửi yêu cầu meeting (sinh viên)</p>
-                    </button>
-                </div> -->
+          <div class="sidebar-item sidebar-recent">
+              <button class="btn-sidebar-item">
+                  <i class="fa-solid fa-arrow-rotate-right "></i>
+                  <a href="#">Mở gần đây</a>
+              </button>
+              <ul class="sidebar-recent-list mside-12">
+                  <li>20204767</li>
+                  <li>20204769</li>
+              </ul>
+          </div>
+          <div class="sidebar-item sidebar-stored">
+              <button class="btn-sidebar-item">
+                  <i class="fa-solid fa-box"></i>
+                  <a href="#">Lưu trữ</a>
+              </button>
+              <ul class="sidebar-stored-list mside-12">
+                  <li>D/code</li>
+                  <li>C/frontend</li>
+              </ul>
+          </div>
+          <div class="sidebar-item sidebar-teacher">
+              <button class="btn-sidebar-item">
+                  <i class="fa-solid fa-laptop"></i>
+                  <a href="#">Lịch rảnh</a>
+              </button>
+          </div>
+          <div class="sidebar-item sidebar-studentlist">
+              <button class="btn-sidebar-item">
+                  <i class="fa-regular fa-rectangle-list"></i>
+                  <a href="dssinhvien.html">Danh sách sinh viên</a>
+              </button>
+          </div>
+          <!-- <div class="sidebar-item sidebar-student">
+              <button class="btn-sidebar-item">
+                  <p>Gửi yêu cầu meeting (sinh viên)</p>
+              </button>
+          </div> -->
       </div>
-    </div>
+  </div>
 
 
     <!-- Footer -->
@@ -186,7 +189,7 @@
       </div>
     </div>
   </div>
-  <script src="./main.js"></script>
+  <script src="./javascript/main.js"></script>
 </body>
 
 </html>

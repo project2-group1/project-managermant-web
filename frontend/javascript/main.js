@@ -4,12 +4,17 @@ const $$ = document.querySelectorAll.bind(document);
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const btn_close_calendar = $('.btn.btn-close-calendar');
 const make_calendar_container = $('.make-calendar.container');
-btn_add_calendar.onclick = function () {
-    make_calendar_container.classList.add('show');
+
+if(btn_add_calendar) {
+    btn_add_calendar.onclick = function () {
+        make_calendar_container.classList.add('show');
+    }
 }
 
-btn_close_calendar.onclick = function () {
-    make_calendar_container.classList.remove('show');
+if(btn_close_calendar) {
+    btn_close_calendar.onclick = function () {
+        make_calendar_container.classList.remove('show');
+    }
 }
 // kết thúc xử lý add calendar
 
