@@ -5,13 +5,13 @@ const btn_add_calendar = $('.btn.btn-add-calendar');
 const btn_close_calendar = $('.btn.btn-close-calendar');
 const make_calendar_container = $('.make-calendar.container');
 
-if(btn_add_calendar) {
+if (btn_add_calendar) {
     btn_add_calendar.onclick = function () {
         make_calendar_container.classList.add('show');
     }
 }
 
-if(btn_close_calendar) {
+if (btn_close_calendar) {
     btn_close_calendar.onclick = function () {
         make_calendar_container.classList.remove('show');
     }
@@ -34,8 +34,8 @@ const btnAvatarNav = $('.icon-avatar')
 
 btnAvatarNav.onclick = function () {
     const avatarNav = this.children
-    for(let i = 0; i < avatarNav.length; i++) {
-        if(avatarNav[i].classList.contains('avatar-nav')) {
+    for (let i = 0; i < avatarNav.length; i++) {
+        if (avatarNav[i].classList.contains('avatar-nav')) {
             avatarNav[i].classList.toggle('show')
         }
     }
@@ -68,6 +68,8 @@ btnMoveToMeeting.forEach((element) => {
 })
 
 // Button create event
+
+
 
 /* # Nghĩa : END */
 

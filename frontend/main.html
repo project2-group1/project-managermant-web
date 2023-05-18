@@ -8,7 +8,9 @@
     <title>Project management website</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="./assets/css/calendar.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <body>
@@ -136,150 +138,308 @@
         <!-- Main content -->
         <div class="wrapper-content">
             <div class="calendar">
-                <!-- Timeline -->
-                <div class="timeline">
-                    <div class="box-change-month">
-                        <button class="btn-change-month btn-week">
-                            <p class="date-month">May</p>
-                            <p class="date-year">2023</p>
-                        </button>
+                <div class="calendar-toolbar">
+                    <div class="toolbar-start">
+                        <div class="today">
+                            <button class="btn-tool btn-today ">
+                                <i class="mr-8 fa-solid fa-location-dot"></i>
+                                Today
+                            </button>
+                        </div>
+                        <div class="prev-week">
+                            <button class="btn-tool btn-prev-week ">
+                                <i class="fa-solid fa-angle-left"></i>
+                            </button>
+                        </div>
+                        <div class="next-week">
+                            <button class="btn-tool btn-next-week ">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                        </div>
+                        <div class="change-time">
+                            <input class="btn-change-week">
+                            </input>
+                        </div>
                     </div>
-                    <div class="time-marker">7 AM</div>
-                    <div class="time-marker">8 AM</div>
-                    <div class="time-marker">9 AM</div>
-                    <div class="time-marker">10 AM</div>
-                    <div class="time-marker">11 AM</div>
-                    <div class="time-marker">12 AM</div>
-                    <div class="time-marker">1 PM</div>
-                    <div class="time-marker">2 PM</div>
-                    <div class="time-marker">3 PM</div>
-                    <div class="time-marker">4 PM</div>
-                    <div class="time-marker">5 PM</div>
-                    <div class="time-marker">6 PM</div>
+
+                    <div class="toolbar-end">
+                        <div class="change-display">
+                            <button class="btn-tool ">
+                                <i class="fa-solid fa-calendar-week"></i>
+                                <span class="mside-8 display-time">Week</span>
+                                <i class="fa-solid fa-angle-down"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <!-- Days -->
-                <div class="days">
-                    <div class="day mon">
-                        <div class="date">
-                            <div class="box-change-date">
-                                <button class="btn-prev-week btn-week">
-                                    <i class="fa-solid fa-angle-left"></i>
-                                </button>
-                            </div>
-                            <p class="date-num">9</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 2</p>
-                            <div class="box-change-date"></div>
+
+                <div class="calendar-content">
+                    <div class="row-date">
+                        <div class="box-space">
+                            <button class="btn-tool btn-display-border">
+                                <i class="fa-regular fa-clipboard"></i>
+                            </button>
                         </div>
-                        <div class="events">
-                            <div class="event start-2pm end-5pm securities">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Project 1 Nhóm 1</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">2 PM - 5 PM</p>
-                                </button>
-                            </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 2</span>
                         </div>
-                    </div>
-                    <div class="day tues">
-                        <div class="date">
-                            <div class="box-change-date"></div>
-                            <p class="date-num">12</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 3</p>
-                            <div class="box-change-date"></div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 3</span>
                         </div>
-                        <div class="events">
-                            <div class="event start-10am end-12am corp-fi">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Corporate Finance</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">10 AM - 12 AM</p>
-                                </button>
-                            </div>
-                            <div class="event start-1pm end-4pm ent-law">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Entertainment Law</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">1 PM - 4 PM</p>
-                                </button>
-                            </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 4</span>
+                        </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 5</span>
+                        </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 6</span>
+                        </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Thứ 7</span>
+                        </div>
+                        <div class="col box-date">
+                            <span class="text-date"></span>
+                            <span class="text-day">Chủ nhật</span>
                         </div>
                     </div>
-                    <div class="day wed">
-                        <div class="date">
-                            <div class="box-change-date"></div>
-                            <p class="date-num">11</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 4</p>
-                            <div class="box-change-date"></div>
-                        </div>
-                        <div class="events">
-                            <div class="event start-11am end-12pm writing">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Writing Seminar</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">11 AM - 12 AM</p>
-                                </button>
-                            </div>
-                            <div class="event start-2pm end-5pm securities">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Securities Regulation</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">2 PM - 5 PM</p>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="day thurs">
-                        <div class="date">
-                            <div class="box-change-date"></div>
-                            <p class="date-num">12</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 5</p>
-                            <div class="box-change-date"></div>
-                        </div>
-                        <div class="events">
-                            <div class="event start-10am end-12am corp-fi">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Corporate Finance</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">10 AM - 12 AM</p>
-                                </button>
-                            </div>
-                            <div class="event start-1pm end-4pm ent-law">
-                                <button class="btn-event-meeting">
-                                    <p class="title">Entertainment Law</p>
-                                    <p class="topic">Website quản lý đồ án</p>
-                                    <p class="time">1 PM - 4 PM</p>
-                                </button>
+                    <div class="table-timeline">
+                        <div class="timeline">
+                            <div class="col-time">
+                                <div class="time-marker">
+                                    <span class="time-marker-text">7 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">8 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">9 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">10 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">11 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">12 AM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">1 PM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">2 PM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">3 PM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">4 PM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">5 PM</span>
+                                </div>
+                                <div class="time-marker">
+                                    <span class="time-marker-text">6 PM</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="day fri">
-                        <div class="date">
-                            <div class="box-change-date"></div>
-                            <p class="date-num">13</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 6</p>
-                            <div class="box-change-date"></div>
+                        <div class="col works" name="monday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="events">
-                        </div>
-                    </div>
-                    <div class="day sat">
-                        <div class="date">
-                            <div class="box-change-date"></div>
-                            <p class="date-num">14</p>
-                            <p class="date-space">|</p>
-                            <p class="date-day">Thứ 7</p>
-                            <div class="box-change-date">
-                                <button class="btn-next-week btn-week">
-                                    <i class="fa-solid fa-angle-right"></i>
+                        <div class="col works" name="tuesday">   
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="event">
+                                <button class="btn-event">
+                                    <div class="content">
+                                        <p class="title">Project II - Nhóm 1</p>
+                                        <p class="info">Website quản lý Project</p>
+                                        <p class="time">8h-9h</p>
+                                    </div>
                                 </button>
                             </div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="events">
+                        <div class="col works" name="wednesday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
+                        </div>
+                        <div class="col works" name="thursday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
+                        </div>
+                        <div class="col works" name="friday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
+                        </div>
+                        <div class="col works" name="saturday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
+                        </div>
+                        <div class="col works" name="sunday">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
                         </div>
                     </div>
                 </div>
@@ -330,6 +490,7 @@
     </div>
 
     <script src="./javascript/main.js"></script>
+    <script src="./javascript/calendar.js"></script>r
 </body>
 
 </html>
