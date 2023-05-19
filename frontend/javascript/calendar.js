@@ -29,6 +29,7 @@ const currentDays = [
 ]
 
 const app = {
+
     config: function () {
 
 
@@ -68,7 +69,11 @@ const app = {
         workBoxes.forEach(function (workBox) {
             workBox.onclick = function () {
                 make_calendar_container.classList.add('show');
-                console.log(`ngày: ${this.parentNode.getAttribute('date')}` + ` giờ: ${this.getAttribute('time')}`);
+                var startTimeElement = document.getElementById("start_time");
+                startTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
+                var endTimeElement = document.getElementById("end_time");
+                endTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
+                console.log(`${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`);
             }
         })
 
@@ -140,5 +145,14 @@ const app = {
         this.renderWeek(currentDate)
     },
 }
+
+// Chuyển đổi thời gian cho đúng chuyển đề hiện thị ra place holder
+var convertTime = function (time) {
+    var hours = parseInt(time);
+    var minutes = (time - hours) * 60;
+    var midifyMinitues = minutes.toString().padStart(2, '0')
+    var midifyHours = hours.toString().padStart(2, '0')
+    return `${midifyHours}:${midifyMinitues}`;
+};
 
 app.start()
