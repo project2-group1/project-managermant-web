@@ -68,9 +68,6 @@ btnMoveToMeeting.forEach((element) => {
 })
 
 // Button create event
-
-
-
 /* # Nghĩa : END */
 
 
