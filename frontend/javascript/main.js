@@ -4,10 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
 
-
-if (btn_add_calendar) {
-    btn_add_calendar.onclick = function () {
-        var text = `
+var text = `
             <div class="modal">
                 <div class="modal-header">
                     <h3 class="title">Thêm cuộc họp mới</h3>
@@ -37,7 +34,10 @@ if (btn_add_calendar) {
                 </div>
             </div>
          `
-        make_calendar_container.innerHTML = text;
+make_calendar_container.innerHTML = text;
+
+if (btn_add_calendar) {
+    btn_add_calendar.onclick = function () {
         make_calendar_container.classList.add('show');
     }
 }
