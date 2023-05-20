@@ -4,6 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
 
+/* START - NGỌC XỬ LÝ MODAL */
 var text = `
             <div class="modal">
                 <div class="modal-header">
@@ -49,16 +50,7 @@ var closeCalendar = function () {
     }
 }
 
-// kết thúc xử lý add calendar
-
-/* 
-// click hiển thị event
-const meeting = $('.btn.meeting');
-meeting.onclick = function () {
-    window.location.href = "./meeting.html"
-}
- */
-
+/* END - NGỌC */
 
 /* # Nghĩa : START */
 
@@ -109,3 +101,11 @@ const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item
 studentList.onclick = function () {
     window.location.href = "./dssinhvien.html"
 }
+
+/* # Ngọc: START */
+const logo_page = $('.logo-page')
+logo_page.onclick = function () {
+    window.location.href = "./main.html"
+}
+
+/* # Ngọc: START */
