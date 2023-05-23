@@ -47,8 +47,8 @@ const calendar = {
         },
     ],
     config: function () {
-        
-        
+
+
     },
     handleEvents: function () {
         const _this = this // trỏ vào calendar
@@ -99,8 +99,14 @@ const calendar = {
         workBoxes.forEach(function (workBox) {
             workBox.addEventListener('click', (workBox) => {
                 make_calendar_container.classList.add('show');
-                console.log(`ngày: ${workBox.target.parentNode.getAttribute('date')}` + ` giờ: ${workBox.target.getAttribute('time')}`);
+                var startTimeElement = document.getElementById("start_time");
+                startTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
+                var endTimeElement = document.getElementById("end_time");
+                endTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
+                console.log(`${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`);
             })
+                // console.log(`ngày: ${workBox.target.parentNode.getAttribute('date')}` + ` giờ: ${workBox.target.getAttribute('time')}`);
+            
         })
 
 
@@ -251,5 +257,13 @@ const calendar = {
     },
 }
 
+// Chuyển đổi thời gian cho đúng chuyển đề hiện thị ra place holder
+var convertTime = function (time) {
+    var hours = parseInt(time);
+    var minutes = (time - hours) * 60;
+    var midifyMinitues = minutes.toString().padStart(2, '0')
+    var midifyHours = hours.toString().padStart(2, '0')
+    return `${midifyHours}:${midifyMinitues}`;
+};
 
 calendar.start()

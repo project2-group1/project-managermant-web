@@ -1,5 +1,4 @@
 :root {
-
     --numDays: 6;
     --numHours: 12;
     --timeHeight: 50px;
@@ -37,7 +36,8 @@
 h1 {
     padding-bottom: 10px;
 }
-.setting-content p{
+
+.setting-content p {
     font-size: var(--text-font-size);
 }
 
