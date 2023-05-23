@@ -27,11 +27,14 @@ meeting.onclick = function () {
  */
 
 
-/* # Nghĩa : START */
+/*--------------------Nghĩa : START---------------------*/
+// selector
+const btnAvatarNav = $('.icon-avatar')
+const btnSidebar = $('.btn-sidebar')
+const wrapperSidebar = $('.wrapper-sidebar')
+const wrapperContent = $('.wrapper-content')
 
 // Button on/off avatar nav
-const btnAvatarNav = $('.icon-avatar')
-
 btnAvatarNav.onclick = function () {
     const avatarNav = this.children
     for (let i = 0; i < avatarNav.length; i++) {
@@ -42,12 +45,8 @@ btnAvatarNav.onclick = function () {
 }
 
 // Button on/off sidebar
-const btnSidebar = $('.btn-sidebar')
-const wrapperSidebar = $('.wrapper-sidebar')
-const wrapperContent = $('.wrapper-content')
-
 btnSidebar.onclick = function () {
-    console.log(btnSidebar) // check
+    // console.log(btnSidebar) // check
     if (wrapperSidebar.classList.contains('hidden')) {
         wrapperSidebar.classList.remove('hidden')
         wrapperContent.classList.remove('fullwidth')
@@ -58,20 +57,8 @@ btnSidebar.onclick = function () {
     }
 }
 
-// Button move to the meeting
-const btnMoveToMeeting = $$('.btn-event-meeting')
+/*--------------------Nghĩa : END---------------------*/
 
-btnMoveToMeeting.forEach((element) => {
-    element.onclick = function () {
-        window.location.href = "./meeting.html"
-    }
-})
-
-// Button create event
-
-
-
-/* # Nghĩa : END */
 
 
 // chuyển hướng ds sinh viên

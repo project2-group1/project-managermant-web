@@ -66,7 +66,6 @@
     height: 40px;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
 
 }
 
@@ -79,7 +78,7 @@
 }
 
 
-/* Start Meeting-content */
+/*-------------------Start: Meeting-content-------------------*/
 
 .meeting-content {
     margin-top: 8px;
@@ -98,62 +97,32 @@
     background-color: var(--backgr-color-hover);
 }
 
-.meeting .btn-note img{
-    width: 20px;
-    height: 20px;
+/* -------------------End: Quill CSS------------------- */
+
+.ql-editor {
+    height: 200px;
 }
 
-.text-format {
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* -------------------End: Meeting-content------------------- */
+
+/* -------------------Start: end meeting button------------------- */
+
+.meeting-end {
+    margin-top: 8px;
+    height: 40px;
 }
 
-.text-format .font-sizecur {
-    width: auto;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 4px;
-    font-size: 12px;
-    text-align: center;
-    border: 0.5px solid #ccc;
-    border-radius: 5px;
+.btn-end-meeting {
+    width: fit-content;
+    float: right;
 }
 
-.font-sizeup, .font-sizedown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-end-meeting:hover i {
 }
 
-.form-note {
-    margin-top: 4px; 
-    width: 100%;  
-}
-
-.form-note .note {
-    margin-right: 50px;
-    padding: 8px;
-    width: 100%;
-    min-height: 300px;
-    border-radius: 8px;
+.btn-end-meeting .end-label {
+    margin-left: 12px;
     font-size: 16px;
-    /* default font-size */
-    resize: vertical;
-    box-sizing: border-box;
 }
-
-.note:focus {
-    /* outline: ; */
-    box-shadow:none;
-}
-
-
-
-
-
-
-
 
 

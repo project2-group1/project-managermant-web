@@ -7,8 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>meeting - PMW</title>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/meeting.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/meeting.css">
 </head>
 
 <body>
@@ -92,6 +98,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="sidebar-item sidebar-add-meeting">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-plus"></i>
+                        <a href="#">Thêm cuộc gặp</a>
+                    </button>
+                </div>
+
                 <div class="sidebar-item sidebar-recent">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-arrow-rotate-right "></i>
@@ -134,12 +147,13 @@
 
         <!-- Main content -->
         <div class="wrapper-content">
-            <div class="meeting">
+
+            <div class="meeting" course="" id="">
                 <div class="meeting-header">
                     <div class="title">
                         <span class="title-subject">Project II</span>
                         <span class="title-space">-</span>
-                        <span class="title-name">Group I</span>
+                        <span class="title-name">Group 1</span>
                         <span class="title-space">-</span>
                         <span class="title-topic">Website quản lý dự án</span>
                         <span class="title-serial">#1</span>
@@ -163,38 +177,25 @@
                             <input type="file" accept=".doc,.docx,.pdf,.zip">
                         </div>
                     </div>
-                    <div class="meeting-content">
-                        <div class="text-format">
-                            <select class="font-sizecur">
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="14">14</option>
-                                <option value="16" selected>16</option>
-                                <option value="20">20</option>
-                                <option value="24">24</option>
-                            </select>
-                            <button class="font-sizeup btn-note"><img src="/frontend/assets/img/increase-font-size.png"
-                                    alt=""></button>
-                            <button class="font-sizedown btn-note"><img
-                                    src="/frontend/assets/img/decrease-font-size.png" alt=""></button>
-                            <button class="font-bold btn-note"><i class="fa-solid fa-bold"></i></button>
-                            <button class="font-italic btn-note"><i class="fa-solid fa-italic"></i></button>
-                            <button class="font-underline btn-note"><i class="fa-solid fa-underline"></i></button>
-                            <button class="font-highlighter btn-note"><i class="fa-solid fa-highlighter"></i></button>
-                            <button class="font-color btn-note"><i class="fa-solid fa-palette"></i></button>
-                            <button class="font-align-justify btn-note"><i
-                                    class="fa-solid fa-align-justify"></i></button>
-                            <button class="font-align-center btn-note"><i class="fa-solid fa-align-center"></i></button>
-                            <button class="font-align-left btn-note"><i class="fa-solid fa-align-left"></i></button>
-                            <button class="font-align-right btn-note"><i class="fa-solid fa-align-right"></i></button>
-
-                        </div>
-                        <form action="" class="form-note">
-                            <textarea name="note" class="note" placeholder="ghi chú"></textarea>
-                        </form>
-                    </div>
+                </div>
+                <div class="meeting-content">
+                    <div class="editor"></div>
+                </div>
+                
+                <div class="meeting-end">
+                    <button class="btn-end-meeting btn-sidebar-item">
+                        <span class="end-label">End meeting</span>
+                        <i class="fa-regular fa-circle-stop"></i>
+                    </button>
                 </div>
             </div>
+
+            
+            
+
+
+
+
             <div class="make-calendar container">
                 <div class="modal">
                     <div class="modal-header">
@@ -224,23 +225,14 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
     </div>
 
-    <!-- Footer -->
-    <div class="wrapper-footer">
-        <div class="footer">
-            <div class="contact">
-            </div>
-        </div>
-    </div>
 
     <script src="./javascript/main.js"></script>
     <script src="./javascript/meeting.js"></script>
-
+    
 </body>
 
 </html>
