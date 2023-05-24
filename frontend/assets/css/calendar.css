@@ -206,11 +206,10 @@
     background-color: #cdf6ff;
     overflow: hidden;
     transform: scale(1);
-    transition: transform ease-out 0.25s;
+    transition: all ease-out 0.3s;
 }
 
 .event:hover {
-    height: min-content !important;
     transform: scale(1.1);
 }
 

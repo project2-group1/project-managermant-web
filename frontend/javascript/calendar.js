@@ -3,7 +3,7 @@
 let currentDate = new Date()
 
 // css selector
-var events = Array.from('.event')
+var events = Array.from($$('.event'))
 const btnPrevWeek = $('.btn-prev-week')
 const btnNextWeek = $('.btn-next-week')
 const btnToday = $('.btn-today')
@@ -44,6 +44,13 @@ const calendar = {
             endTime: '11.5',
             title: 'Đồ án tốt nghiệp II - Nhóm 3',
             info: 'Website quản lý Project',
+        },
+        {
+            date: '2023-05-27',
+            startTime: '11',
+            endTime: '13',
+            title: 'Graduated Research',
+            info: 'artificial intelligence project',
         },
         {
             date: '2023-05-29',
@@ -89,16 +96,14 @@ const calendar = {
 
         // render event elements array
         const eventHtmls = this.eventsData.map((event, index) => {
-            let start = event.startTime < 13 ? (event.startTime + 'am') : (event.startTime + 'pm')
-            let end = event.endTime < 13 ? (event.endTime + 'am') : (event.endTime + 'pm')
-
+            let start = event.startTime.replace('.5', ':30')
+            let end = event.endTime.replace('.5', ':30')
             return `
                 <button class="event" date="${event.date}" startTime="${event.startTime}" endTime="${event.endTime}">
                     <div class="content">
                         <p class="title">${event.title}</p>
                         <p class="info">${event.info}</p>
-                        <p class="time">${start.replace('.5', ':30')}
-                                    -${end.replace('.5', ':30')}</p>
+                        <p class="time">${start.includes(':') ? start : (start + ':00')} - ${end.includes(':') ? end : (end + ':00')}</p>
                     </div>
                 </button>
             `
@@ -112,16 +117,16 @@ const calendar = {
 
         // Render event to calendar
         for (let i = 0; i < eventContainer.length; i++) {
-            let workCol = getWorkColumn(eventContainer[i].getAttribute('date'))
             let workBox = getWorkBox(eventContainer[i].getAttribute('date'), eventContainer[i].getAttribute('startTime'))
-            console.log(workBox);
+
             // render lần đầu
             if (workBox) {
-                workBox.insertAdjacentElement('afterend', eventContainer[i])
-                eventContainer[i].style.height = setEventDuration(eventContainer[i])
+                if (workBox.nextElementSibling && !workBox.nextElementSibling.classList.contains("event")) {
+                    workBox.insertAdjacentElement('afterend', eventContainer[i])
+                    eventContainer[i].style.height = setEventDuration(eventContainer[i])
+                }
             }
         }
-
 
         events = Array.from($$('.event')) //update lại events
     },
@@ -134,13 +139,11 @@ const calendar = {
     handleEvents: function () {
         const _this = this // trỏ vào calendar
 
-
-
+        
         // Xử lý sự kiện thay đổi trong lịch tháng
         datePicker.set('onChange', function (selectedDates, dateStr, instance) {
             currentDate = selectedDates[0]
             _this.renderWeek(currentDate)
-            _this.loadEvents()
             _this.renderEvents()
 
         });
@@ -149,7 +152,6 @@ const calendar = {
         btnPrevWeek.addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() - 7)
             _this.renderWeek(currentDate)
-            _this.loadEvents()
             _this.renderEvents()
             datePicker.setDate(currentDate)
         })
@@ -159,7 +161,6 @@ const calendar = {
         btnNextWeek.addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() + 7)
             _this.renderWeek(currentDate)
-            _this.loadEvents()
             _this.renderEvents()
             datePicker.setDate(currentDate)
         })
@@ -169,7 +170,6 @@ const calendar = {
         btnToday.addEventListener('click', () => {
             let today = new Date()
             _this.renderWeek(today)
-            _this.loadEvents()
             _this.renderEvents()
             datePicker.setDate(today)
             currentDate = today
@@ -185,25 +185,9 @@ const calendar = {
                 endTimeElement.value = `${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`;
                 console.log(`${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`);
             })
-            // console.log(`ngày: ${workBox.target.parentNode.getAttribute('date')}` + ` giờ: ${workBox.target.getAttribute('time')}`);
-
         })
 
-
-
-        events.forEach(function (event) {
-            event.addEventListener('click', () => {
-                window.location.href = "./meeting.html"
-            })
-        })
-
-        // Lấy ra width của work-box đầu tiên gán vào cho event box
-        // function handleResizeWorkBox() {
-        //     let workBoxWidth = workBoxes[0].offsetWidth;
-        //     events.forEach((e) => {
-        //         e.style.width = `${workBoxWidth * 0.9}` + "px";
-        //     });
-        // }
+        
 
         // add resize when size of browser changed
         window.addEventListener("resize", this.handleResizeWorkBox());
@@ -265,7 +249,7 @@ const calendar = {
         for (let i = 0; i < currentDays.length; i++) {
             currentDays[i].setAttribute('date', formattedDates[i])
         }
-        console.log(currentDates);
+        // console.log(currentDates);
 
         worksColumn.forEach((e) => {
             e.classList.remove('active')
@@ -277,6 +261,7 @@ const calendar = {
     },
     renderEvents: function () {
 
+        this.loadEvents()
         // Reset Event
         events.forEach((event) => event.classList.remove('active'))
 
@@ -291,6 +276,26 @@ const calendar = {
                 eventInCurWeek.classList.add('active')
             }
         }
+
+        events.forEach(function (event) {
+            console.log(events);
+            event.addEventListener('click', () => 
+                window.location.href = "./meeting.html"
+            )
+            
+            let curHeight
+            event.addEventListener('mouseenter', (e) => {
+                console.log(e.target);
+                curHeight = e.target.clientHeight
+                if(e.target.scrollHeight > e.target.clientHeight) {
+                    e.target.style.height = e.target.scrollHeight + 'px'
+                }
+            })
+
+            event.addEventListener('mouseleave', (e) => {
+                e.target.style.height = curHeight + 'px'
+            })
+        })
 
         // resize WorkBox width
         this.handleResizeWorkBox()
