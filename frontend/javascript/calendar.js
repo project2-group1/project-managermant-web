@@ -7,7 +7,7 @@ var events = Array.from('.event')
 const btnPrevWeek = $('.btn-prev-week')
 const btnNextWeek = $('.btn-next-week')
 const btnToday = $('.btn-today')
-const worksColumn = Array.from($$('.works')) 
+const worksColumn = Array.from($$('.works'))
 const workBoxes = Array.from($$('.work-box'))
 const datePicker = flatpickr('.btn-change-week', {
     mode: "single",
@@ -45,21 +45,103 @@ const calendar = {
             title: 'Đồ án tốt nghiệp II - Nhóm 3',
             info: 'Website quản lý Project',
         },
+        {
+            date: '2023-05-29',
+            startTime: '9',
+            endTime: '11.5',
+            title: 'Đồ án tốt nghiệp II - Nhóm 3',
+            info: 'Website quản lý Project',
+        },
+        {
+            date: '2023-05-19',
+            startTime: '11',
+            endTime: '12',
+            title: 'Graduated Research',
+            info: 'IOT project',
+        },
     ],
     config: function () {
 
 
     },
+    loadEvents: function () {
+        // get works-col element by (date)
+        function getWorkColumn(date) {
+            return worksColumn.find((workCol) => (workCol.getAttribute('date') === date))
+        }
+
+        // get work-box element by (date, startTime)
+        function getWorkBox(date, startTime) {
+            let curWork = getWorkColumn(date)
+            if (curWork) {
+                let workBox = Array.from(curWork.children)
+                    .find((workBox) => ((Number)(workBox.getAttribute('time')) === (startTime - 0.5)))
+                return workBox
+            }
+        }
+
+        // set Height of event follow by duration
+        function setEventDuration(event) {
+            let duration = ((Number)(event.getAttribute('endTime'))
+                - (Number)(event.getAttribute('startTime'))) / 0.5
+            return duration * 40.8 - 1 + 'px'
+        }
+
+        // render event elements array
+        const eventHtmls = this.eventsData.map((event, index) => {
+            let start = event.startTime < 13 ? (event.startTime + 'am') : (event.startTime + 'pm')
+            let end = event.endTime < 13 ? (event.endTime + 'am') : (event.endTime + 'pm')
+
+            return `
+                <button class="event" date="${event.date}" startTime="${event.startTime}" endTime="${event.endTime}">
+                    <div class="content">
+                        <p class="title">${event.title}</p>
+                        <p class="info">${event.info}</p>
+                        <p class="time">${start.replace('.5', ':30')}
+                                    -${end.replace('.5', ':30')}</p>
+                    </div>
+                </button>
+            `
+        })
+
+        // store in a container
+        const container = document.createElement('div')
+        container.innerHTML = eventHtmls.join('')
+
+        const eventContainer = Array.from(container.querySelectorAll('.event'))
+
+        // Render event to calendar
+        for (let i = 0; i < eventContainer.length; i++) {
+            let workCol = getWorkColumn(eventContainer[i].getAttribute('date'))
+            let workBox = getWorkBox(eventContainer[i].getAttribute('date'), eventContainer[i].getAttribute('startTime'))
+            console.log(workBox);
+            // render lần đầu
+            if (workBox) {
+                workBox.insertAdjacentElement('afterend', eventContainer[i])
+                eventContainer[i].style.height = setEventDuration(eventContainer[i])
+            }
+        }
+
+
+        events = Array.from($$('.event')) //update lại events
+    },
+    handleResizeWorkBox: function () {
+        let workBoxWidth = workBoxes[0].offsetWidth;
+        events.forEach((e) => {
+            e.style.width = `${workBoxWidth * 0.9}` + "px";
+        });
+    },
     handleEvents: function () {
         const _this = this // trỏ vào calendar
 
-        
+
 
         // Xử lý sự kiện thay đổi trong lịch tháng
         datePicker.set('onChange', function (selectedDates, dateStr, instance) {
             currentDate = selectedDates[0]
             _this.renderWeek(currentDate)
-            // _this.renderEvents()
+            _this.loadEvents()
+            _this.renderEvents()
 
         });
 
@@ -67,21 +149,18 @@ const calendar = {
         btnPrevWeek.addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() - 7)
             _this.renderWeek(currentDate)
-            // _this.renderEvents()
+            _this.loadEvents()
+            _this.renderEvents()
             datePicker.setDate(currentDate)
         })
-        // btnPrevWeek.onclick = function () {
-        //     currentDate.setDate(currentDate.getDate() - 7)
-        //     _this.renderWeek(currentDate)
-        //     datePicker.setDate(currentDate)
-        // }
 
         // Xử lý sự kiện nút tuần tiếp theo
 
         btnNextWeek.addEventListener('click', () => {
             currentDate.setDate(currentDate.getDate() + 7)
             _this.renderWeek(currentDate)
-            // _this.renderEvents()
+            _this.loadEvents()
+            _this.renderEvents()
             datePicker.setDate(currentDate)
         })
 
@@ -90,7 +169,8 @@ const calendar = {
         btnToday.addEventListener('click', () => {
             let today = new Date()
             _this.renderWeek(today)
-            // _this.renderEvents()
+            _this.loadEvents()
+            _this.renderEvents()
             datePicker.setDate(today)
             currentDate = today
         })
@@ -100,13 +180,13 @@ const calendar = {
             workBox.addEventListener('click', (workBox) => {
                 make_calendar_container.classList.add('show');
                 var startTimeElement = document.getElementById("start_time");
-                startTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
+                startTimeElement.value = `${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`;
                 var endTimeElement = document.getElementById("end_time");
-                endTimeElement.value = `${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`;
-                console.log(`${this.parentNode.getAttribute('date')}T${convertTime(this.getAttribute('time'))}`);
+                endTimeElement.value = `${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`;
+                console.log(`${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`);
             })
-                // console.log(`ngày: ${workBox.target.parentNode.getAttribute('date')}` + ` giờ: ${workBox.target.getAttribute('time')}`);
-            
+            // console.log(`ngày: ${workBox.target.parentNode.getAttribute('date')}` + ` giờ: ${workBox.target.getAttribute('time')}`);
+
         })
 
 
@@ -118,16 +198,18 @@ const calendar = {
         })
 
         // Lấy ra width của work-box đầu tiên gán vào cho event box
-        function handleResizeWorkBox() {
-            let workBoxWidth = workBoxes[0].offsetWidth;
-            events.forEach((e) => {
-                e.style.width = `${workBoxWidth * 0.9}` + "px";
-            });
-        }
-        
-        window.addEventListener("resize", handleResizeWorkBox);
-        window.addEventListener("DOMContentLoaded", handleResizeWorkBox);
-        
+        // function handleResizeWorkBox() {
+        //     let workBoxWidth = workBoxes[0].offsetWidth;
+        //     events.forEach((e) => {
+        //         e.style.width = `${workBoxWidth * 0.9}` + "px";
+        //     });
+        // }
+
+        // add resize when size of browser changed
+        window.addEventListener("resize", this.handleResizeWorkBox());
+        // add resize khi load content
+        window.addEventListener("DOMContentLoaded", this.handleResizeWorkBox());
+
         // @Overide btnSidebar
         btnSidebar.onclick = function () {
             // console.log(btnSidebar) // check
@@ -139,7 +221,7 @@ const calendar = {
                 wrapperSidebar.classList.add('hidden')
                 wrapperContent.classList.add('fullwidth')
             }
-            handleResizeWorkBox()
+            _this.handleResizeWorkBox()
         }
 
     },
@@ -187,7 +269,7 @@ const calendar = {
 
         worksColumn.forEach((e) => {
             e.classList.remove('active')
-            if(e.getAttribute('date').slice(-2) == date.getDate()) {
+            if (e.getAttribute('date').slice(-2) == date.getDate()) {
                 e.classList.add('active')
             }
         })
@@ -195,63 +277,29 @@ const calendar = {
     },
     renderEvents: function () {
 
-        // Lấy ra thẻ work-box thông qua date và startTime
-        function getWorkBoxDate(date, startTime) {
-            let curWork = worksColumn.find((workCol) => (workCol.getAttribute('date') === date))
-            if(curWork) {
-                let workBox = Array.from(curWork.children).find((workBox) => ((Number)(workBox.getAttribute('time')) === (startTime - 0.5)))
-                return workBox
-            }
-        }   
+        // Reset Event
+        events.forEach((event) => event.classList.remove('active'))
 
-        function setEventDuration(event) {
-            let duration = ((Number)(event.getAttribute('endTime'))
-                                - (Number)(event.getAttribute('startTime'))) / 0.5
-            return duration*40.8 - 1
+        // Render events
+        function getEvents(date) {
+            return events.find((event)=>(event.getAttribute('date') === date))
         }
 
-        // render ra mảng các thẻ event
-        const eventHtmls = this.eventsData.map((event, index) => {
-            let start = event.startTime < 13 ? (event.startTime+'am') : (event.startTime+'pm')
-            let end = event.endTime < 13 ? (event.endTime+'am') : (event.endTime+'pm')
-
-            return `
-                <button class="event" date="${event.date}" startTime="${event.startTime}" endTime="${event.endTime}">
-                    <div class="content">
-                        <p class="title">${event.title}</p>
-                        <p class="info">${event.info}</p>
-                        <p class="time">${start.replace('.5',':30')}
-                                    -${end.replace('.5',':30')}</p>
-                    </div>
-                </button>
-            `
-        })
-
-        // Lưu vào container
-        const container = document.createElement('div')
-        container.innerHTML = eventHtmls.join('')
-
-        const eventContainer = Array.from(container.querySelectorAll('.event'))
-
-        for (let i = 0; i < eventContainer.length; i++) {
-            let workBox = getWorkBoxDate(eventContainer[i].getAttribute('date'),eventContainer[i].getAttribute('startTime'))
-            if(workBox) {
-                workBox.insertAdjacentElement('afterend',eventContainer[i])
-                let eventDuration = setEventDuration(eventContainer[i])
-                eventContainer[i].style.height = eventDuration + 'px'
-                
+        for (let i = 0; i < currentDays.length; i++) {
+            let eventInCurWeek = getEvents(currentDays[i].getAttribute('date'))
+            if(eventInCurWeek) {
+                eventInCurWeek.classList.add('active')
             }
         }
 
-        events = Array.from($$('.event'))
-        console.log(events);
-
-
+        // resize WorkBox width
+        this.handleResizeWorkBox()
 
     },
     start: function () {
         this.config()
         this.renderWeek(currentDate)
+        this.loadEvents()
         this.renderEvents()
         this.handleEvents()
     },
