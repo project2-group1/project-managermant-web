@@ -1,3 +1,5 @@
+/* ------------------- Root ------------------ */
+
 :root {
     --work-box-size: 40px;
 
@@ -6,6 +8,9 @@
     --backgr-color-active-blue: rgb(239, 249, 255);
     --backgr-color-hover-blue2: rgb(197, 218, 255);
 }
+
+
+/* ------------------- Calender ------------------ */
 
 .calendar {
     display: block;
@@ -25,13 +30,7 @@
     display: flex;
 }
 
-.today {
-
-}
-
-.btn-today {
-
-}
+/* ------------------- Calender button ------------------ */
 
 .calendar .btn-tool {
     height: 40px;
@@ -50,23 +49,9 @@
     cursor: pointer;
 }
 
-.calendar .change-time-modal {
-    
-}
-
-
-
-.prev-week {
-
-}
-
 .calendar .btn-prev-week,
 .calendar .btn-next-week {
     width: 40px;
-}
-
-.next-week {
-
 }
 
 .change-time {
@@ -93,7 +78,7 @@
     color: var(--btn-color-hover-blue);
 }
 
-/* ------------------- Calendar-content ------------------ */
+/* ------------------- Start: Calendar-content ------------------ */
 
 /* ------------------- Row-date ------------------ */
 
@@ -257,8 +242,6 @@
     padding: 0;
 }
 
-
-
 .flatpickr-current-month .flatpickr-monthDropdown-months {
     height: 40px;
     border-radius: 10px;
@@ -310,8 +293,6 @@
     fill: var(--btn-color-hover-blue);
 }
 
-
-
 .flatpickr-months .flatpickr-prev-month:hover, .flatpickr-months .flatpickr-next-month:hover {
     background-color: var(--backgr-color-hover-blue1);
 
@@ -325,3 +306,5 @@
 .flatpickr-rContainer .flatpickr-weekdays {
     margin-top: 8px;
 }
+
+/* ------------------- End: Calender-content ------------------ */

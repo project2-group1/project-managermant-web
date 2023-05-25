@@ -98,6 +98,7 @@ button {
     border-radius: 50%;
     font-size: var(--icon-font-size);
     color: var(--icon-color-dark);
+    transition: all ease-out 0.3s;
 }
 
 .btn:hover {
@@ -165,7 +166,7 @@ button {
 
 .header-center .search-bar input {
     width: 100%;
-    margin-left: 20px;
+    margin: 0 0 0 0;
     padding: 8px 16px;
     font-size: 16px;
     line-height: 24px;
@@ -173,12 +174,7 @@ button {
     border-radius: 20px 0 0 20px;
 }
 
-.header-center .search-bar input:focus-visible {
-    /* outline: none; */
-    /* border: 2px groove var(--backgr-color-middle); */
-}
-
-.header-center .search-icon {
+.header-center .btn-search {
     width: 64px;
     text-align: center;
     background-color: var(--backgr-color-middle);
@@ -186,11 +182,11 @@ button {
     border-radius: 0 20px 20px 0;
 }
 
-.header-center .search-icon:hover {
+.header-center .btn-search:hover {
     background: var(--backgr-color-hover);
 }
 
-.header-center .search-icon i {
+.header-center .btn-search i {
     font-size: var(--icon-font-size);
     line-height: 40px;
 }
@@ -205,23 +201,23 @@ button {
     width: 240px;
 }
 
-.icon-avatar {
+.btn-avatar {
     margin-right: 8px;
     text-align: center;
 }
 
-.icon-avatar:hover {
+.btn-avatar:hover {
     background-color: unset;
 }
 
-.icon-avatar img {
+.btn-avatar img {
     padding: 4px 0;
     height: 32px;
     width: 32px;
     border-radius: 50%;
 }
 
-.icon-avatar .avatar-nav {
+.btn-avatar .avatar-nav {
     position: absolute;
     display: none;
     right: 4px;
@@ -236,27 +232,27 @@ button {
     line-height: 32px;
     list-style: none;
     background-color: var(--backgr-color-light);
-    box-shadow: 2px 2px 2px var(--box-shadow-color);
-    /* x | y | blur-radius | color */
+    box-shadow: 0px 4px 4px var(--box-shadow-color);
+    transition: all ease-out 0.3s;
 }
 
-.avatar-nav .avatar-nav-item:nth-child(1) {
+.avatar-nav .avatar-nav-item:first-child {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
 
-.avatar-nav .avatar-nav-item:nth-child(4) {
+.avatar-nav .avatar-nav-item:last-child {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
-.avatar-nav .avatar-nav-item a {
+.avatar-nav .avatar-nav-item .avatar-nav-btn {
     text-decoration: none;
     font-size: 16px;
     color: var(--text-color-light);
 }
 
-.avatar-nav .avatar-nav-item i {
+.avatar-nav .avatar-nav-item .avatar-nav-icon {
     width: 16px;
     padding: 0 16px;
 }
@@ -264,9 +260,7 @@ button {
 .header-end .show {
     display: block;
 }
-/* .icon-avatar:hover .avatar-nav {
-    display: block;
-} */
+
 
 .avatar-nav .avatar-nav-item:hover {
     background-color: var(--backgr-color-hover);

@@ -1,8 +1,20 @@
+.wrapper-content {
+    /* display: flex; */
+}
+
 .meeting {
     margin: 8px 8px 16px 8px;
     padding: 10px 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 8px);
+    transition: all ease-out 1s;
+}
+
+.meeting.double-screen {
+    float: left;
+    width: calc(50% - 16px);
 }
 
 .meeting-header {
@@ -10,6 +22,7 @@
     justify-content: space-between;
     align-items: center;
     height: 40px;
+    overflow: hidden;
 }
 
 .meeting-header .title {
@@ -18,7 +31,7 @@
     text-transform: uppercase;
 }
 
-.title-subject {
+.title-course {
 
 }
 
@@ -47,7 +60,6 @@
     width: 100px;
     height: 20px;
     font-size: 12px;
-    margin-top: -12px;
     display: flex;
     align-items: center;
     color: #6d6d6d;
@@ -55,10 +67,6 @@
 
 .day .date {
     margin-right: 8px;
-}
-
-.day .month {
-
 }
 
 .meeting-info .info {
@@ -75,6 +83,7 @@
 
 .info .file-report {
     width: 50%;
+    overflow: hidden;
 }
 
 
@@ -88,6 +97,7 @@
     width: 30px;
     height: 30px;
     line-height: 30px;
+    font-size: 20px;
     border: none;
     border-radius: 4px;
     background-color: var(--backgr-color-light);
@@ -113,15 +123,14 @@
 }
 
 .btn-end-meeting {
-    width: fit-content;
-    float: right;
-}
-
-.btn-end-meeting:hover i {
-}
-
-.btn-end-meeting .end-label {
-    margin-left: 12px;
+    /* font-size: 1rem; 
+    /* background-color: #04AA6D; */
+    /* color: white; */
+    /* text-align: center; */
+    /* padding: 12px 20px; */
+    /* border: none; */
+    /* border-radius: 4px; */
+    /* cursor: pointer;*/
     font-size: 16px;
 }
 

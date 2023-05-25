@@ -55,7 +55,7 @@ var closeCalendar = function () {
 
 /*--------------------Nghĩa : START---------------------*/
 // selector
-const btnAvatarNav = $('.icon-avatar')
+const btnAvatarNav = $('.btn-avatar')
 const btnSidebar = $('.btn-sidebar')
 const wrapperSidebar = $('.wrapper-sidebar')
 const wrapperContent = $('.wrapper-content')
@@ -96,7 +96,7 @@ studentList.onclick = function () {
 /* # Ngọc: START */
 const logo_page = $('.logo-page')
 logo_page.onclick = function () {
-    window.location.href = "./main.html"
+    window.location.href = "./index.html"
 }
 
 /* # Ngọc: START */
