@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>meeting - PMW</title>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/meeting.css">
     <link rel="stylesheet" href="./assets/css/form.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/meeting.css">
 </head>
 
 <body>
@@ -20,39 +26,53 @@
                 <div class="header-start">
                     <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
                     <div class="btn-logo">
-                        <a class="logo-page" href="./main.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+                        <a class="logo-page" href="./index.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
                     </div>
                 </div>
                 <div class="header-center">
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm" line-hight>
-                        <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <div class="header-end">
-                    <!--Thêm id cho button thêm lịch-->
-                    <button class="btn-add-calendar btn"><i class="fa-regular fa-calendar-plus"></i></button>
-                    <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
-                    <button class="btn icon-avatar">
+                    <button class="btn btn-display">
+                        <i class="fa-solid fa-display"></i>
+                    </button>
+                    <button class="btn btn-add-calendar">
+                        <i class="fa-regular fa-calendar-plus"></i>
+                    </button>
+                    <button class="btn btn-notification">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    <button class="btn btn-avatar">
                         <a href="#" class="avatar-img">
                             <img src="./assets/img/avatar.png" alt="">
                         </a>
                         <ul class="avatar-nav">
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-bell"></i>
-                                <a href="#">Thông báo</a>
+                            <li class="avatar-nav-item avatar-nav-account">
+                                <i class="avatar-nav-icon fa-regular fa-user"></i>
+                                <a class="avatar-nav-btn" href="#">Tài khoản</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-calendar"></i>
-                                <a href="#">Lịch</a>
+                            <li class="avatar-nav-item avatar-nav-calender">
+                                <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                                <a class="avatar-nav-btn" href="#">Lịch</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-sliders"></i>
-                                <a href="./setting.html">Cài đặt</a>
+                            <li class="avatar-nav-item avatar-nav-theme">
+                                <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                                <a class="avatar-nav-btn" href="#">Giao diện</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
-                                <a href="./sign_up_sign_in.html">Đăng xuất</a>
+                            <li class="avatar-nav-item avatar-nav-languague">
+                                <i class="avatar-nav-icon fa-solid fa-language"></i>
+                                <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-setting">
+                                <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                                <a class="avatar-nav-btn" href="./setting.html">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-logout">
+                                <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a class="avatar-nav-btn" href="./sign_up_sign_in.html">Đăng xuất</a>
                             </li>
                         </ul>
                     </button>
@@ -93,25 +113,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-item sidebar-recent">
+                <div class="sidebar-item sidebar-add-meeting">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-plus"></i>
+                        <a href="#">Thêm cuộc gặp</a>
+                    </button>
+                </div>
+
+                <div class="sidebar-item">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-arrow-rotate-right "></i>
                         <a href="#">Mở gần đây</a>
                     </button>
-                    <ul class="sidebar-recent-list mside-12">
-                        <li>20204767</li>
-                        <li>20204769</li>
-                    </ul>
                 </div>
-                <div class="sidebar-item sidebar-stored">
+                <div class="sidebar-item">
                     <button class="btn-sidebar-item">
                         <i class="fa-solid fa-box"></i>
                         <a href="#">Lưu trữ</a>
                     </button>
-                    <ul class="sidebar-stored-list mside-12">
-                        <li>D/code</li>
-                        <li>C/frontend</li>
-                    </ul>
                 </div>
                 <div class="sidebar-item sidebar-teacher">
                     <button class="btn-sidebar-item">
@@ -135,12 +154,13 @@
 
         <!-- Main content -->
         <div class="wrapper-content">
-            <div class="meeting">
+
+            <!-- <div class="meeting" course="" id="">
                 <div class="meeting-header">
                     <div class="title">
-                        <span class="title-subject">Project II</span>
+                        <span class="title-course">Project II</span>
                         <span class="title-space">-</span>
-                        <span class="title-name">Group I</span>
+                        <span class="title-name">Group 1</span>
                         <span class="title-space">-</span>
                         <span class="title-topic">Website quản lý dự án</span>
                         <span class="title-serial">#1</span>
@@ -152,7 +172,6 @@
                 <div class="meeting-info">
                     <div class="day">
                         <p class="date">29</p>
-                        <p class="month">Tháng 5</p>
                     </div>
                     <div class="info">
                         <div class="info-student">
@@ -164,51 +183,27 @@
                             <input type="file" accept=".doc,.docx,.pdf,.zip">
                         </div>
                     </div>
-                    <div class="meeting-content">
-                        <div class="text-format">
-                            <select class="font-sizecur">
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="14">14</option>
-                                <option value="16" selected>16</option>
-                                <option value="20">20</option>
-                                <option value="24">24</option>
-                            </select>
-                            <button class="font-sizeup btn-note"><img src="/frontend/assets/img/increase-font-size.png"
-                                    alt=""></button>
-                            <button class="font-sizedown btn-note"><img
-                                    src="/frontend/assets/img/decrease-font-size.png" alt=""></button>
-                            <button class="font-bold btn-note"><i class="fa-solid fa-bold"></i></button>
-                            <button class="font-italic btn-note"><i class="fa-solid fa-italic"></i></button>
-                            <button class="font-underline btn-note"><i class="fa-solid fa-underline"></i></button>
-                            <button class="font-highlighter btn-note"><i class="fa-solid fa-highlighter"></i></button>
-                            <button class="font-color btn-note"><i class="fa-solid fa-palette"></i></button>
-                            <button class="font-align-justify btn-note"><i
-                                    class="fa-solid fa-align-justify"></i></button>
-                            <button class="font-align-center btn-note"><i class="fa-solid fa-align-center"></i></button>
-                            <button class="font-align-left btn-note"><i class="fa-solid fa-align-left"></i></button>
-                            <button class="font-align-right btn-note"><i class="fa-solid fa-align-right"></i></button>
-
-                        </div>
-                        <form action="" class="form-note">
-                            <textarea name="note" class="note" placeholder="ghi chú"></textarea>
-                        </form>
-                    </div>
                 </div>
-            </div>
+                <div class="meeting-content">
+                    <div class="editor"></div>
+                </div>
+                
+                <div class="meeting-end">
+                    <button class="btn-end-meeting btn-sidebar-item">
+                        <span class="end-label">End meeting</span>
+                        <i class="fa-regular fa-circle-stop"></i>
+                    </button>
+                </div>
+            </div> -->
+
 
             <div class="make-calendar container"></div>
+        </div>
 
-            <!-- Footer -->
-            <div class="wrapper-footer">
-                <div class="footer">
-                    <div class="contact">
-                    </div>
-                </div>
-            </div>
+    </div>
 
-            <script src="./javascript/main.js"></script>
-            <script src="./javascript/meeting.js"></script>
+    <script src="./javascript/index.js"></script>
+    <script src="./javascript/meeting.js"></script>
 
 </body>
 

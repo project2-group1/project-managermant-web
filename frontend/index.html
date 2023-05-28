@@ -28,33 +28,41 @@
                 <div class="header-center">
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm" line-hight>
-                        <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <div class="header-end">
                     <!--Thêm id cho button thêm lịch-->
-                    <button class="btn-add-calendar btn"><i class="fa-regular fa-calendar-plus"></i></button>
-                    <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
-                    <button class="btn icon-avatar">
+                    <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+                    <button class="btn btn-notification"><i class="fa-regular fa-bell"></i></button>
+                    <button class="btn btn-avatar">
                         <a href="#" class="avatar-img">
                             <img src="./assets/img/avatar.png" alt="">
                         </a>
                         <ul class="avatar-nav">
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-bell"></i>
-                                <a href="#">Thông báo</a>
+                            <li class="avatar-nav-item avatar-nav-account">
+                                <i class="avatar-nav-icon fa-regular fa-user"></i>
+                                <a class="avatar-nav-btn" href="#">Tài khoản</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-calendar"></i>
-                                <a href="#">Lịch</a>
+                            <li class="avatar-nav-item avatar-nav-calender">
+                                <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                                <a class="avatar-nav-btn" href="#">Lịch</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-sliders"></i>
-                                <a href="./setting.html">Cài đặt</a>
+                            <li class="avatar-nav-item avatar-nav-theme">
+                                <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                                <a class="avatar-nav-btn" href="#">Giao diện</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
-                                <a href="./sign_up_sign_in.html">Đăng xuất</a>
+                            <li class="avatar-nav-item avatar-nav-languague">
+                                <i class="avatar-nav-icon fa-solid fa-language"></i>
+                                <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-setting">
+                                <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                                <a class="avatar-nav-btn" href="./setting.html">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-logout">
+                                <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a class="avatar-nav-btn" href="./sign_up_sign_in.html">Đăng xuất</a>
                             </li>
                         </ul>
                     </button>
@@ -251,7 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col works" name="monday">
+                        <div class="col works" name="monday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -277,42 +285,7 @@
                             <div class="work-box" time="18"></div>
                             <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="col works" name="tuesday">   
-                            <div class="work-box" time="7"></div>
-                            <div class="work-box" time="7.5"></div>
-                            <div class="event">
-                                <button class="btn-event">
-                                    <div class="content">
-                                        <p class="title">Project II - Nhóm 1</p>
-                                        <p class="info">Website quản lý Project</p>
-                                        <p class="time">8h-9h</p>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="work-box" time="8"></div>
-                            <div class="work-box" time="8.5"></div>
-                            <div class="work-box" time="9"></div>
-                            <div class="work-box" time="9.5"></div>
-                            <div class="work-box" time="10"></div>
-                            <div class="work-box" time="10.5"></div>
-                            <div class="work-box" time="11"></div>
-                            <div class="work-box" time="11.5"></div>
-                            <div class="work-box" time="12"></div>
-                            <div class="work-box" time="12.5"></div>
-                            <div class="work-box" time="13"></div>
-                            <div class="work-box" time="13.5"></div>
-                            <div class="work-box" time="14"></div>
-                            <div class="work-box" time="14.5"></div>
-                            <div class="work-box" time="15"></div>
-                            <div class="work-box" time="15.5"></div>
-                            <div class="work-box" time="16"></div>
-                            <div class="work-box" time="16.5"></div>
-                            <div class="work-box" time="17"></div>
-                            <div class="work-box" time="17.5"></div>
-                            <div class="work-box" time="18"></div>
-                            <div class="work-box" time="18.5"></div>
-                        </div>
-                        <div class="col works" name="wednesday">
+                        <div class="col works" name="tuesday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -338,7 +311,7 @@
                             <div class="work-box" time="18"></div>
                             <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="col works" name="thursday">
+                        <div class="col works" name="wednesday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -364,7 +337,7 @@
                             <div class="work-box" time="18"></div>
                             <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="col works" name="friday">
+                        <div class="col works" name="thursday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -390,7 +363,7 @@
                             <div class="work-box" time="18"></div>
                             <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="col works" name="saturday">
+                        <div class="col works" name="friday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -416,7 +389,33 @@
                             <div class="work-box" time="18"></div>
                             <div class="work-box" time="18.5"></div>
                         </div>
-                        <div class="col works" name="sunday">
+                        <div class="col works" name="saturday" date="">
+                            <div class="work-box" time="7"></div>
+                            <div class="work-box" time="7.5"></div>
+                            <div class="work-box" time="8"></div>
+                            <div class="work-box" time="8.5"></div>
+                            <div class="work-box" time="9"></div>
+                            <div class="work-box" time="9.5"></div>
+                            <div class="work-box" time="10"></div>
+                            <div class="work-box" time="10.5"></div>
+                            <div class="work-box" time="11"></div>
+                            <div class="work-box" time="11.5"></div>
+                            <div class="work-box" time="12"></div>
+                            <div class="work-box" time="12.5"></div>
+                            <div class="work-box" time="13"></div>
+                            <div class="work-box" time="13.5"></div>
+                            <div class="work-box" time="14"></div>
+                            <div class="work-box" time="14.5"></div>
+                            <div class="work-box" time="15"></div>
+                            <div class="work-box" time="15.5"></div>
+                            <div class="work-box" time="16"></div>
+                            <div class="work-box" time="16.5"></div>
+                            <div class="work-box" time="17"></div>
+                            <div class="work-box" time="17.5"></div>
+                            <div class="work-box" time="18"></div>
+                            <div class="work-box" time="18.5"></div>
+                        </div>
+                        <div class="col works" name="sunday" date="">
                             <div class="work-box" time="7"></div>
                             <div class="work-box" time="7.5"></div>
                             <div class="work-box" time="8"></div>
@@ -458,8 +457,8 @@
         </div>
     </div>
 
-    <script src="./javascript/main.js"></script>
-    <script src="./javascript/calendar.js"></script>r
+    <script src="./javascript/index.js"></script>
+    <script src="./javascript/calendar.js"></script>
 </body>
 
 </html>

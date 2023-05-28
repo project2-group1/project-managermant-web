@@ -1,8 +1,20 @@
+.wrapper-content {
+    /* display: flex; */
+}
+
 .meeting {
     margin: 8px 8px 16px 8px;
     padding: 10px 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 8px);
+    transition: all ease-out 1s;
+}
+
+.meeting.double-screen {
+    float: left;
+    width: calc(50% - 16px);
 }
 
 .meeting-header {
@@ -10,6 +22,7 @@
     justify-content: space-between;
     align-items: center;
     height: 40px;
+    overflow: hidden;
 }
 
 .meeting-header .title {
@@ -18,7 +31,7 @@
     text-transform: uppercase;
 }
 
-.title-subject {
+.title-course {
 
 }
 
@@ -47,7 +60,6 @@
     width: 100px;
     height: 20px;
     font-size: 12px;
-    margin-top: -12px;
     display: flex;
     align-items: center;
     color: #6d6d6d;
@@ -57,16 +69,11 @@
     margin-right: 8px;
 }
 
-.day .month {
-
-}
-
 .meeting-info .info {
     display: flex;
     height: 40px;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
 
 }
 
@@ -76,10 +83,11 @@
 
 .info .file-report {
     width: 50%;
+    overflow: hidden;
 }
 
 
-/* Start Meeting-content */
+/*-------------------Start: Meeting-content-------------------*/
 
 .meeting-content {
     margin-top: 8px;
@@ -89,6 +97,7 @@
     width: 30px;
     height: 30px;
     line-height: 30px;
+    font-size: 20px;
     border: none;
     border-radius: 4px;
     background-color: var(--backgr-color-light);
@@ -98,62 +107,31 @@
     background-color: var(--backgr-color-hover);
 }
 
-.meeting .btn-note img{
-    width: 20px;
-    height: 20px;
+/* -------------------End: Quill CSS------------------- */
+
+.ql-editor {
+    height: 200px;
 }
 
-.text-format {
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* -------------------End: Meeting-content------------------- */
+
+/* -------------------Start: end meeting button------------------- */
+
+.meeting-end {
+    margin-top: 8px;
+    height: 40px;
 }
 
-.text-format .font-sizecur {
-    width: auto;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 4px;
-    font-size: 12px;
-    text-align: center;
-    border: 0.5px solid #ccc;
-    border-radius: 5px;
-}
-
-.font-sizeup, .font-sizedown {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-note {
-    margin-top: 4px; 
-    width: 100%;  
-}
-
-.form-note .note {
-    margin-right: 50px;
-    padding: 8px;
-    width: 100%;
-    min-height: 300px;
-    border-radius: 8px;
+.btn-end-meeting {
+    /* font-size: 1rem; 
+    /* background-color: #04AA6D; */
+    /* color: white; */
+    /* text-align: center; */
+    /* padding: 12px 20px; */
+    /* border: none; */
+    /* border-radius: 4px; */
+    /* cursor: pointer;*/
     font-size: 16px;
-    /* default font-size */
-    resize: vertical;
-    box-sizing: border-box;
 }
-
-.note:focus {
-    /* outline: ; */
-    box-shadow:none;
-}
-
-
-
-
-
-
-
 
 

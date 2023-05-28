@@ -20,39 +20,47 @@
                 <div class="header-start">
                     <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
                     <div class="btn-logo">
-                        <a class="logo-page" href="#"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+                        <a class="logo-page" href="./index.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
                     </div>
                 </div>
                 <div class="header-center">
                     <div class="search-bar">
                         <input type="text" placeholder="Tìm kiếm" line-hight>
-                        <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <div class="header-end">
                     <!--Thêm id cho button thêm lịch-->
-                    <button class="btn-add-calendar btn"><i class="fa-regular fa-calendar-plus"></i></button>
-                    <button class="btn icon-notification"><i class="fa-regular fa-bell"></i></button>
-                    <button class="btn icon-avatar">
+                    <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+                    <button class="btn btn-notification"><i class="fa-regular fa-bell"></i></button>
+                    <button class="btn btn-avatar">
                         <a href="#" class="avatar-img">
                             <img src="./assets/img/avatar.png" alt="">
                         </a>
                         <ul class="avatar-nav">
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-bell"></i>
-                                <a href="#">Thông báo</a>
+                            <li class="avatar-nav-item avatar-nav-account">
+                                <i class="avatar-nav-icon fa-regular fa-user"></i>
+                                <a class="avatar-nav-btn" href="#">Tài khoản</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-regular fa-calendar"></i>
-                                <a href="#">Lịch</a>
+                            <li class="avatar-nav-item avatar-nav-calender">
+                                <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                                <a class="avatar-nav-btn" href="#">Lịch</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-sliders"></i>
-                                <a href="./setting.html">Cài đặt</a>
+                            <li class="avatar-nav-item avatar-nav-theme">
+                                <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                                <a class="avatar-nav-btn" href="#">Giao diện</a>
                             </li>
-                            <li class="avatar-nav-item">
-                                <i class="fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
-                                <a href="./sign_up_sign_in.html">Đăng xuất</a>
+                            <li class="avatar-nav-item avatar-nav-languague">
+                                <i class="avatar-nav-icon fa-solid fa-language"></i>
+                                <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-setting">
+                                <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                                <a class="avatar-nav-btn" href="./setting.html">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-logout">
+                                <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a class="avatar-nav-btn" href="./sign_up_sign_in.html">Đăng xuất</a>
                             </li>
                         </ul>
                     </button>
@@ -173,14 +181,8 @@
 
         <div class="make-calendar container"></div>
 
-        <!-- Footer -->
-        <div class="wrapper-footer">
-            <div class="footer">
-                <div class="contact"></div>
-            </div>
-        </div>
     </div>
-    <script src="./javascript/main.js"></script>
+    <script src="./javascript/index.js"></script>
 </body>
 
 </html>
