@@ -1,4 +1,3 @@
-
 class MeetingControler {
     // [GET] /news
     show(req, res, next) {

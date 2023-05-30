@@ -1,4 +1,3 @@
-
 class AssignmentController {
     // [GET] /news
     show(req, res, next) {
