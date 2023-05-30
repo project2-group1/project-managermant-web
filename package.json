@@ -1,0 +1,28 @@
+{
+  "name": "project-management-website",
+  "version": "1.0.0",
+  "description": "ProjectII",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/project2-group1/project-managermant-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/project2-group1/project-managermant-web/issues"
+  },
+  "homepage": "https://github.com/project2-group1/project-managermant-web#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22"
+  }
+}
