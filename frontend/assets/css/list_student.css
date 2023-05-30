@@ -19,14 +19,7 @@
 }
 
 .table-student tr:hover {
-    background-color: rgb(247, 228, 217);
-}
-/* sọc */
-.table-student tr:nth-child(even) {
-    background-color: #efebeb;
-}
-.table-student tr:nth-child(even):hover {
-    background-color: #f3e4e4;
+    background-color:  #D6EEEE;
 }
 
 .wrapper-content .list-button a {
@@ -47,6 +40,36 @@
     opacity: 0.5;
 }
 
+/* click vào sinh viên */
+.click-student {
+    display: none;
+    border: 2px solid #080808;
+    background-color: #ebeef1;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    z-index: 1;
+    
+}
 
+.click-student a {
+    display: block;
+    padding: 10px;
+    margin: 0px;
+    border-bottom: 1px solid #121111;
+    text-decoration: none;
 
-
+}
+.click-student li:hover {
+    background-color: #6184a733;
+}
+/* man phu */
+.cover {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000051;
+}

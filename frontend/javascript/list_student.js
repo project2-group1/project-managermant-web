@@ -1,4 +1,4 @@
-const tableBody = document.querySelector('.table-student table tbody')
+const tableView = document.querySelector('.table-student table')
 
 // tham số render mặc định
 var nhom = 'groupname'
@@ -14,12 +14,14 @@ var ngaySinh = 'birthdate'
 function renderTable(studentList) {
     let htmlStudents = studentList.map(function(value) {
         return `<tr><td>${value[nhom]}</td><td>${value[mssv]}</td>
-        <td>${value[ten]}</td><td>${value[email]}</td><td>${value[deTai]}</td>
-        <td>${value[maHocPhan]}</td><td>${value[tenHocPhan]}</td>
-        <td>${value[hocKy]}</td><td>${value[ngaySinh]}</td></tr>`;
+        <td>${value[ten]}</td><td>${value[email]}</td><td>${value[ngaySinh]}</td>
+        <td>${value[deTai]}</td><td>${value[maHocPhan]}</td>
+        <td>${value[tenHocPhan]}</td><td>${value[hocKy]}</td></tr>`;
     })
     var resultHtml = htmlStudents.join('')
+    let tableBody = document.createElement('tbody')
     tableBody.innerHTML = resultHtml
+    tableView.appendChild(tableBody)
 } 
 
 // parse file exel
@@ -53,3 +55,17 @@ var promise = new Promise(
 )
 promise.then().catch().finally()
 
+// khi click vao student
+var cover = document.querySelector('.cover')
+var mockUp = document.querySelector('.click-student')
+
+var clickStudent = function(e) {
+    mockUp.style.display = 'block'
+    cover.style.display = 'block'
+}
+var clickCover = function(e) {
+    mockUp.style.display = 'none'
+    cover.style.display = 'none'
+}
+tableView.addEventListener('click', clickStudent)
+cover.addEventListener('click', clickCover)
