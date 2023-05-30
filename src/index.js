@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const methodOverride = require('method-override');
-var XLSX = require('express');
 const app = express();
 const port = 3000;
 
