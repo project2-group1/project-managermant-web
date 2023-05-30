@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="/css/calendar.css">
     <link rel="stylesheet" href="/css/form.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    {{!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    --}}
 </head>
 
 <body>
@@ -20,16 +24,15 @@
         <!-- Header -->
         {{> header}}
         {{> navigator}}
-        <div class="container">
-            {{{body}}}
-        </div>
+
+        {{{body}}}
+
 
         {{>footer}}
 
     </div>
 
     {{!--
-    <script src="./javascript/index.js"></script>
     <script src="./javascript/calendar.js"></script> --}}
 </body>
 

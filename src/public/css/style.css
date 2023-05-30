@@ -365,7 +365,7 @@ button {
 
 /* End Main Content */
 
-/*Make calendar
+/* Make calendar */
 .container{
     height: 100vh;
     background: var(--backgr-color-blur);
@@ -412,7 +412,7 @@ button {
 .modal .modal-body {
     padding: 20px 20px;
 }
-*/
+
 
 
 /*End make calendar*/

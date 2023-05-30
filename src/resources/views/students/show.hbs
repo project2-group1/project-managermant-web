@@ -1,0 +1,42 @@
+<head>
+    <link rel="stylesheet" href="/css/list_student.css">
+</head>
+<div class="wrapper-content">
+    <!--Make list student-->
+    <div class="list-student">
+        <!-- Table -->
+        <div class="table-student" ; style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nhóm</th>
+                        <th>Mã số sinh viên</th>
+                        <th>Họ và tên</th>
+                        <th>Email</th>
+                        <th>Ngày sinh</th>
+                        <th>Tên đề tài</th>
+                        <th>Mã học phần</th>
+                        <th>Tên học phần</th>
+                        <th>Học kỳ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!-- Function button -->
+        <div class="list-button">
+            <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
+            <a href="#"><i class="fa-solid fa-floppy-disk"></i>Lưu</a>
+            <a href="#"><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href="#"><i class="fa-solid fa-user-plus"></i>Thêm sinh viên</a>
+            <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
+
+        </div>
+    </div>
+    <!--End make list student-->
+</div>
+
+<script>
+
+</script>
