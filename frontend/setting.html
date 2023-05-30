@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets\css\setting.css" />
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <link rel="stylesheet" href="assets\css\form.css" />
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <title>Setting</title>
+</head>
+
+<body>
+    <div class="master">
+        <!-- Header -->
+        <div class="wrapper-header">
+            <div class="header">
+                <div class="header-start">
+                    <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <div class="btn-logo">
+                        <a class="logo-page" href="./index.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Tìm kiếm" line-hight>
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+                <div class="header-end">
+                    <!--Thêm id cho button thêm lịch-->
+                    <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+                    <button class="btn btn-notification"><i class="fa-regular fa-bell"></i></button>
+                    <button class="btn btn-avatar">
+                        <a href="#" class="avatar-img">
+                            <img src="./assets/img/avatar.png" alt="">
+                        </a>
+                        <ul class="avatar-nav">
+                            <li class="avatar-nav-item avatar-nav-account">
+                                <i class="avatar-nav-icon fa-regular fa-user"></i>
+                                <a class="avatar-nav-btn" href="#">Tài khoản</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-calender">
+                                <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                                <a class="avatar-nav-btn" href="#">Lịch</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-theme">
+                                <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                                <a class="avatar-nav-btn" href="#">Giao diện</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-languague">
+                                <i class="avatar-nav-icon fa-solid fa-language"></i>
+                                <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-setting">
+                                <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                                <a class="avatar-nav-btn" href="./setting.html">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-logout">
+                                <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a class="avatar-nav-btn" href="./sign_up_sign_in.html">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation bar -->
+        <div class="wrapper-sidebar">
+            <!-- box & box open icon -->
+            <div class="sidebar">
+                <div class="sidebar-item sidebar-week">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <a href="#">Lịch trong tuần</a>
+                    </button>
+                    <div class="sidebar-week-days mside-12">
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T2</p>
+                        </div>
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T3</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T4</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T5</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T6</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T7</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>CN</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-item sidebar-recent">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-arrow-rotate-right "></i>
+                        <a href="#">Mở gần đây</a>
+                    </button>
+                    <ul class="sidebar-recent-list mside-12">
+                        <li>20204767</li>
+                        <li>20204769</li>
+                    </ul>
+                </div>
+                <div class="sidebar-item sidebar-stored">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-box"></i>
+                        <a href="#">Lưu trữ</a>
+                    </button>
+                    <ul class="sidebar-stored-list mside-12">
+                        <li>D/code</li>
+                        <li>C/frontend</li>
+                    </ul>
+                </div>
+                <div class="sidebar-item sidebar-teacher">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-laptop"></i>
+                        <a href="#">Lịch rảnh</a>
+                    </button>
+                </div>
+                <div class="sidebar-item sidebar-studentlist">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-rectangle-list"></i>
+                        <a href="dssinhvien.html">Danh sách sinh viên</a>
+                    </button>
+                </div>
+                <!-- <div class="sidebar-item sidebar-student">
+              <button class="btn-sidebar-item">
+                  <p>Gửi yêu cầu meeting (sinh viên)</p>
+              </button>
+          </div> -->
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="wrapper-content">
+            <div class="setting">
+                <h1 class="title">Cài đặt</h1>
+                <div class="setting-content">
+                    <form action="update_profile.php" method="POST">
+                        <label for="fullname">
+                            <p>Họ và tên:</p>
+                        </label>
+                        <input type="text" id="fullname" name="fullname"><br>
+
+                        <label for="password">
+                            <i class="fa-solid fa-shield-alt"></i>
+                            <a>Mật khẩu:</a>
+                        </label>
+                        <input type="password" id="password" name="password"><br>
+
+                        <label for="phone">
+                            <i class="fa-solid fa-phone-alt"></i>
+                            <a>Số điện thoại:</a>
+                        </label>
+                        <input type="text" id="phone" name="phone"><br>
+
+                        <label for="theme">
+                            <i class="fa-solid fa-air-freshener"></i>
+                            <a>Chế độ sáng/tối:</a>
+                        </label>
+                        <select id="theme" name="theme">
+                            <option value="light">Sáng</option>
+                            <option value="dark">Tối</option>
+                        </select><br><br>
+
+                        <input type="submit" value="Cập nhật thông tin">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="make-calendar container"></div>
+
+    </div>
+    <script src="./javascript/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+/* Style inputs with type="text", select elements and textareas */
+
+select,
+textarea,
+input[type=text] {
+    font-size: 1rem;
+    color: var(--text-color-light);
+    width: 100%;
+    padding: 5px;
+    border: 1px ridge;
+    line-height: 24px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type=password] {
+    font-size: 1rem;;
+    color: var(--text-color-light);
+    width: 100%;
+    padding: 5px;
+    border: 1px ridge;
+    line-height: 24px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+    font-size: 1rem;
+    background-color: #04AA6D;
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    border: none;
+    line-height: 24px;
+    border-radius: 5x;
+    cursor: pointer;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+input[type=datetime-local] {
+    font-size: 1rem;;
+    color: var(--text-color-light);
+    width: 100%;
+    padding: 5px;
+    border: 1px ridge;
+    line-height: 24px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}

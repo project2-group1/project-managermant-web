@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meeting - PMW</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/form.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/meeting.css">
+</head>
+
+<body>
+    <div class="master">
+        <!-- Header -->
+        <div class="wrapper-header">
+            <div class="header">
+                <div class="header-start">
+                    <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <div class="btn-logo">
+                        <a class="logo-page" href="./index.html"><img src="./assets/img/logoSOICT.jpg" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Tìm kiếm" line-hight>
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+                <div class="header-end">
+                    <button class="btn btn-display">
+                        <i class="fa-solid fa-display"></i>
+                    </button>
+                    <button class="btn btn-add-calendar">
+                        <i class="fa-regular fa-calendar-plus"></i>
+                    </button>
+                    <button class="btn btn-notification">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    <button class="btn btn-avatar">
+                        <a href="#" class="avatar-img">
+                            <img src="./assets/img/avatar.png" alt="">
+                        </a>
+                        <ul class="avatar-nav">
+                            <li class="avatar-nav-item avatar-nav-account">
+                                <i class="avatar-nav-icon fa-regular fa-user"></i>
+                                <a class="avatar-nav-btn" href="#">Tài khoản</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-calender">
+                                <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                                <a class="avatar-nav-btn" href="#">Lịch</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-theme">
+                                <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                                <a class="avatar-nav-btn" href="#">Giao diện</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-languague">
+                                <i class="avatar-nav-icon fa-solid fa-language"></i>
+                                <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-setting">
+                                <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                                <a class="avatar-nav-btn" href="./setting.html">Cài đặt</a>
+                            </li>
+                            <li class="avatar-nav-item avatar-nav-logout">
+                                <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                                <a class="avatar-nav-btn" href="./sign_up_sign_in.html">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation bar -->
+        <div class="wrapper-sidebar">
+            <!-- box & box open icon -->
+            <div class="sidebar">
+                <div class="sidebar-item sidebar-week">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <a href="#">Lịch trong tuần</a>
+                    </button>
+                    <div class="sidebar-week-days mside-12">
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T2</p>
+                        </div>
+                        <div class="sidebar-day sidebar-day-passed">
+                            <p>T3</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T4</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T5</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T6</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>T7</p>
+                        </div>
+                        <div class="sidebar-day">
+                            <p>CN</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-item sidebar-add-meeting">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-plus"></i>
+                        <a href="#">Thêm cuộc gặp</a>
+                    </button>
+                </div>
+
+                <div class="sidebar-item">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-arrow-rotate-right "></i>
+                        <a href="#">Mở gần đây</a>
+                    </button>
+                </div>
+                <div class="sidebar-item">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-box"></i>
+                        <a href="#">Lưu trữ</a>
+                    </button>
+                </div>
+                <div class="sidebar-item sidebar-teacher">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-solid fa-laptop"></i>
+                        <a href="#">Lịch rảnh</a>
+                    </button>
+                </div>
+                <div class="sidebar-item sidebar-studentlist">
+                    <button class="btn-sidebar-item">
+                        <i class="fa-regular fa-rectangle-list"></i>
+                        <a href="dssinhvien.html">Danh sách sinh viên</a>
+                    </button>
+                </div>
+                <!-- <div class="sidebar-item sidebar-student">
+                    <button class="btn-sidebar-item">
+                        <p>Gửi yêu cầu meeting (sinh viên)</p>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="wrapper-content">
+
+            <!-- <div class="meeting" course="" id="">
+                <div class="meeting-header">
+                    <div class="title">
+                        <span class="title-course">Project II</span>
+                        <span class="title-space">-</span>
+                        <span class="title-name">Group 1</span>
+                        <span class="title-space">-</span>
+                        <span class="title-topic">Website quản lý dự án</span>
+                        <span class="title-serial">#1</span>
+                    </div>
+                    <button class="btn-out btn-note">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="meeting-info">
+                    <div class="day">
+                        <p class="date">29</p>
+                    </div>
+                    <div class="info">
+                        <div class="info-student">
+                            <span class="student-name">Giang Trung Nghĩa</span>
+                            <span class="student-id">20204767</span>
+                        </div>
+                        <div class="file-report">
+                            <label for="file">Báo cáo: </label>
+                            <input type="file" accept=".doc,.docx,.pdf,.zip">
+                        </div>
+                    </div>
+                </div>
+                <div class="meeting-content">
+                    <div class="editor"></div>
+                </div>
+                
+                <div class="meeting-end">
+                    <button class="btn-end-meeting btn-sidebar-item">
+                        <span class="end-label">End meeting</span>
+                        <i class="fa-regular fa-circle-stop"></i>
+                    </button>
+                </div>
+            </div> -->
+
+
+            <div class="make-calendar container"></div>
+        </div>
+
+    </div>
+
+    <script src="./javascript/index.js"></script>
+    <script src="./javascript/meeting.js"></script>
+
+</body>
+
+</html>
