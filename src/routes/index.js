@@ -1,4 +1,4 @@
-const calendarRouter = require('./calendar');
+const calendarRouter = require('./calendar.js');
 const meRouter = require('./me')
 const listRouter = require('./list')
 const assignmentRouter = require('./assignment')

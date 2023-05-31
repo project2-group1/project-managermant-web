@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express')
+var router = express.Router()
 
-const MeetingControler = require('../app/controllers/MeetingControler');
+const meetingController = require('../app/controllers/MeetingController.js')
 
-router.get('/', MeetingControler.show);
+router.get('/', meetingController.show)
 
-module.exports = router;
+module.exports = router

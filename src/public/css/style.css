@@ -304,6 +304,7 @@ button {
     border-radius: 10px;
     background-color: var(--backgr-color-light);
     transition: ease-out 0.3s
+    
 }
 
 .btn-sidebar-item:hover {
@@ -358,14 +359,13 @@ button {
 .wrapper-content.fullwidth {
     width: 100%;
 }
-
 /* Start Main Calendar */
 
 /* End Main Calendar */
 
 /* End Main Content */
 
-/* Make calendar */
+/*Make calendar*/
 .container{
     height: 100vh;
     background: var(--backgr-color-blur);

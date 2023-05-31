@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express')
+var router = express.Router()
 
-const ListController = require('../app/controllers/ListControllers');
+const listController = require('../app/controllers/ListControllers.js')
 
-router.get('/', ListController.show);
+router.get('/list', listController.show)
+router.get('/', listController.show)
 
-module.exports = router;
+module.exports = router

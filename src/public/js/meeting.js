@@ -145,7 +145,7 @@ const meeting = {
                     </div>
                     <div class="meeting-end">
                         <label for="submit"></label>
-                        <input type="submit" class="btn-end-meeting btn-sidebar-item">
+                        <input type="submit" class="btn-end-meeting" value="Kết thúc">
                     </div>
                 </div>
             </form>

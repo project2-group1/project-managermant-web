@@ -1,12 +1,12 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
-const handlebars = require('express-handlebars');
-const methodOverride = require('method-override');
-const XLSX = require('xlsx')
+const express = require('express')
+const morgan = require('morgan') // log server
+const route = require('./routes/index.js') // import route
+const handlebars = require('express-handlebars')
+const path = require('path') // lib của nodejs để lấy địa chỉ
+const app = express()
+const port = 3000
 
-const app = express();
-const port = 3000;
+app.use(morgan('combined'))
 
 const route = require('./routes');
 const db = require('./config/db')
@@ -14,35 +14,18 @@ const db = require('./config/db')
 db.connect()
 var assetsPath = path.join(__dirname, 'public');
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(
-    express.urlencoded({
-        extended: true,
-    }),
-);
-
-app.use(express.json());
-
-// app.use(methodOverride('_method'));
-//http logger;
-app.use(morgan('combined'));
-
-// template engine
 app.engine(
     'hbs',
     handlebars.engine({
-        defaultLayout: 'main',
         extname: '.hbs',
         helpers: {
-            sum: (a, b) => a + b
+            sum: (a, b) => a + b,
         }
     }),
-);
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources', 'views'));
+)
+app.set('view engine','hbs')
+app.set('views', path.join(__dirname, 'resources/views'))
 
-// Route init
-route(app);
+route(app)
 
-app.listen(port, () => console.log(`Example app listening at ${port}`));
+app.listen(port, () => console.log(`app listening at https://localhost:${port}`))
