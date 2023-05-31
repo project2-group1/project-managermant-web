@@ -1,8 +1,9 @@
-class AssignmentController {
+
+class MeController {
     // [GET] /news
-    show(req, res, next) {
-        res.render('assignments/assignment', {
-            title: 'Báo cáo',
+    setting(req, res, next) {
+        res.render('me/setting', {
+            title: 'Cài đặt',
             css: [
                 '/css/form.css',
                 '/css/app.css',
@@ -15,4 +16,4 @@ class AssignmentController {
     }
 }
 
-module.exports = new AssignmentController();
+module.exports = new MeController();
