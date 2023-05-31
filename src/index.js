@@ -8,11 +8,12 @@ const port = 3000
 
 app.use(morgan('combined'))
 
-const route = require('./routes');
 const db = require('./config/db')
 // conect db
 db.connect()
 var assetsPath = path.join(__dirname, 'public');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine(
     'hbs',
@@ -23,7 +24,7 @@ app.engine(
         }
     }),
 )
-app.set('view engine','hbs')
+app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
 
 route(app)
