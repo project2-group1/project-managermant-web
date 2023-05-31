@@ -28,6 +28,7 @@ var ExcelExport = function (event) {
     var reader = new FileReader();
     reader.onload = function () {
         var fileData = reader.result;
+        var wb = new XLSX();
         var wb = XLSX.read(fileData, { type: 'binary' });
 
         wb.SheetNames.forEach(function (sheetName) {

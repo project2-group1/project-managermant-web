@@ -5,10 +5,7 @@ class CalendarController {
         res.render('calendar', {
             title: 'Lịch',
             css: [
-                'css/form.css',
-                'css/app.css',
-                '/fonts/fontawesome-free-6.4.0-web/css/all.css',
-                'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
+                '/css/form.css',
                 '/css/calendar.css',
             ],
             libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
