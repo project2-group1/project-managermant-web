@@ -71,4 +71,5 @@ ALTER TABLE `meeting`
     ADD CONSTRAINT FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`);
 
 INSERT INTO `student` 
-(`student_id`, `group_id`, `phonenumber`, `password`, `email`, `fullname`, `projectname`, `coursecode`) VALUES ('20204843', '1', '0378526424', 'ok', 'mxngocqb@gmail.com', 'Giang Trung Nghĩa', 'Quản lý sinh viên làm project', 'IT4801');
+(`student_id`, `group_id`, `phonenumber`, `password`, `email`, `fullname`, `projectname`, `coursecode`) 
+VALUES ('20204843', '1', '0378526424', 'ok', 'mxngocqb@gmail.com', 'Giang Trung Nghĩa', 'Quản lý sinh viên làm project', 'IT4801');
