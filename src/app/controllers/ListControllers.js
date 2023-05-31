@@ -7,7 +7,7 @@ class ListController {
             if (err) {
                 res.status(500).send(err);
             } else {
-                console.log(data);
+                // console.log(data);
                 res.render('list/list', {
                     title: 'Danh sách sinh viên',
                     css: [
