@@ -189,9 +189,9 @@ const calendar = {
         
 
         // add resize when size of browser changed
-        window.addEventListener("resize", this.handleResizeWorkBox());
+        window.addEventListener("resize", () => this.handleResizeWorkBox())
         // add resize khi load content
-        window.addEventListener("DOMContentLoaded", this.handleResizeWorkBox());
+        window.addEventListener("DOMContentLoaded", this.handleResizeWorkBox())
 
         // @Overide btnSidebar
         btnSidebar.onclick = function () {

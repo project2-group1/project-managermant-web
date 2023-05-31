@@ -123,15 +123,18 @@
 }
 
 .btn-end-meeting {
-    /* font-size: 1rem; 
-    /* background-color: #04AA6D; */
-    /* color: white; */
-    /* text-align: center; */
-    /* padding: 12px 20px; */
-    /* border: none; */
-    /* border-radius: 4px; */
-    /* cursor: pointer;*/
+    padding: 12px 24px;
+    float: right;
     font-size: 16px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--backgr-color-light);
+    transition: ease-out 0.3s;
+}
+
+.btn-end-meeting:hover {
+    background-color: var(--backgr-color-hover);
 }
 
 

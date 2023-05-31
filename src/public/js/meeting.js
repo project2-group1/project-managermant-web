@@ -87,15 +87,15 @@ const meeting = {
     },
     handleEvents: function () {
         
-        // btnDisplay.addEventListener('click', () => {
-        //     meetings.map((e) => {
-        //         if(!e.classList.contains('double-screen')) {
-        //             e.classList.add('double-screen')
-        //         } else {
-        //             e.classList.remove('double-screen')
-        //         }
-        //     })
-        // })
+        btnDisplay.addEventListener('click', () => {
+            meetings.map((e) => {
+                if(!e.classList.contains('double-screen')) {
+                    e.classList.add('double-screen')
+                } else {
+                    e.classList.remove('double-screen')
+                }
+            })
+        })
         
         // btnsOut.forEach((btnOut) => {
         //     btnOut.addEventListener('click', (e) => {
@@ -145,7 +145,7 @@ const meeting = {
                     </div>
                     <div class="meeting-end">
                         <label for="submit"></label>
-                        <input type="submit" class="btn-end-meeting btn-sidebar-item">
+                        <input type="submit" class="btn-end-meeting" value="Kết thúc">
                     </div>
                 </div>
             </form>
