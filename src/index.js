@@ -10,7 +10,7 @@ app.use(morgan('combined'))
 
 const db = require('./config/db')
 // conect db
-db.connect()
+
 var assetsPath = path.join(__dirname, 'public');
 
 app.use(express.static(path.join(__dirname, 'public')));

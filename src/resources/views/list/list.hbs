@@ -3,6 +3,7 @@
     <div class="list-student">
         <!-- Table -->
         <div class="table-student" ; style="overflow-x:auto;">
+            <h1>Danh ách sinh viên</h1>
             <table>
                 <thead>
                     <tr>
@@ -18,6 +19,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each list_student}}
+                    <tr>
+                        <td>{{this.group_id}}</td>
+                        <td>{{this.student_id}}</td>
+                        <td>{{this.fullname}}</td>
+                        <td>{{this.email}}</td>
+                        <td></td>
+                        <td>{{this.projectname}}</td>
+                        <td>{{this.coursecode}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
