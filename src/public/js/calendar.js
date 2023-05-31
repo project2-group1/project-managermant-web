@@ -276,7 +276,7 @@ const calendar = {
 
         events.forEach(function (event) {
             event.addEventListener('click', () => 
-                window.location.href = "./meeting"
+                window.location.href = "/meeting"
             )
             
             let curHeight

@@ -1,20 +1,15 @@
-const calendarRouter = require('./calendar.js')
-const meetingRouter = require('./meeting.js')
+const calendarRouter = require('./calendar');
+const meRouter = require('./me')
+const listRouter = require('./list')
+const assignmentRouter = require('./assignment')
+const meetingRouter = require('./meeting')
 
 function route(app) {
-    app.use('/meeting', meetingRouter)
+    app.use('/assignment', assignmentRouter);
+    app.use('/list', listRouter);
+    app.use('/meeting', meetingRouter);
+    app.use('/me', meRouter);
     app.use('/', calendarRouter);
 }
 
 module.exports = route;
-
-/* 
-    Từ route index.js(route chính liên kết các route)
-    mỗi khi truy cập vào web có phần đuôi là news/courses => sẽ chuyển đến newsRouter/coursesRouter
-    
-    Từ các Router nhỏ sẽ gọi đễn Controller với phương thức .Show() và .Render() ra dữ liệu
-
-    Tại Controller. import Models tương ứng vào và lấy ra từ database
-
-    // Tính chất của route: khi route match với Router / trên cùng sẽ ko match xuống Router bên dưới nữa
-*/

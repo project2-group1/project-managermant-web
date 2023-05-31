@@ -1,5 +1,4 @@
 const tableBody = document.querySelector('.table-student table tbody')
-
 // tham số render mặc định
 var nhom = 'groupname'
 var mssv = 'StudentID'
@@ -12,7 +11,7 @@ var hocKy = 'termid'
 var ngaySinh = 'birthdate'
 // hàm render
 function renderTable(studentList) {
-    let htmlStudents = studentList.map(function(value) {
+    let htmlStudents = studentList.map(function (value) {
         return `<tr><td>${value[nhom]}</td><td>${value[mssv]}</td>
         <td>${value[ten]}</td><td>${value[email]}</td><td>${value[deTai]}</td>
         <td>${value[maHocPhan]}</td><td>${value[tenHocPhan]}</td>
@@ -20,23 +19,24 @@ function renderTable(studentList) {
     })
     var resultHtml = htmlStudents.join('')
     tableBody.innerHTML = resultHtml
-} 
+}
 
 // parse file exel
 var parseExcel = [];
-var ExcelExport= function (event) {
+var ExcelExport = function (event) {
     var input = event.target;
     var reader = new FileReader();
-    reader.onload = function(){
+    reader.onload = function () {
         var fileData = reader.result;
-        var wb = XLSX.read(fileData, {type : 'binary'});
+        var wb = new XLSX();
+        var wb = XLSX.read(fileData, { type: 'binary' });
 
-        wb.SheetNames.forEach(function(sheetName){
-        var rowObj =XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
-        parseExcel = rowObj;
-        console.log(rowObj)
-        // gọi hàm render
-        renderTable(rowObj)
+        wb.SheetNames.forEach(function (sheetName) {
+            var rowObj = XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+            parseExcel = rowObj;
+            console.log(rowObj)
+            // gọi hàm render
+            renderTable(rowObj)
         })
     };
     reader.readAsBinaryString(input.files[0]);
@@ -47,9 +47,23 @@ inputFile.addEventListener('change', ExcelExport, false)
 
 
 var promise = new Promise(
-    function(resolve, reject) {
+    function (resolve, reject) {
 
     }
 )
 promise.then().catch().finally()
+
+var cover = document.querySelector('.cover')
+var mockUp = document.querySelector('.click-student')
+
+var clickStudent = function (e) {
+    mockUp.style.display = 'block'
+    cover.style.display = 'block'
+}
+var clickCover = function (e) {
+    mockUp.style.display = 'none'
+    cover.style.display = 'none'
+}
+// tableView.addEventListener('click', clickStudent)
+// cover.addEventListener('click', clickCover)
 
