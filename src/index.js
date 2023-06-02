@@ -9,7 +9,12 @@ const port = 3000
 
 app.use(morgan('combined'))
 
-app.use(express.static(path.join(__dirname,'public')))
+const db = require('./config/db')
+// conect db
+
+var assetsPath = path.join(__dirname, 'public');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Template Engine
 app.engine(
@@ -21,7 +26,7 @@ app.engine(
         }
     }),
 )
-app.set('view engine','hbs')
+app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
 
 // Connect Database

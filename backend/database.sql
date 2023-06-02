@@ -33,17 +33,18 @@ CREATE TABLE `student`(
     `projectname` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `phonenumber` int (12) NOT NULL,
-    `course_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    PRIMARY KEY (`student_id`),
-    FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`);
+    `term` int(5) NOT NULL,
+    `birthday` date,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 --
 -- Cấu trúc bảng `group`
 --
-CREATE TABLE `group`(
-	`group_id` int(8) NOT NULL
-    PRIMARY KEY (`group_id`)
-);
+CREATE TABLE `groupstudent`(
+	`group_id` int(8) NOT NULL,
+    `course_id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `projectname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `coursename` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 --
 -- Cấu trúc bảng `meeting`
 --
@@ -58,8 +59,7 @@ CREATE TABLE `meeting`(
   	`report` LONGBLOB,
     PRIMARY KEY (`meeting_id`),
     FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`),
-	FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`),
-	FOREIGN KEY (`next_meeting_id`) REFERENCES `meeting` (`meeting_id`)
+	FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 
@@ -67,14 +67,22 @@ CREATE TABLE `meeting`(
 ALTER TABLE `teacher`
 	ADD PRIMARY KEY (`teacher_id`);
 -- Tao key cho bang `group`
-ALTER TABLE `group`
+ALTER TABLE `groupstudent`
 	ADD PRIMARY KEY (`group_id`);
 -- Tao key cho bang `student`
 ALTER TABLE `student`
   ADD PRIMARY KEY (`student_id`,`group_id`),
-  ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`);
+  ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `groupstudent`(`group_id`);
 -- Tao key cho bang `meeting`
 ALTER TABLE `meeting`
 	ADD PRIMARY KEY (`meeting_id`,`group_id`,`teacher_id`),
-    ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`),
+    ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `groupstudent`(`group_id`),
     ADD CONSTRAINT FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`);
+
+INSERT INTO `groupstudent` 
+(`group_id`, `projectname`, `course_id`, `coursename`) 
+VALUES ('1', 'Quản lý sinh viên làm Project', 'IT3921', 'Project II');
+
+INSERT INTO `student` 
+(`student_id`, `group_id`, `phonenumber`, `term`, `birthday`, `password`, `email`, `fullname`) 
+VALUES ('20204769', '1', '0378526837', '20222', '2002-03-15', '123', 'ngoc.mx204769@sis.hust.edu.vn', 'Mai Xuân Ngọc');
