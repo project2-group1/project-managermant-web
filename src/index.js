@@ -3,6 +3,7 @@ const morgan = require('morgan') // log server
 const route = require('./routes/index.js') // import route
 const handlebars = require('express-handlebars')
 const path = require('path') // lib của nodejs để lấy địa chỉ
+const mysql = require('mysql');
 const app = express()
 const port = 3000
 

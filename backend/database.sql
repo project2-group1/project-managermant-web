@@ -15,11 +15,12 @@ CREATE DATABASE PROJECT_II;
 --
 CREATE TABLE `teacher`(
 	`teacher_id` int(8) NOT NULL,
+    `fullname` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `phonenumber` int (12) NOT NULL,
-    `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `email` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `fullname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+    `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    PRIMARY KEY (`teacher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 --
 -- Cấu trúc bảng `sinh vien`
@@ -27,32 +28,40 @@ CREATE TABLE `teacher`(
 CREATE TABLE `student`(
 	`student_id` int(8) NOT NULL,
     `group_id` int(8) NOT NULL,
+    `fullname` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `projectname` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `phonenumber` int (12) NOT NULL,
-    `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `email` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `fullname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `projectname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `coursecode` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+    `course_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    PRIMARY KEY (`student_id`),
+    FOREIGN KEY (`group_id`) REFERENCES `group`(`group_id`);
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 --
 -- Cấu trúc bảng `group`
 --
 CREATE TABLE `group`(
 	`group_id` int(8) NOT NULL
+    PRIMARY KEY (`group_id`)
 );
 --
 -- Cấu trúc bảng `meeting`
 --
 CREATE TABLE `meeting`(
+	`meeting_id` int(8) NOT NULL,
     `group_id` int(8) NOT NULL,
     `teacher_id` int(8) NOT NULL,
-	`meeting_id` int(8) NOT NULL,
     `date` DATE DEFAULT NULL,
     `reportdeadline` DATE DEFAULT NULL,
-    `note` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `note` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `next_meeting_id` int(8) NOT NULL,
-  	`report` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  	`report` LONGBLOB,
+    PRIMARY KEY (`meeting_id`),
+    FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`),
+	FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`),
+	FOREIGN KEY (`next_meeting_id`) REFERENCES `meeting` (`meeting_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
 
 -- Tao key cho bang `teacher`
 ALTER TABLE `teacher`

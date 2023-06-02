@@ -1,3 +1,47 @@
 <div class="wrapper-content">
-    <div class="make-calendar container"></div>
+    <div class="make-calendar container">
+        {{#each meetings}}
+        <form action="" method="post" class="form-meeting">
+                <div class="meeting" course="" id="">
+                    <div class="meeting-header">
+                        <div class="title">
+                            <span class="title-course">${meeting.course}</span>
+                            <span class="title-space">-</span>
+                            <span class="title-name">${meeting.nameGroup}</span>
+                            <span class="title-space">-</span>
+                            <span class="title-topic">${meeting.topic}</span>
+                            <span class="title-serial">#${meeting.serial}</span>
+                        </div>
+                        <div class="header-btn">
+                            <button class="btn-out btn-note">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="meeting-info">
+                        <div class="day">
+                            <p class="date">${meeting.date}</p>
+                        </div>
+                        <div class="info">
+                            <div class="info-student">
+                                <span class="student-name">${meeting.studentGroup[0].studentName}</span>
+                                <span class="student-id">${meeting.studentGroup[0].studentId}</span>
+                            </div>
+                            <div class="file-report">
+                                <label for="file">Báo cáo: </label>
+                                <input type="file" accept=".doc,.docx,.pdf,.zip">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meeting-content">
+                        <div class="editor"></div>
+                    </div>
+                    <div class="meeting-end">
+                        <label for="submit"></label>
+                        <input type="submit" class="btn-end-meeting" value="Kết thúc">
+                    </div>
+                </div>
+            </form>
+        {{/each}}
+    </div>
 </div>

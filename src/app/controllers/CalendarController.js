@@ -1,4 +1,4 @@
-const Events = require('../models/Event.js')
+const Events = require('../models/Meeting.js')
 
 class CalendarController {
     // [GET] /calender

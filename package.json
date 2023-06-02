@@ -20,6 +20,7 @@
   "devDependencies": {
     "flatpickr": "^4.6.13",
     "method-override": "^3.0.0",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.22"
   },
   "dependencies": {
