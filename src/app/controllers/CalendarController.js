@@ -3,6 +3,7 @@
 class CalendarController {
     // [GET] /calender
     show(req, res, next) {
+        // console.log(session.user);
         res.render('calendar', {
             title: 'Lịch',
             css: [

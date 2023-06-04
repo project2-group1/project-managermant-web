@@ -19,11 +19,11 @@
                         <th>Mã số sinh viên</th>
                         <th>Họ và tên</th>
                         <th>Email</th>
-                        <th>Ngày sinh</th>
                         <th>Tên đề tài</th>
                         <th>Mã học phần</th>
                         <th>Tên học phần</th>
                         <th>Học kỳ</th>
+                        <th>Ngày sinh</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,21 +33,26 @@
                         <td>{{this.student_id}}</td>
                         <td>{{this.fullname}}</td>
                         <td>{{this.email}}</td>
-                        <td>{{this.birthday}}</td>
                         <td>{{this.projectname}}</td>
                         <td>{{this.coursecode}}</td>
                         <td>{{this.coursename}}</td>
                         <td>{{this.term}}</td>
+                        <td>{{this.birthday}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
+        <div class="container">
+            <form action="/list/importexcel" method="POST" class="formok">
+                
+            </form>
+        </div>
         <!-- Function button -->
         <div class="list-button">
             <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
             <a href="#"><i class="fa-solid fa-floppy-disk"></i>Lưu</a>
-            <a href="#"><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href=""><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
             <a href="#"><i class="fa-solid fa-user-plus"></i>Thêm sinh viên</a>
             <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
         </div>

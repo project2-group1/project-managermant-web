@@ -80,3 +80,7 @@ VALUES ('1', 'Quản lý sinh viên làm Project', 'IT3921', 'Project II');
 INSERT INTO `student` 
 (`student_id`, `group_id`, `phonenumber`, `term`, `birthday`, `password`, `email`, `fullname`) 
 VALUES ('20204769', '1', '0378526837', '20222', '2002-03-15', '123', 'ngoc.mx204769@sis.hust.edu.vn', 'Mai Xuân Ngọc');
+
+INSERT INTO `student` 
+(`student_id`, `group_id`, `phonenumber`, `term`, `birthday`, `password`, `email`, `fullname`) 
+VALUES ('20204843', '1', '0378526424', '20222', '2002-04-15', '123', 'giangtrungnghia@gmail.com', 'Giang Trung Nghĩa');

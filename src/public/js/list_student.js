@@ -1,4 +1,5 @@
 const tableBody = document.querySelector('.table-student table tbody')
+var formok = document.querySelector('.formok');
 // tham số render mặc định
 var nhom = 'groupname'
 var mssv = 'StudentID'
@@ -11,14 +12,26 @@ var hocKy = 'termid'
 var ngaySinh = 'birthdate'
 // hàm render
 function renderTable(studentList) {
-    let htmlStudents = studentList.map(function (value) {
-        return `<tr><td>${value[nhom]}</td><td>${value[mssv]}</td>
-        <td>${value[ten]}</td><td>${value[email]}</td><td>${value[deTai]}</td>
-        <td>${value[maHocPhan]}</td><td>${value[tenHocPhan]}</td>
-        <td>${value[hocKy]}</td><td>${value[ngaySinh]}</td></tr>`;
+    // let htmlStudents = studentList.map(function (value) {
+    //     return `<tr><td>${value[nhom]}</td><td>${value[mssv]}</td>
+    //     <td>${value[ten]}</td><td>${value[email]}</td><td>${value[deTai]}</td>
+    //     <td>${value[maHocPhan]}</td><td>${value[tenHocPhan]}</td>
+    //     <td>${value[hocKy]}</td><td>${value[ngaySinh]}</td></tr>`;
+    // })
+    // var resultHtml = htmlStudents.join('')
+    // tableBody.innerHTML = resultHtml
+
+    let htmlupload = studentList.map(function (value) {
+        return `
+            <input id="gruop_id" value="${value[nhom]}">
+            <input id="projectname" value="${value[deTai]}">
+            <input id="coursecode" value="${value[maHocPhan]}">
+            <input id="coursename" value="${value[tenHocPhan]}">
+            `;
     })
-    var resultHtml = htmlStudents.join('')
-    tableBody.innerHTML = resultHtml
+    var resultHtml = htmlupload.join('')
+    formok.innerHTML = resultHtml;
+    formok.submit();
 }
 
 // parse file exel
@@ -35,6 +48,8 @@ var ExcelExport = function (event) {
             parseExcel = rowObj;
             console.log(rowObj)
             // gọi hàm render
+            var formok = document.querySelector('.formok');
+            console.log(formok);
             renderTable(rowObj)
         })
     };
@@ -45,12 +60,12 @@ inputFile.addEventListener('change', ExcelExport, false)
 
 
 
-var promise = new Promise(
-    function (resolve, reject) {
+// var promise = new Promise(
+//     function (resolve, reject) {
 
-    }
-)
-promise.then().catch().finally()
+//     }
+// )
+// promise.then().catch().finally()
 
 var cover = document.querySelector('.cover')
 var mockUp = document.querySelector('.click-student')

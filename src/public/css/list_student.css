@@ -3,7 +3,7 @@
     position: relative;
 } */
 .table-student {
-    max-height: 600px;
+    max-height: 100%;
 }
 .wrapper-content .table-student table {
     margin-top: 12px;

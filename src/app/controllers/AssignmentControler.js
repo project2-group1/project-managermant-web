@@ -4,6 +4,7 @@ class AssignmentController {
         res.render('assignments/assignment', {
             title: 'Báo cáo',
             css: [
+                '/css/view_assignments.css'
             ],
             libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
             displayBtn: true,
