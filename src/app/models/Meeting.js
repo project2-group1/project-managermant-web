@@ -2,10 +2,10 @@ const db = require("../../config/db/index.js")
 
 class Meeting {
     constructor(meeting) {
-        this.group_id = meeting.group_id;
-        this.course_id = meeting.course_id
-        this.projectname = meeting.projectname;
-        this.coursename = meeting.coursename;
+        this.group_id = meeting?.group_id;
+        this.course_id = meeting?.course_id
+        this.projectname = meeting?.projectname;
+        this.coursename = meeting?.coursename;
     }
 
     static getAll() {

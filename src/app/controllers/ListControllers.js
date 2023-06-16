@@ -4,27 +4,35 @@ const XLSX = require('xlsx');
 class ListController {
     // [GET] /news
     show(req, res, next) {
-        List.getAll(function (err, data) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                // console.log(data);
-                res.render('list/list', {
-                    title: 'Danh sách sinh viên',
-                    css: [
-                        '/css/list_student.css'
-                    ],
-                    handle: '/js/list_student.js',
-                    displayBtn: true,
-                    list_student: data
-                });
-            }
-        })
+        List.getTerm(20222);
+        res.render('list/list', {
+            title: 'Danh sách sinh viên',
+            css: [
+                '/css/list_student.css'
+            ],
+            handle: '/js/list_student.js',
+            displayBtn: true,
+        });
     }
     // [POST] /list/importexcel
     importexcel(req, res, next) {
-        console.log(req.body);
-        res.redirect('')
+
+    }
+    // sửa
+    editStudent(req, res, next) {
+
+    }
+    // xóa
+    deleteStudent(req, res, next) {
+
+    }
+    // thêm
+    insertStudent(req, res, next) {
+
+    }
+    // lấy ds theo kỳ học
+    getTerm(req, res, next) {
+        
     }
 
 

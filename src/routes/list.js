@@ -2,12 +2,17 @@ var express = require('express')
 var router = express.Router()
 
 const listController = require('../app/controllers/ListControllers.js')
-
-<<<<<<< HEAD
-router.get('/list', listController.show)
+// Thêm file exel
 router.post('/importexcel', listController.importexcel)
-=======
->>>>>>> f857a7ca078bb22dda23706e1a11cc6463e0c603
+//  thêm Student
+router.post('/insertStudent', listController.insertStudent)
+//  sửa Student
+router.post('/editStudent', listController.editStudent)
+//  xóa Student
+router.post('/deleteStudent', listController.deleteStudent)
+// lấy ds theo kỳ học
+router.get('/getTerm', listController.getTerm)
+// tải trang
 router.get('/', listController.show)
 
 module.exports = router
