@@ -1,3 +1,4 @@
+"use strict";
 const connection = require('../../config/db/index');
 
 
@@ -17,27 +18,94 @@ class List {
     // this.coursecode = list.coursecode
     this.list = list;
     }
+    // Lấy ds sinh viên theo kỳ
     static getTerm(term) {
         // kiểm tra đầu vào
         let checkTerm = Number(term);
-        if (checkTerm === NaN) {
+        // kiem tra dau vao khong phai so
+        if (Number.isNaN(checkTerm)) {
             return false;
         }
-        connection.query(
-            `SELECT student_id, group_id, phonenumber, term, birthday, email, fullname, projectname
-            FROM student
-            WHERE term = ${checkTerm}
-            ORDER BY group_id DESC
-            `, function (err, res) {
-            if (err) {
-                console.log("Error getAll: ", err);
-                result(null, err);
-            } else {
-                console.log("thanh cong:" + res.fullname)
-                console.log(res)
-                return res;
+        return new Promise ((resolve, reject) => {
+            connection.query(
+                `SELECT student_id, group_id, phonenumber, term, birthday, email, fullname, projectname
+                FROM student
+                WHERE term = ${checkTerm}
+                ORDER BY group_id DESC
+                `, function (err, res) {
+                if (err) {
+                    console.log("Error getAll: ", err);
+                    return;
+                } else {
+                    resolve(res);
+                }
+            })
+
+        });
+    }
+    // Thêm 1 sinh viên
+    static insertStudent(student) {
+        let student_id = student?.student_id;
+        let group_id = student?.group_id;
+        let fullname = student?.fullname;
+        let password = student?.password;
+        let projectname = student?.projectname;
+        let email = student?.email;
+        let phonenumber = student?.phonenumber;
+        let term = student?.term;
+        let birthday = student?.birthday;
+
+        //check student
+        if(!student_id || !group_id || !fullname || !password ||
+            !projectname || !email  || !phonenumber || !term || !birthday) {
+                return false;
             }
+
+        return new Promise((resolve, reject) => {
+            connection.query(`INSERT INTO student 
+            VALUES(${student_id}, ${group_id}, '${fullname}',
+            '${password}', '${projectname}', '${email}', 
+            ${phonenumber}, ${term}, '${birthday}')`,
+            function(err, res) {
+                if (err) {
+                    console.log('Error Insert: ', err);
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            })
         })
+    }
+    // Thêm 1 nhóm sinh viên bằng import file excel
+    static importExcel(groupStudents) {
+
+    } 
+    // xóa 1 sinh viên
+    static deleteStudent(student) {
+        let student_id = student?.student_id;
+
+
+        //check id student
+        if(!student_id) {
+                return false;
+            }
+
+        return new Promise((resolve, reject) => {
+            connection.query(`DELETE FROM student 
+            WHERE student_id = ${student_id}`,
+            function(err, res) {
+                if (err) {
+                    console.log('Error Insert: ', err);
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            })
+        })
+    }
+    // sửa 1 sinh viên 
+    static editStudent(student) {
+
     }
 }
 
