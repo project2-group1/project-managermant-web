@@ -104,8 +104,40 @@ class List {
         })
     }
     // sửa 1 sinh viên 
-    static editStudent(student) {
+    static editStudent(student1, student) {
+        let student1_id = student1?.student_id;
 
+        let student_id = student?.student_id;
+        let group_id = student?.group_id;
+        let fullname = student?.fullname;
+        let password = student?.password;
+        let projectname = student?.projectname;
+        let email = student?.email;
+        let phonenumber = student?.phonenumber;
+        let term = student?.term;
+        let birthday = student?.birthday;
+
+        //check student
+        if(!student_id || !group_id || !fullname || !password ||
+            !projectname || !email  || !phonenumber || !term || !birthday) {
+                return false;
+            }
+
+        return new Promise((resolve, reject) => {
+            connection.query(`UPDATE student 
+            SET student_id=${student_id}, group_id=${group_id}, fullname='${fullname}',
+            password='${password}', projectname='${projectname}', email='${email}', 
+            phonenumber=${phonenumber}, term=${term}, birthday='${birthday}'
+            WHERE student_id=${student1_id}`,
+            function(err, res) {
+                if (err) {
+                    console.log('Error Insert: ', err);
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            })
+        })
     }
 }
 

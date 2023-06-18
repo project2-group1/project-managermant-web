@@ -1,37 +1,41 @@
+// them su kien khi click vao student
+function clickRowStudent(e) {
+    console.log(e.currentTarget);
+    e.stopPropagation;
+}
+
 const tableBody = document.querySelector('.table-student table tbody')
-var formok = document.querySelector('.formok');
+// var formok = document.querySelector('.formok');
 // tham số render mặc định
-var nhom = 'groupname'
-var mssv = 'StudentID'
-var ten = 'studentname'
-var email = 'Email'
-var deTai = 'Tên đề tài'
-var maHocPhan = 'courseid'
-var tenHocPhan = 'name'
-var hocKy = 'termid'
-var ngaySinh = 'birthdate'
+let student_id = 'student_id';
+let group_id = 'group_id';
+let phonenumber = 'phonenumber';
+let term = 'term';
+let birthday = 'birthday';
+let email = 'email';
+let fullname = 'fullname';
+let projectname = 'projectname';
 // hàm render
 function renderTable(studentList) {
+    tableBody.innerHTML = '';
+    studentList.forEach(value => {
+        let row = document.createElement('tr');
+        row.innerHTML = `<td>${value[student_id]}</td><td>${value[group_id]}</td>
+            <td>${value[phonenumber]}</td><td>${value[term]}</td><td>${value[birthday]}</td>
+            <td>${value[email]}</td><td>${value[fullname]}</td>
+            <td>${value[projectname]}</td>`;
+        row.addEventListener('click', clickRowStudent);
+        tableBody.appendChild(row);
+    })
     // let htmlStudents = studentList.map(function (value) {
-    //     return `<tr><td>${value[nhom]}</td><td>${value[mssv]}</td>
-    //     <td>${value[ten]}</td><td>${value[email]}</td><td>${value[deTai]}</td>
-    //     <td>${value[maHocPhan]}</td><td>${value[tenHocPhan]}</td>
-    //     <td>${value[hocKy]}</td><td>${value[ngaySinh]}</td></tr>`;
+    //     return `<tr><td>${value[student_id]}</td><td>${value[group_id]}</td>
+    //     <td>${value[phonenumber]}</td><td>${value[term]}</td><td>${value[birthday]}</td>
+    //     <td>${value[email]}</td><td>${value[fullname]}</td>
+    //     <td>${value[projectname]}</td></tr>`;
     // })
-    // var resultHtml = htmlStudents.join('')
+    // let resultHtml = htmlStudents.join('')
     // tableBody.innerHTML = resultHtml
 
-    let htmlupload = studentList.map(function (value) {
-        return `
-            <input id="gruop_id" value="${value[nhom]}">
-            <input id="projectname" value="${value[deTai]}">
-            <input id="coursecode" value="${value[maHocPhan]}">
-            <input id="coursename" value="${value[tenHocPhan]}">
-            `;
-    })
-    var resultHtml = htmlupload.join('')
-    formok.innerHTML = resultHtml;
-    formok.submit();
 }
 
 // parse file exel
@@ -48,8 +52,8 @@ var ExcelExport = function (event) {
             parseExcel = rowObj;
             console.log(rowObj)
             // gọi hàm render
-            var formok = document.querySelector('.formok');
-            console.log(formok);
+            // var formok = document.querySelector('.formok');
+            // console.log(formok);
             renderTable(rowObj)
         })
     };
@@ -67,17 +71,53 @@ inputFile.addEventListener('change', ExcelExport, false)
 // )
 // promise.then().catch().finally()
 
-var cover = document.querySelector('.cover')
-var mockUp = document.querySelector('.click-student')
+// var cover = document.querySelector('.cover')
+// var mockUp = document.querySelector('.click-student')
 
-var clickStudent = function (e) {
-    mockUp.style.display = 'block'
-    cover.style.display = 'block'
-}
-var clickCover = function (e) {
-    mockUp.style.display = 'none'
-    cover.style.display = 'none'
-}
-// tableView.addEventListener('click', clickStudent)
+// var clickStudent = function (e) {
+//     mockUp.style.display = 'block'
+//     cover.style.display = 'block'
+// }
+// var clickCover = function (e) {
+//     mockUp.style.display = 'none'
+//     cover.style.display = 'none'
+// }
+// tableBody.addEventListener('click', clickStudent)
 // cover.addEventListener('click', clickCover)
+
+// lay danh sach student theo ky
+function getTerm(term) {
+    if (!Number(term))
+        return;
+    fetch(`/list/getterm?term=${term}`)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('getTerm was not OK');
+    })
+    .then(data => {
+        // xử lý dữ liệu từ server
+        renderTable(data);
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
+}
+
+// mac dinh khi load trang
+window.onload = () => {
+    getTerm(20222);
+
+}
+// tìm kiếm theo kỳ
+let searchTerm = document.querySelector('.list-student .select-term a');
+let inputTerm = document.querySelector('.list-student .select-term input');
+searchTerm.addEventListener('click', e => {
+    e.preventDefault();
+    getTerm(inputTerm.value);
+});
+
+
+
 

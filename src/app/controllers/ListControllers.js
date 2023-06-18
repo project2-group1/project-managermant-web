@@ -19,7 +19,40 @@ class ListController {
     }
     // sửa
     editStudent(req, res, next) {
-
+        let kq;
+        let student1 = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Nam Kim',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        let student = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Kim Nam',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        if (kq = List.editStudent(student, student1)) {
+            kq.then(result => {
+                res.send("Number of records edited: " +
+                result.affectedRows);     
+            }).catch(err => {
+                res.send(false);
+            });
+        }
+        else {
+            res.send(JSON.stringify(false));
+        } 
     }
     // xóa
     deleteStudent(req, res, next) {
