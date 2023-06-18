@@ -16,7 +16,8 @@ var List = function (list) {
 
 List.getAll = function (result) {
     connection.query(
-        `SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, coursecode, coursename
+        `SELECT student_id, student.group_id, phonenumber, birthday, password,
+                 email, fullname, projectname, coursename
         FROM student, groupstudent
         WHERE student.group_id = groupstudent.group_id
         `, function (err, res) {

@@ -1,10 +1,10 @@
 /* ------------------- Root ------------------ */
 :root {
   --work-box-size: 40px;
-  --btn-color-hover-blue: rgb(57 101 224);
   --backgr-color-hover-blue1: rgb(246 250 255);
   --backgr-color-active-blue: rgb(239, 249, 255);
-  --backgr-color-hover-blue2: rgb(197, 218, 255); }
+  --backgr-color-hover-blue2: rgb(197, 218, 255); 
+}
 
 /* ------------------- Calender ------------------ */
 .calendar {

@@ -3,6 +3,7 @@ const List = require('../models/List');
 class ListController {
     // [GET] /news
     show(req, res, next) {
+        
         List.getAll(function (err, data) {
             if (err) {
                 res.status(500).send(err);

@@ -39,9 +39,17 @@
         <div class="sidebar-item sidebar-assignment">
             <button class="btn-sidebar-item">
                 <i class="fa-solid fa-tasks-alt"></i>
-                <a href="/assignment/">Assignment</a>
+                <a href="/assignment/">Bài tập</a>
             </button>
         </div>
+        {{#if addMeeting}}
+        <div class="sidebar-item sidebar-addMeeting">
+            <button class="btn-sidebar-item">
+                <i class="fa-solid fa-add"></i>
+                <a href="#">Thêm cuộc gặp</a>
+            </button>
+        </div>
+        {{/if}}
         <div class="sidebar-item sidebar-recent">
             <button class="btn-sidebar-item">
                 <i class="fa-solid fa-arrow-rotate-right "></i>

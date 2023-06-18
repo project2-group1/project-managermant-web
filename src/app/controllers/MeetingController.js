@@ -1,7 +1,7 @@
 const Meeting = require('../models/Meeting.js')
 
 class MeetingController {
-    // [GET] /news
+    // [GET] /
     show(req, res, next) {
         res.render('meeting/meeting', {
             title: 'Cuộc hẹn',
@@ -15,55 +15,65 @@ class MeetingController {
         });
     }
 
-    getAllMeetings2 = (req, res, next) => {
-        // let { title, body } = req.body
-        try {
-            let meetings = Meeting.findAll()
-            console.log(meetings);
-            res.render('meeting/meeting', {
-                title: 'Cuộc hẹn',
-                css: [
-                    '//cdn.quilljs.com/1.3.6/quill.snow.css',
-                    'css/meeting.css',
-                ],
-                libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-                handle: 'js/meeting.js',
-                displayBtn: true,
-                meetings: meetings,
-            })
+    // [GET] /meeting/:id - Get meeting by id access though Model
+    getMeetingById(req, res, next) {
+        Meeting.getById(req.params.id, function (err, data) {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                // Check fetch data
+                // res.send(data)
+                // res.send(data.meeting)
+                // res.send(data.groupstudent)
 
-        } catch (error) {
-            console.log(error);
-            next(error)
-        }
+                // Render data
+                res.render('meeting/meeting', {
+                    title: 'Cuộc hẹn',
+                    css: [
+                        '//cdn.quilljs.com/1.3.6/quill.snow.css',
+                        'css/meeting.css',
+                    ],
+                    libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
+                    handle: 'js/meeting.js',
+                    displayBtn: true,
+                    addMeeting: true,
+                    meetings: data.meeting,
+                    students: data.groupstudent,
+                })
+            }
+        })
     }
 
-    // getMeetingById2 = async (req, res, next) => {
-    //     // let { title, body } = req.body
-    //     try {
-    //         let meetingId = req.params.id
+    // [GET] /meeting
+    getAllMeetings(req, res, next) {
+        Meeting.getAll(function (err, data) {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                // Check fetch data
+                // res.send(data)
+                // res.send(data.meeting)
+                // res.send(data.groupstudent)
 
-    //         let meeting = await Meeting.getMeetingById(meetingId)
-
-    //         res.status(200).json({ meeting })
-
-    //     } catch (error) {
-    //         console.log(errer);
-    //         next(error)
-    //     }
-    // }
+                // Render data
+                res.render('meeting/meeting', {
+                    title: 'Cuộc hẹn',
+                    css: [
+                        '//cdn.quilljs.com/1.3.6/quill.snow.css',
+                        'css/meeting.css',
+                    ],
+                    libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
+                    handle: 'js/meeting.js',
+                    displayBtn: true,
+                    addMeeting: true,
+                    meetings: data.meeting,
+                    students: data.groupstudent,
+                })
+            }
+        })
+    }
+    
+    
 }
-
-// exports.getAllMeetings = (req,res,next) => {
-//     res.send("Get all posts")
-// }
-
-// exports.getMeetingById = (req,res,next) => {
-//     res.send("Get post by id")
-// }
-
-// exports.createMeeting = (req,res,next) => {
-//     res.send("create meeting")
-// }
 
 module.exports = new MeetingController();

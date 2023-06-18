@@ -1,67 +1,32 @@
 // selector
 const btnAddMeeting = $('.sidebar-add-meeting')
 const btnDisplay = $('.btn-display')
-let meetings 
+let meetings = Array.from($$('.meeting'))
 let btnsOut = Array.from($$('.btn-out'))
+let dateTime = Array.from($$('.date'))
+
+const monthMapping = {
+    jan: '1',
+    feb: '2',
+    mar: '3',
+    apr: '4',
+    may: '5',
+    jun: '6',
+    jul: '7',
+    aug: '8',
+    sep: '9',
+    oct: '10',
+    nov: '11',
+    dec: '12',
+}
 
 const meeting = {
 
-    meetingsData: [
-        {
-            course: 'Project I',
-            nameGroup: 'Group 1',
-            topic: 'Project Management Website',
-            serial: '1',
-            date: '2023-05-24',
-            studentGroup: [
-                {
-                    studentName: 'Giang Trung Nghĩa',
-                    studentId: '20204767',
-                }
-            ],
-        },
-        {
-            course: 'Graduated Research',
-            nameGroup: 'Mai Xuân Ngọc',
-            topic: 'Artificial Inteligence',
-            serial: '3',
-            date: '2022-09-30',
-            studentGroup: [
-                {
-                    studentName: 'Mai Xuân Ngọc',
-                    studentId: '20204769',
-                }
-            ],
-        },
-        {
-            course: 'Graduated Research',
-            nameGroup: 'Mai Xuân Ngọc',
-            topic: 'Artificial Inteligence',
-            serial: '3',
-            date: '2022-09-30',
-            studentGroup: [
-                {
-                    studentName: 'Mai Xuân Ngọc',
-                    studentId: '20204769',
-                }
-            ],
-        },
-        {
-            course: 'Graduated Research',
-            nameGroup: 'Mai Xuân Ngọc',
-            topic: 'Artificial Inteligence',
-            serial: '3',
-            date: '2022-09-30',
-            studentGroup: [
-                {
-                    studentName: 'Mai Xuân Ngọc',
-                    studentId: '20204769',
-                }
-            ],
-        },
-    ],
+    
+
     config: function () {
-        for (let i = 0; i < this.meetingsData.length; i++) {
+        // Render quill note for each meeting
+        for (let i = 0; i < meetings.length; i++) {
             const editors = Array.from($$('.editor'))
 
             editors.map((editor,index) => {
@@ -97,65 +62,11 @@ const meeting = {
             })
         })
         
-        // btnsOut.forEach((btnOut) => {
-        //     btnOut.addEventListener('click', (e) => {
-        //         console.log(e);
-        //     })
-        // })
-
-       
     },
     renderMeeting: function () {
-        const meetingHtmls = this.meetingsData.map((meeting, index) => {
-            return `
-            <form action="" method="post" class="form-meeting">
-                <div class="meeting" course="" id="">
-                    <div class="meeting-header">
-                        <div class="title">
-                            <span class="title-course">${meeting.course}</span>
-                            <span class="title-space">-</span>
-                            <span class="title-name">${meeting.nameGroup}</span>
-                            <span class="title-space">-</span>
-                            <span class="title-topic">${meeting.topic}</span>
-                            <span class="title-serial">#${meeting.serial}</span>
-                        </div>
-                        <div class="header-btn">
-                            <button class="btn-out btn-note">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="meeting-info">
-                        <div class="day">
-                            <p class="date">${meeting.date}</p>
-                        </div>
-                        <div class="info">
-                            <div class="info-student">
-                                <span class="student-name">${meeting.studentGroup[0].studentName}</span>
-                                <span class="student-id">${meeting.studentGroup[0].studentId}</span>
-                            </div>
-                            <div class="file-report">
-                                <label for="file">Báo cáo: </label>
-                                <input type="file" accept=".doc,.docx,.pdf,.zip">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="meeting-content">
-                        <div class="editor"></div>
-                    </div>
-                    <div class="meeting-end">
-                        <label for="submit"></label>
-                        <input type="submit" class="btn-end-meeting" value="Kết thúc">
-                    </div>
-                </div>
-            </form>
-            `
-        })
-
         // Render and Update variable
-        wrapperContent.innerHTML = meetingHtmls.join('')
-        meetings = Array.from($$('.meeting'))
-        btnsOut = Array.from($$('.btn-out'))
+        // meetings = Array.from($$('.meeting'))
+        // btnsOut = Array.from($$('.btn-out'))
 
         // Add event click for btnsOut 
         btnsOut.forEach((btnOut) => {
@@ -163,6 +74,30 @@ const meeting = {
                 e.target.closest('.meeting').remove()
             })
         })
+
+        // Render date
+        dateTime.forEach((e) => {
+            console.log(e.getAttribute('starttime'))
+            e.innerText = formatDate(e.getAttribute('starttime')) + 
+                        formatTime(e.getAttribute('starttime')) + ' - ' +
+                        formatTime(e.getAttribute('endtime')) 
+                        
+        })
+
+        // Format time from Date object
+        function formatTime(dateTime) {
+            let hourAndMinutes = dateTime.substring(16,21) 
+            return hourAndMinutes
+        }
+
+        // Format date from Date object
+        function formatDate(dateTime) {
+            let year = dateTime.substring(11,16)
+            let month = dateTime.substring(4,7).toLowerCase()
+            month = monthMapping[month]
+            let date = dateTime.substring(8,10)
+            return date +'/' + month + '/' + year
+        }
     },
     start: function () {
         this.handleEvents()

@@ -68,13 +68,11 @@ button {
     --icon-color-hover: rgb(0, 0, 0);
 
     --workbox-color-hover: rgb();
+
+    --btn-color-hover-blue: rgb(57 101 224);
+    --backgr-color-hover-blue1: rgb(246 250 255)
+
     /* Calendar color */
-    --calBgColor: #fff1f8;
-    --eventBorderColor: #f2d3d8;
-    --eventColor1: #ffd6d1;
-    --eventColor2: #fafaa3;
-    --eventColor3: #e2f8ff;
-    --eventColor4: #d1ffe6;
 }
 
 /* Add a background color and some padding around the form */

@@ -1,47 +1,64 @@
 <div class="wrapper-content">
-    <div class="make-calendar container">
+    <div class="meeting-container">
         {{#each meetings}}
         <form action="" method="post" class="form-meeting">
-                <div class="meeting" course="" id="">
-                    <div class="meeting-header">
-                        <div class="title">
-                            <span class="title-course">${meeting.course}</span>
-                            <span class="title-space">-</span>
-                            <span class="title-name">${meeting.nameGroup}</span>
-                            <span class="title-space">-</span>
-                            <span class="title-topic">${meeting.topic}</span>
-                            <span class="title-serial">#${meeting.serial}</span>
-                        </div>
-                        <div class="header-btn">
-                            <button class="btn-out btn-note">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
+            <div class="meeting" course="" id="">
+                <div class="meeting-header">
+                    <div class="title">
+                        <span class="title-course">{{this.coursename}}</span>
+                        <span class="title-space">-</span>
+                        <span class="title-name">{{getGroupName this.group_id}}</span>
+                        <span class="title-space">-</span>
+                        <span class="title-topic">{{this.projectname}}</span>
+                        <span class="title-serial">#{{getMeetingSerial this.meeting_id}}</span>
                     </div>
-                    <div class="meeting-info">
-                        <div class="day">
-                            <p class="date">${meeting.date}</p>
-                        </div>
-                        <div class="info">
-                            <div class="info-student">
-                                <span class="student-name">${meeting.studentGroup[0].studentName}</span>
-                                <span class="student-id">${meeting.studentGroup[0].studentId}</span>
-                            </div>
-                            <div class="file-report">
-                                <label for="file">Báo cáo: </label>
-                                <input type="file" accept=".doc,.docx,.pdf,.zip">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="meeting-content">
-                        <div class="editor"></div>
-                    </div>
-                    <div class="meeting-end">
-                        <label for="submit"></label>
-                        <input type="submit" class="btn-end-meeting" value="Kết thúc">
+                    <div class="header-btn">
+                        <button class="btn-out btn-note">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 </div>
-            </form>
+                <div class="meeting-info">
+                    <div class="day">
+                        <p class="date" starttime="{{this.starttime}}" endtime="{{this.endtime}}"></p>
+                    </div>
+                    <div class="info">
+                        <div class="info-student">
+                            <table>
+                            <thead>
+                                <tr>
+                                    <th>Họ tên</th>
+                                    <th>MSSV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each ../students}}
+                                <tr class="student">
+                                    <td class="student-name">{{this.fullname}}</td>
+                                    <td class="student-id">{{this.student_id}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="file-report">
+                            <label for="file">Báo cáo: </label>
+                            <input type="file" accept=".doc,.docx,.pdf,.zip">
+                        </div>
+                    </div>
+                </div>
+                <div class="meeting-content">
+                    <div class="editor"></div>
+                </div>
+                <div class="meeting-end">
+                    <label for="submit"></label>
+                    <input type="submit" class="btn-end-meeting" value="Kết thúc">
+                </div>
+            </div>
+        </form>
         {{/each}}
     </div>
+    <div class="make-calendar container"></div>
+</div>
 </div>
