@@ -1,3 +1,5 @@
+import { fetchAPI } from './services/fetchData.js'
+
 // variable
 let currentDate = new Date()
 
@@ -16,56 +18,19 @@ const datePicker = flatpickr('.btn-change-week', {
     dateFormat: "Y-m-d",
 })
 
-
 const currentDays = [
-    monday = $('.works[name="monday"]'),
-    tuesday = $('.works[name="tuesday"]'),
-    wednesday = $('.works[name="wednesday"]'),
-    thursday = $('.works[name="thursday"]'),
-    friday = $('.works[name="friday"]'),
-    saturday = $('.works[name="saturday"]'),
-    sunday = $('.works[name="sunday"]'),
+    $('.works[name="monday"]'),
+    $('.works[name="tuesday"]'),
+    $('.works[name="wednesday"]'),
+    $('.works[name="thursday"]'),
+    $('.works[name="friday"]'),
+    $('.works[name="saturday"]'),
+    $('.works[name="sunday"]'),
 ]
 
 const calendar = {
-    // APM -> Data
-    eventsData: [
-        {
-            date: '2023-05-23',
-            startTime: '8',
-            endTime: '8.5',
-            title: 'Project II - Nhóm 1',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-24',
-            startTime: '9',
-            endTime: '11.5',
-            title: 'Đồ án tốt nghiệp II - Nhóm 3',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-27',
-            startTime: '11',
-            endTime: '13',
-            title: 'Graduated Research',
-            info: 'artificial intelligence project',
-        },
-        {
-            date: '2023-05-29',
-            startTime: '9',
-            endTime: '11.5',
-            title: 'Đồ án tốt nghiệp II - Nhóm 3',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-19',
-            startTime: '11',
-            endTime: '12',
-            title: 'Graduated Research',
-            info: 'IOT project',
-        },
-    ],
+
+    eventsData:  Array.from($$('.event')),
     config: function () {
 
 
@@ -93,30 +58,13 @@ const calendar = {
             return duration * 40.8 - 1 + 'px'
         }
 
-        // render event elements array
-        const eventHtmls = this.eventsData.map((event, index) => {
-            let start = event.startTime.replace('.5', ':30')
-            let end = event.endTime.replace('.5', ':30')
-            return `
-                <button class="event" date="${event.date}" startTime="${event.startTime}" endTime="${event.endTime}">
-                    <div class="content">
-                        <p class="title">${event.title}</p>
-                        <p class="info">${event.info}</p>
-                        <p class="time">${start.includes(':') ? start : (start + ':00')} - ${end.includes(':') ? end : (end + ':00')}</p>
-                    </div>
-                </button>
-            `
-        })
-
-        // store in a container
-        const container = document.createElement('div')
-        container.innerHTML = eventHtmls.join('')
-
-        const eventContainer = Array.from(container.querySelectorAll('.event'))
+        const eventContainer = Array.from($$('.event'))
 
         // Render event to calendar
         for (let i = 0; i < eventContainer.length; i++) {
-            let workBox = getWorkBox(eventContainer[i].getAttribute('date'), eventContainer[i].getAttribute('startTime'))
+            let workBox = getWorkBox(eventContainer[i].getAttribute('date'), 
+            eventContainer[i].getAttribute('startTime'))
+            console.log(workBox)
 
             // render lần đầu
             if (workBox) {
@@ -138,7 +86,7 @@ const calendar = {
     handleEvents: function () {
         const _this = this // trỏ vào calendar
 
-        
+
         // Xử lý sự kiện thay đổi trong lịch tháng
         datePicker.set('onChange', function (selectedDates, dateStr, instance) {
             currentDate = selectedDates[0]
@@ -186,7 +134,7 @@ const calendar = {
             })
         })
 
-        
+
 
         // add resize when size of browser changed
         window.addEventListener("resize", () => this.handleResizeWorkBox())
@@ -207,7 +155,6 @@ const calendar = {
         }
 
     },
-    // renderWeek tuần làm việc và gán các value vào để xử lý
     renderWeek: function (date) {
         let firstDayOfWeek = new Date(date);
         firstDayOfWeek.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1))
@@ -264,25 +211,25 @@ const calendar = {
 
         // Render events
         function getEvents(date) {
-            return events.find((event)=>(event.getAttribute('date') === date))
+            return events.find((event) => (event.getAttribute('date') === date))
         }
 
         for (let i = 0; i < currentDays.length; i++) {
             let eventInCurWeek = getEvents(currentDays[i].getAttribute('date'))
-            if(eventInCurWeek) {
+            if (eventInCurWeek) {
                 eventInCurWeek.classList.add('active')
             }
         }
 
         events.forEach(function (event) {
-            event.addEventListener('click', () => 
+            event.addEventListener('click', () =>
                 window.location.href = "/meeting"
             )
-            
+
             let curHeight
             event.addEventListener('mouseenter', (e) => {
                 curHeight = e.target.clientHeight
-                if(e.target.scrollHeight > e.target.clientHeight) {
+                if (e.target.scrollHeight > e.target.clientHeight) {
                     e.target.style.height = e.target.scrollHeight + 'px'
                 }
             })
@@ -315,3 +262,4 @@ var convertTime = function (time) {
 };
 
 calendar.start()
+

@@ -12,7 +12,7 @@ var text = `
                     <button onclick="closeCalendar()"class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="/create">
                         <label for="title">Tiêu đề:</label><br>
                         <input type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
 

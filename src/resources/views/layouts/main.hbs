@@ -13,6 +13,7 @@
     {{#each css}}
     <link rel="stylesheet" href="{{this}}">
     {{/each}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ libraryJS }}"></script>
 
 </head>
@@ -71,7 +72,7 @@
     </script>
 
     {{!-- Handle --}}
-    <script src="{{ handle }}"></script>
+    <script type="module" src="{{ handle }}"></script>
 </body>
 
 </html>

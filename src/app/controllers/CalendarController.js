@@ -1,7 +1,8 @@
-const Events = require('../models/Meeting.js')
+const Meeting = require('../models/Meeting.js')
+
 
 class CalendarController {
-    // [GET] /calender
+    // [GET] /
     show(req, res, next) {
         res.render('calendar', {
             title: 'Lịch',
@@ -13,6 +14,8 @@ class CalendarController {
             handle: '/js/calendar.js',
         })
     }
+
+    
 }
 
 module.exports = new CalendarController()

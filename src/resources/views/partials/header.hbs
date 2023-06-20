@@ -73,24 +73,27 @@
                     <button onclick="closeCalendar()"class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <label for="title">Tiêu đề:</label><br>
-                        <input class="format-form" type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
+                    <form method="POST" action="/create">
+                        <label for="title">Tiêu đề:</label>
+                        <input class="format-form" type="text" id="title" name="title" placeholder="Thêm tiêu đề">
 
-                        <label for="start_time">Thời gian bắt đầu:</label><br>
-                        <input class="format-form" type="datetime-local" id="start_time" name="start_time"><br>
+                        <label for="start_time">Thời gian bắt đầu:</label>
+                        <input class="format-form" type="datetime-local" id="start_time" name="start_time">
 
-                        <label for="group">Nhóm tham gia:</label><br>
-                        <select class="format-form" id="group" name="group">
-                            <option value="group1">Nhóm 1</option>
-                            <option value="group2">Nhóm 2</option>
-                            <option value="group3">Nhóm 3</option>
-                        </select><br>
-                        <label for="deadline">Deadline báo báo:</label><br>
-                        <input class="format-form" type="datetime-local" id="end_time" name="end_time"><br>
-                        <label for="subject">Subject</label>
-                        <textarea class="format-form"id="subject" name="subject" placeholder="Ghi chú" style="height:200px"></textarea>
-                        <input type="submit"  class="format-form submit" value="Thêm cuộc họp mới">
+                        <label for="group_id">Nhóm tham gia:</label>
+                        <select class="format-form" id="group_id" name="group_id">
+                            <option value="20222001">Kỳ 20222 Nhóm 1</option>
+                            <option value="20222002">Kỳ 20222 Nhóm 2</option>
+                            <option value="20222003">Kỳ 20222 Nhóm 3</option>
+                        </select>
+
+                        <label for="deadline">Deadline báo báo:</label>
+                        <input class="format-form" type="datetime-local" id="end_time" name="end_time">
+                        
+                        <label for="note">Ghi chú</label>
+                        <textarea class="format-form"id="note" name="note" placeholder="Ghi chú" style="height:200px"></textarea>
+                        
+                        <button type="submit"  class="format-form submit" >Thêm cuộc họp mới</button>
                         
                     </form>
                 </div>
