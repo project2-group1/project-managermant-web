@@ -47,6 +47,18 @@
     opacity: 0.5;
 }
 
+/* select term */
+.list-student .select-term a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px;
+    text-decoration: none;
+}
+.list-student .select-term a:hover {
+    background-color: rgb(6, 128, 243);
+    color: #ffffff;
+    border-radius: 5%;
+}
 
 
 

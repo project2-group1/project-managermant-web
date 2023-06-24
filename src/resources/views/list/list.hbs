@@ -9,45 +9,32 @@
 <div class="wrapper-content">
     <!--Make list student-->
     <div class="list-student">
+        {{!-- chọn học kỳ --}}
+        <div class="select-term">
+            <input type="text" value="20222" pattern="[0-9]{4}">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
         <!-- Table -->
         <div class="table-student" ; style="overflow-x:auto;">
             <h1>Danh sách sinh viên</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Nhóm</th>
                         <th>Mã số sinh viên</th>
-                        <th>Họ và tên</th>
-                        <th>Email</th>
-                        <th>Tên đề tài</th>
-                        <th>Mã học phần</th>
-                        <th>Tên học phần</th>
+                        <th>Nhóm</th>
+                        <th>Số điện thoại</th>
                         <th>Học kỳ</th>
-                        <th>Ngày sinh</th>
+                        <th>Ngày Sinh</th>
+                        <th>Email</th>
+                        <th>Họ và tên</th>
+                        <th>Tên đề tài</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each list_student}}
-                    <tr>
-                        <td>{{this.group_id}}</td>
-                        <td>{{this.student_id}}</td>
-                        <td>{{this.fullname}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.projectname}}</td>
-                        <td>{{this.coursecode}}</td>
-                        <td>{{this.coursename}}</td>
-                        <td>{{this.term}}</td>
-                        <td>{{this.birthday}}</td>
-                    </tr>
-                    {{/each}}
                 </tbody>
             </table>
         </div>
-        <div class="container">
-            <form action="/list/importexcel" method="POST" class="formok">
-                
-            </form>
-        </div>
+
         <!-- Function button -->
         <div class="list-button">
             <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
