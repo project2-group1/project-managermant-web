@@ -1,4 +1,4 @@
-const Meeting = require('../models/Meeting.js')
+// const Meeting = require('../models/Meeting.js')
 
 class MeetingController {
     // [GET] /news
