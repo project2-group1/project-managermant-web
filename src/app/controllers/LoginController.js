@@ -14,9 +14,11 @@ class LoginController {
         console.log(req.body);
         if (id && password) {
             List.findById(id, (err, user) => {
+                console.log(user);
                 if (!user) {
                     res.redirect('/auth')
                 } else {
+                    console.log("ok");
                     if (user.password == password) {
                         console.log('1');
                         console.log();

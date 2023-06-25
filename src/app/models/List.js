@@ -5,17 +5,17 @@ const connection = require('../../config/db/index');
 
 class List {
     constructor (list) {
-    // this.student_id = list.student_id
-    // this.group_id = list.group_id
-    // this.phonenumber = list.phonenumber
-    // this.password = list.password
-    // this.term = list.term
-    // this.birthday = list.birthday
-    // this.coursename = list.coursename
-    // this.email = list.email
-    // this.fullname = list.fullname
-    // this.projectname = list.projectname
-    // this.coursecode = list.coursecode
+    this.student_id = list.student_id
+    this.group_id = list.group_id
+    this.phonenumber = list.phonenumber
+    this.password = list.password
+    this.term = list.term
+    this.birthday = list.birthday
+    this.coursename = list.coursename
+    this.email = list.email
+    this.fullname = list.fullname
+    this.projectname = list.projectname
+    this.coursecode = list.coursecode
     this.list = list;
     }
     // Lấy ds sinh viên theo kỳ
@@ -177,7 +177,7 @@ class List {
 
 // List.findById = function (studentID, result) {
 //     connection.query(`
-//         SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, coursecode, coursename
+//         SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname
 //         FROM student, groupstudent
 //         WHERE student.group_id = groupstudent.group_id AND student.student_id = ${studentID}
 //         ORDER BY term DESC`, (err, res) => {
