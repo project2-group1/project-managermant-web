@@ -4,19 +4,19 @@ const connection = require('../../config/db/index');
 
 
 class List {
-    constructor (list) {
-    this.student_id = list.student_id
-    this.group_id = list.group_id
-    this.phonenumber = list.phonenumber
-    this.password = list.password
-    this.term = list.term
-    this.birthday = list.birthday
-    this.coursename = list.coursename
-    this.email = list.email
-    this.fullname = list.fullname
-    this.projectname = list.projectname
-    this.coursecode = list.coursecode
-    this.list = list;
+    constructor(list) {
+        this.student_id = list.student_id
+        this.group_id = list.group_id
+        this.phonenumber = list.phonenumber
+        this.password = list.password
+        this.term = list.term
+        this.birthday = list.birthday
+        this.coursename = list.coursename
+        this.email = list.email
+        this.fullname = list.fullname
+        this.projectname = list.projectname
+        this.coursecode = list.coursecode
+        this.list = list;
     }
     // Lấy ds sinh viên theo kỳ
     static getTerm(term) {
@@ -26,11 +26,12 @@ class List {
         if (Number.isNaN(checkTerm)) {
             return false;
         }
-        return new Promise ((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             connection.query(
-                `SELECT student_id, group_id, phonenumber, term, birthday, email, fullname, projectname
-                FROM student
-                WHERE term = ${checkTerm}
+                `SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, course_id, coursename
+                FROM student, groupstudent
+                WHERE student.group_id = groupstudent.group_id
+                and groupstudent.term = ${checkTerm}
                 ORDER BY group_id DESC
                 `, function (err, res) {
                 if (err) {
@@ -56,51 +57,51 @@ class List {
         let birthday = student?.birthday;
 
         //check student
-        if(!student_id || !group_id || !fullname || !password ||
-            !projectname || !email  || !phonenumber || !term || !birthday) {
-                return false;
-            }
+        if (!student_id || !group_id || !fullname || !password ||
+            !projectname || !email || !phonenumber || !term || !birthday) {
+            return false;
+        }
 
         return new Promise((resolve, reject) => {
             connection.query(`INSERT INTO student 
             VALUES(${student_id}, ${group_id}, '${fullname}',
             '${password}', '${projectname}', '${email}', 
             ${phonenumber}, ${term}, '${birthday}')`,
-            function(err, res) {
-                if (err) {
-                    console.log('Error Insert: ', err);
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            })
+                function (err, res) {
+                    if (err) {
+                        console.log('Error Insert: ', err);
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
+                })
         })
     }
     // Thêm 1 nhóm sinh viên bằng import file excel
     static importExcel(groupStudents) {
 
-    } 
+    }
     // xóa 1 sinh viên
     static deleteStudent(student) {
         let student_id = student?.student_id;
 
 
         //check id student
-        if(!student_id) {
-                return false;
-            }
+        if (!student_id) {
+            return false;
+        }
 
         return new Promise((resolve, reject) => {
             connection.query(`DELETE FROM student 
             WHERE student_id = ${student_id}`,
-            function(err, res) {
-                if (err) {
-                    console.log('Error Insert: ', err);
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            })
+                function (err, res) {
+                    if (err) {
+                        console.log('Error Insert: ', err);
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
+                })
         })
     }
     // sửa 1 sinh viên 
@@ -118,10 +119,10 @@ class List {
         let birthday = student?.birthday;
 
         //check student
-        if(!student_id || !group_id || !fullname || !password ||
-            !projectname || !email  || !phonenumber || !term || !birthday) {
-                return false;
-            }
+        if (!student_id || !group_id || !fullname || !password ||
+            !projectname || !email || !phonenumber || !term || !birthday) {
+            return false;
+        }
 
         return new Promise((resolve, reject) => {
             connection.query(`UPDATE student 
@@ -129,14 +130,14 @@ class List {
             password='${password}', projectname='${projectname}', email='${email}', 
             phonenumber=${phonenumber}, term=${term}, birthday='${birthday}'
             WHERE student_id=${student1_id}`,
-            function(err, res) {
-                if (err) {
-                    console.log('Error Insert: ', err);
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            })
+                function (err, res) {
+                    if (err) {
+                        console.log('Error Insert: ', err);
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
+                })
         })
     }
 }
