@@ -6,6 +6,7 @@ class Meeting {
         this.course_id = meeting?.course_id
         this.projectname = meeting?.projectname;
         this.coursename = meeting?.coursename;
+        this.term = meeting?.term;
     }
 
     static getAll() {
@@ -14,8 +15,8 @@ class Meeting {
         return db.query(sql)
     }
 
-    static getById() {
-        let sql = `SELECT * FROM meeting WHERE meeting_id ${id};`
+    static getById(id) {
+        let sql = `SELECT * FROM meeting WHERE meeting_id = ${id};`
 
         return db.query(sql)
     }
