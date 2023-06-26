@@ -11,7 +11,6 @@ let student_id = 'student_id';
 let group_id = 'group_id';
 let phonenumber = 'phonenumber';
 let term = 'term';
-let birthday = 'birthday';
 let email = 'email';
 let fullname = 'fullname';
 let projectname = 'projectname';
@@ -21,7 +20,7 @@ function renderTable(studentList) {
     studentList.forEach(value => {
         let row = document.createElement('tr');
         row.innerHTML = `<td>${value[student_id]}</td><td>${value[group_id]}</td>
-            <td>${value[phonenumber]}</td><td>${value[term]}</td><td>${value[birthday]}</td>
+            <td>${value[phonenumber]}</td><td>${value[term]}</td>
             <td>${value[email]}</td><td>${value[fullname]}</td>
             <td>${value[projectname]}</td>`;
         row.addEventListener('click', clickRowStudent);

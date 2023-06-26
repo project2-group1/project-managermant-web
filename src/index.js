@@ -46,11 +46,11 @@ app.set('views', path.join(__dirname, 'resources/views'))
 
 // Connect Database
 const con = mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
+    host: "sql.freedb.tech",
     port: "3306",
-    user: "sql12628666",
-    password: "CaKEHYPJFX",
-    database: "sql12628666"
+    user: "freedb_sql12628666",
+    password: "3CjwD6?vZhhRRVA",
+    database: "freedb_project_ii"
 });
 
 con.connect(function(err) {
