@@ -8,12 +8,10 @@ var con = mysql.createConnection({
     database: "freedb_project_ii"
 });
 
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
 
-try {
-    con.connect();
-    console.log('Connect successfully!!!');
-} catch (error) {
-    console.log('Connect failure!!!');
-}
 
 module.exports = con;
