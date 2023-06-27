@@ -28,27 +28,6 @@ class MeetingController {
         } catch (err) {
             res.status(500).send(err);
         }
-        // Meeting.getEvent(null, function (data, err) {
-        //     if (err) {
-        //         res.status(500).send(err)
-        //         return
-        //     }
-        //     responseData = data
-        //     // res.json(data)
-        //     // res.redirect('/calendar')
-
-        //     res.json(responseData)
-        // })
-        // res.render('calendar.hbs', {
-        //     title: 'Lịch',
-        //     css: [
-        //         'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
-        //         '/css/calendar.css',
-        //     ],
-        //     libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
-        //     handle: '/js/calendar.js',
-        //     data: responseData.data,
-        // })
     }
 
 
@@ -60,7 +39,7 @@ class MeetingController {
                 res.status(500).send(err)
                 return
             }
-
+            // res.json(req.body)
             res.redirect("/")
         })
     }

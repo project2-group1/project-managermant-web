@@ -93,9 +93,9 @@ class Meeting {
         const insertMeetingSQL = `
             INSERT INTO meeting (meeting_id, group_id, teacher_id, starttime, endtime, reportdeadline, note, next_meeting_id, report)
             VALUES (
-                '${ (await getMeetingInfo(data.group_id)).meeting_id + 1}', 
+                '${ (await getMeetingInfo()).meeting_id + 1}', 
                 '${data.group_id}', 
-                '${(await getMeetingInfo(data.group_id)).teacher_id}', 
+                '${(await getMeetingInfo()).teacher_id}', 
                 '${formatDate(data.start_time)}', 
                 '${formatDate(data.end_time)}', 
                 '', 
@@ -105,12 +105,17 @@ class Meeting {
                 );
         `
 
-        async function getMeetingInfo(group_id) {
+        async function getMeetingInfo() {
             try {
                 // executeQuery return Array so we neet to destructuring
                 // this array by [meeting]
                 const [meeting] = await _this.executeQuery(meetingInfoSQL) 
-                return meeting
+                if (meeting) {
+                    return meeting
+                } else {
+                    
+                } 
+
             } catch (err) {
                 console.error('Error:', err);
                 throw err;
@@ -130,9 +135,6 @@ class Meeting {
 
             return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
         }
-
-        console.log(data.start_time)
-        console.log(formatDate(data.start_time))
 
         Promise.all([_this.executeQuery(insertMeetingSQL)])
             .then(([insertData]) => {

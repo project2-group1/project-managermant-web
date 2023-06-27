@@ -30,7 +30,7 @@ const currentDays = [
 
 const calendar = {
 
-    eventsData:  Array.from($$('.event')),
+    // eventsData:  Array.from($$('.event')),
     config: function () {
 
 
@@ -134,7 +134,7 @@ const calendar = {
             })
         })
 
-
+        
 
         // add resize when size of browser changed
         window.addEventListener("resize", () => this.handleResizeWorkBox())
@@ -153,6 +153,8 @@ const calendar = {
             }
             _this.handleResizeWorkBox()
         }
+        
+        // window.addEventListener("rezise", () => {btnSidebar.dispatchEvent(new Event('click'))})
 
     },
     renderWeek: function (date) {
@@ -223,7 +225,9 @@ const calendar = {
 
         events.forEach(function (event) {
             event.addEventListener('click', () =>
-                window.location.href = "/meeting"
+                {
+                    
+                }
             )
 
             let curHeight
