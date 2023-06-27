@@ -20,13 +20,16 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Mã số sinh viên</th>
-                        <th>Nhóm</th>
-                        <th>Số điện thoại</th>
+                        <th>Mã nhóm</th>
                         <th>Học kỳ</th>
-                        <th>Email</th>
-                        <th>Họ và tên</th>
                         <th>Tên đề tài</th>
+                        <th>Mã khóa học</th>
+                        <th>Tên khóa học</th>
+                        <th>Mã sinh viên</th>
+                        <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày sinh</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,5 +46,28 @@
             <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
         </div>
     </div>
+    {{!-- modal thông tin chi tiết nhóm --}}
+    <div class="group-modal" style="display: none;">
+        <a href="#"><i class="fa-solid fa-xmark form-button"></i></a>        
+        <form action="#">
+        
+            <label for="group_id" class="form__label">Mã nhóm</label>
+            <input type="number" placeholder="mã nhóm" id="group_id" />
+
+            <label for="term" class="form__label">Học kỳ</label>
+            <input type="number" placeholder="Học kỳ" id="term" />
+
+            <label for="projectname" class="form__label">Tên project</label>
+            <input type="text" placeholder="Tên đề tài" id="projectname" />
+
+            <label for="course_id" class="form__label">Mã khóa học</label>
+            <input type="text" placeholder="Mã khóa học" id="course_id" />
+
+            <label for="coursename" class="form__label">Tên khóa học</label>
+            <input type="text" placeholder="Tên khóa học" id="coursename" />
+
+            <input type="submit" class="form-button">
+        </form>
+     </div>
     <!--End make list student-->
 </div>

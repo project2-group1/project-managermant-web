@@ -1,38 +1,37 @@
 "use strict";
-const connection = require('../../config/db/index');
+const db = require('../../config/db/index');
 
 
 
 class List {
     constructor(list) {
-        this.student_id = list.student_id
-        this.group_id = list.group_id
-        this.phonenumber = list.phonenumber
-        this.password = list.password
-        this.term = list.term
-        this.birthday = list.birthday
-        this.coursename = list.coursename
-        this.email = list.email
-        this.fullname = list.fullname
-        this.projectname = list.projectname
-        this.coursecode = list.coursecode
-        this.list = list;
+        // this.student_id = list.student_id
+        // this.group_id = list.group_id
+        // this.phonenumber = list.phonenumber
+        // this.password = list.password
+        // this.term = list.term
+        // this.birthday = list.birthday
+        // this.coursename = list.coursename
+        // this.email = list.email
+        // this.fullname = list.fullname
+        // this.projectname = list.projectname
+        // this.coursecode = list.coursecode
+        // this.list = list;
     }
-    // Lấy ds sinh viên theo kỳ
-    static getTerm(term) {
+    // Lấy ds sinh viên theo nhóm
+    static getStudentsByGroupId(groupId) {
         // kiểm tra đầu vào
-        let checkTerm = Number(term);
+        let checkGroupId = Number(groupId);
         // kiem tra dau vao khong phai so
-        if (Number.isNaN(checkTerm)) {
+        if (Number.isNaN(groupId)) {
             return false;
         }
         return new Promise((resolve, reject) => {
-            connection.query(
-                `SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, course_id, coursename
-                FROM student, groupstudent
-                WHERE student.group_id = groupstudent.group_id
-                and groupstudent.term = ${checkTerm}
-                ORDER BY group_id DESC
+            db.query(
+                `SELECT student_id, group_id, fullname, phonenumber, birthday, email
+                FROM student
+                WHERE student.group_id = ${groupId}
+                ORDER BY student_id DESC
                 `, function (err, res) {
                 if (err) {
                     console.log("Error getAll: ", err);
@@ -63,7 +62,7 @@ class List {
         }
 
         return new Promise((resolve, reject) => {
-            connection.query(`INSERT INTO student 
+            db.query(`INSERT INTO student 
             VALUES(${student_id}, ${group_id}, '${fullname}',
             '${password}', '${projectname}', '${email}', 
             ${phonenumber}, ${term}, '${birthday}')`,
@@ -92,7 +91,7 @@ class List {
         }
 
         return new Promise((resolve, reject) => {
-            connection.query(`DELETE FROM student 
+            db.query(`DELETE FROM student 
             WHERE student_id = ${student_id}`,
                 function (err, res) {
                     if (err) {
@@ -125,7 +124,7 @@ class List {
         }
 
         return new Promise((resolve, reject) => {
-            connection.query(`UPDATE student 
+            db.query(`UPDATE student 
             SET student_id=${student_id}, group_id=${group_id}, fullname='${fullname}',
             password='${password}', projectname='${projectname}', email='${email}', 
             phonenumber=${phonenumber}, term=${term}, birthday='${birthday}'
@@ -143,7 +142,7 @@ class List {
 }
 
 // List.instertGruop = function (group_id, projectname, coursecode, coursename, result) {
-//     connection.query(`
+//     db.query(`
 //         INSERT INTO groupstudent
 //         (group_id, projectname, coursecode, coursename) 
 //         VALUES (${group_id}, ${projectname}, ${coursecode}, ${coursename});
@@ -159,7 +158,7 @@ class List {
 // }
 
 // List.getAll = function (result) {
-//     connection.query(
+//     db.query(
 //         `SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, coursecode, coursename
 //         FROM student, groupstudent
 //         WHERE student.group_id = groupstudent.group_id
@@ -177,7 +176,7 @@ class List {
 
 
 // List.findById = function (studentID, result) {
-//     connection.query(`
+//     db.query(`
 //         SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname
 //         FROM student, groupstudent
 //         WHERE student.group_id = groupstudent.group_id AND student.student_id = ${studentID}

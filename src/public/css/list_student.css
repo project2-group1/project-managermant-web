@@ -60,5 +60,34 @@
     border-radius: 5%;
 }
 
-
+.group-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    background-color: rgb(70, 231, 231);
+}
+.group-modal form label, .group-modal form input {
+    display: block;
+    margin: 12px;
+}
+.group-modal input[type=submit] {
+    padding: 10px;
+    margin: 10px;
+}
+.group-modal a{
+    position: absolute;
+    text-align: center;
+    vertical-align: center;
+    font-size: larger;
+    padding: 8px 16px;
+    background-color: rgb(9, 158, 212);
+    right: 0;
+    top: -16px;
+}
+.group-modal a:hover{
+    background-color: red;
+}
 

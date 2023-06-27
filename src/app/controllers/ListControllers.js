@@ -1,4 +1,5 @@
 const List = require('../models/List');
+const Group = require('../models/Group');
 const XLSX = require('xlsx');
 // const { mutipleMongooseToObject } = require('../../util/mongoose')
 class ListController {
@@ -106,14 +107,19 @@ class ListController {
             res.send(JSON.stringify(false));
         } 
     }
-    // lấy ds theo kỳ học
-    getTerm(req, res, next) {
+    // lấy ds nhóm và sinh viên theo kỳ học
+    async getTerm(req, res, next) {
         let term = req.query.term;
-        let kq;
-        if (kq = List.getTerm(term)) {
-            kq.then(result => {
-                res.send(JSON.stringify(result));        
-            })
+        // lấy ds nhóm
+        let group = await Group.getGroupsByTerm(term);
+        if (group) {
+        let size = group.length;
+        // thêm sinh viên ứng với nhóm
+        for (let i = 0; i < size; i++) {
+            group[i].students = await List.getStudentsByGroupId(group[i].group_id);
+        }
+
+            res.send(JSON.stringify(group));        
         }
         else {
             res.send(JSON.stringify(false));
