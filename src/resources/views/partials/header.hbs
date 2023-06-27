@@ -1,0 +1,129 @@
+<div class="wrapper-header">
+    <div class="header">
+        <div class="header-start">
+            <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+            <div class="btn-logo">
+                <a class="logo-page" href="/"><img src="/img/logoSOICT.jpg" alt="logo"></a>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm" line-hight>
+                <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+        <div class="header-end">
+            <!--Thêm id cho button thêm lịch-->
+            {{#if displayBtn}}
+            <button class="btn btn-display"><i class="fa-solid fa-display"></i></button>
+            {{/if}}
+            <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+            <button class="btn btn-notification"><i class="fa-regular fa-bell"></i></button>
+            <button class="btn btn-avatar">
+                <a class="avatar-img">
+                    <img src="/img/avatar.png" alt="">
+                </a>
+                <ul class="avatar-nav">
+                    <li class="avatar-nav-item avatar-nav-account">
+                        <i class="avatar-nav-icon fa-regular fa-user"></i>
+                        <a class="avatar-nav-btn" href="/me/20204769/">Tài khoản</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-calender">
+                        <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                        <a class="avatar-nav-btn" href="#">Lịch</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-theme">
+                        <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                        <a class="avatar-nav-btn" href="#">Giao diện</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-languague">
+                        <i class="avatar-nav-icon fa-solid fa-language"></i>
+                        <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-setting">
+                        <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                        <a class="avatar-nav-btn" href="/me/setting/">Cài đặt</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-logout">
+                        <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                        <a class="avatar-nav-btn" href="/auth/logout">Đăng xuất</a>
+                    </li>
+                </ul>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="make-calendar container"></div>
+
+<script>
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
+    // XỬ lý add calendar
+    const btn_add_calendar = $('.btn.btn-add-calendar');
+    const make_calendar_container = $('.make-calendar.container');
+    const btnSidebar = $('.btn-sidebar');
+
+
+    /* START - NGỌC XỬ LÝ MODAL */
+    var text = `
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="title">Thêm cuộc họp mới</h3>
+                    <button onclick="closeCalendar()"class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="title">Tiêu đề:</label><br>
+                        <input class="format-form" type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
+
+                        <label for="start_time">Thời gian bắt đầu:</label><br>
+                        <input class="format-form" type="datetime-local" id="start_time" name="start_time"><br>
+
+                        <label for="group">Nhóm tham gia:</label><br>
+                        <select class="format-form" id="group" name="group">
+                            <option value="group1">Nhóm 1</option>
+                            <option value="group2">Nhóm 2</option>
+                            <option value="group3">Nhóm 3</option>
+                        </select><br>
+                        <label for="deadline">Deadline báo báo:</label><br>
+                        <input class="format-form" type="datetime-local" id="end_time" name="end_time"><br>
+                        <label for="subject">Subject</label>
+                        <textarea class="format-form"id="subject" name="subject" placeholder="Ghi chú" style="height:200px"></textarea>
+                        <input type="submit"  class="format-form submit" value="Thêm cuộc họp mới">
+                        
+                    </form>
+                </div>
+            </div>
+         `
+    make_calendar_container.innerHTML = text;
+
+    if (btn_add_calendar) {
+        btn_add_calendar.onclick = function () {
+            make_calendar_container.classList.add('show');
+        }
+    }
+
+    var closeCalendar = function () {
+        const btn_close_calendar = $('.btn.btn-close-calendar');
+        if (btn_close_calendar) {
+            make_calendar_container.classList.remove('show');
+        }
+    }
+
+    /* END - NGỌC */
+
+    const btnAvatarNav = $('.btn-avatar')
+
+    btnAvatarNav.onclick = function () {
+        const avatarNav = this.children
+        for (let i = 0; i < avatarNav.length; i++) {
+            if (avatarNav[i].classList.contains('avatar-nav')) {
+                avatarNav[i].classList.toggle('show')
+            }
+        }
+    }
+
+    /* # Ngọc: START */
+
+</script>

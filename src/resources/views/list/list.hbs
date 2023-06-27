@@ -1,0 +1,47 @@
+{{!-- thư viện import exel --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.8/xlsx.full.min.js">
+</script>
+
+<div class="wrapper-content">
+    <!--Make list student-->
+    <div class="list-student">
+        {{!-- chọn học kỳ --}}
+        <div class="select-term">
+            <input type="text" value="20222" pattern="[0-9]{4}">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
+        <!-- Table -->
+        <div class="table-student" ; style="overflow-x:auto;">
+            <h1>Danh sách sinh viên</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã số sinh viên</th>
+                        <th>Nhóm</th>
+                        <th>Số điện thoại</th>
+                        <th>Học kỳ</th>
+                        <th>Email</th>
+                        <th>Họ và tên</th>
+                        <th>Tên đề tài</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Function button -->
+        <div class="list-button">
+            <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
+            <a href="#"><i class="fa-solid fa-floppy-disk"></i>Lưu</a>
+            <a href=""><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href="#"><i class="fa-solid fa-user-plus"></i>Thêm sinh viên</a>
+            <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
+        </div>
+    </div>
+    <!--End make list student-->
+</div>
