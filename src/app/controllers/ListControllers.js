@@ -1,27 +1,129 @@
 const List = require('../models/List');
+const Group = require('../models/Group');
+const XLSX = require('xlsx');
 // const { mutipleMongooseToObject } = require('../../util/mongoose')
 class ListController {
     // [GET] /news
     show(req, res, next) {
-        
-        List.getAll(function (err, data) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                // console.log(data);
-                res.render('list/list', {
-                    title: 'Danh sách sinh viên',
-                    css: [
-                        '/css/list_student.css'
-                    ],
-                    libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-                    handle: '/js/list_student.js',
-                    displayBtn: true,
-                    list_student: data
-                });
-            }
-        })
+        res.render('list/list', {
+            title: 'Danh sách sinh viên',
+            css: [
+                '/css/list_student.css'
+            ],
+            handle: '/js/list_student.js',
+            displayBtn: true,
+        });
+    }
+    // [POST] /list/importexcel
+    importexcel(req, res, next) {
 
+    }
+    // sửa
+    editStudent(req, res, next) {
+        let kq;
+        let student1 = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Nam Kim',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        let student = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Kim Nam',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        if (kq = List.editStudent(student, student1)) {
+            kq.then(result => {
+                res.send("Number of records edited: " +
+                result.affectedRows);     
+            }).catch(err => {
+                res.send(false);
+            });
+        }
+        else {
+            res.send(JSON.stringify(false));
+        } 
+    }
+    // xóa
+    deleteStudent(req, res, next) {
+        let kq;
+        let student = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Kim Nam',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        if (kq = List.deleteStudent(student)) {
+            kq.then(result => {
+                res.send("Number of records inserted: " +
+                result.affectedRows);     
+            }).catch(err => {
+                res.send(false);
+            });
+        }
+        else {
+            res.send(JSON.stringify(false));
+        }
+    }
+    // thêm
+    insertStudent(req, res, next) {
+        let kq;
+        let student = {
+            student_id: '202011',
+            group_id: 1,
+            fullname: 'Duong Kim Nam',
+            password: '123',
+            projectname: 'pj2',
+            email: '123@email.com',
+            phonenumber: 19008198,
+            term: 20222,
+            birthday: '2002-02-15'
+        }
+        if (kq = List.insertStudent(student)) {
+            kq.then(result => {
+                res.send("Number of records inserted: " +
+                result.affectedRows);     
+            }).catch(err => {
+                res.send(false);
+            });
+        }
+        else {
+            res.send(JSON.stringify(false));
+        } 
+    }
+    // lấy ds nhóm và sinh viên theo kỳ học
+    async getTerm(req, res, next) {
+        let term = req.query.term;
+        // lấy ds nhóm
+        let group = await Group.getGroupsByTerm(term);
+        if (group) {
+        let size = group.length;
+        // thêm sinh viên ứng với nhóm
+        for (let i = 0; i < size; i++) {
+            group[i].students = await List.getStudentsByGroupId(group[i].group_id);
+        }
+
+            res.send(JSON.stringify(group));        
+        }
+        else {
+            res.send(JSON.stringify(false));
+        }
 
     }
 

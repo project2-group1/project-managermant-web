@@ -9,48 +9,65 @@
 <div class="wrapper-content">
     <!--Make list student-->
     <div class="list-student">
+        {{!-- chọn học kỳ --}}
+        <div class="select-term">
+            <input type="text" value="20222" pattern="[0-9]{4}">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
         <!-- Table -->
         <div class="table-student" ; style="overflow-x:auto;">
             <h1>Danh sách sinh viên</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Nhóm</th>
-                        <th>Mã số sinh viên</th>
+                        <th>Mã nhóm</th>
+                        <th>Học kỳ</th>
+                        <th>Tên đề tài</th>
+                        <th>Mã khóa học</th>
+                        <th>Tên khóa học</th>
+                        <th>Mã sinh viên</th>
                         <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Ngày sinh</th>
-                        <th>Tên đề tài</th>
-                        <th>Mã học phần</th>
-                        <th>Tên học phần</th>
-                        <th>Học kỳ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each list_student}}
-                    <tr>
-                        <td>{{this.group_id}}</td>
-                        <td>{{this.student_id}}</td>
-                        <td>{{this.fullname}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.birthday}}</td>
-                        <td>{{this.projectname}}</td>
-                        <td>{{this.coursecode}}</td>
-                        <td>{{this.coursename}}</td>
-                        <td>{{this.term}}</td>
-                    </tr>
-                    {{/each}}
                 </tbody>
             </table>
         </div>
+
         <!-- Function button -->
         <div class="list-button">
             <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
             <a href="#"><i class="fa-solid fa-floppy-disk"></i>Lưu</a>
-            <a href="#"><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href=""><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
             <a href="#"><i class="fa-solid fa-user-plus"></i>Thêm sinh viên</a>
             <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
         </div>
     </div>
+    {{!-- modal thông tin chi tiết nhóm --}}
+    <div class="group-modal" style="display: none;">
+        <a href="#"><i class="fa-solid fa-xmark form-button"></i></a>        
+        <form action="#">
+        
+            <label for="group_id" class="form__label">Mã nhóm</label>
+            <input type="number" placeholder="mã nhóm" id="group_id" />
+
+            <label for="term" class="form__label">Học kỳ</label>
+            <input type="number" placeholder="Học kỳ" id="term" />
+
+            <label for="projectname" class="form__label">Tên project</label>
+            <input type="text" placeholder="Tên đề tài" id="projectname" />
+
+            <label for="course_id" class="form__label">Mã khóa học</label>
+            <input type="text" placeholder="Mã khóa học" id="course_id" />
+
+            <label for="coursename" class="form__label">Tên khóa học</label>
+            <input type="text" placeholder="Tên khóa học" id="coursename" />
+
+            <input type="submit" class="form-button">
+        </form>
+     </div>
     <!--End make list student-->
 </div>

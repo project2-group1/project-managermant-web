@@ -5,6 +5,7 @@ class SettingController {
     show(req, res, next) {
         res.render('setting.hbs')
     }
+
 }
 
 module.exports = new SettingController()
