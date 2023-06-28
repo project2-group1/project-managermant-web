@@ -1,14 +1,38 @@
 const db = require("../../config/db/index.js")
 
 class Teacher {
-    constructor(teacher) {
-        this.teacher_id  = teacher?.teacher_id ;
-        this.fullname = teacher?.fullname
-        this.password = teacher?.password;
-        this.address = teacher?.address;
-        this.phonenumber = teacher?.phonenumber;
-        this.email = teacher?.email;
+
+    constructor() {
+
     }
+    // Thực thi câu lệnh SQL
+    executeQuery(sql) {
+        return new Promise((resolve, reject) => {
+            db.query(sql, function (err, res) {
+                if (err) {
+                    console.error('Error executing query:', err)
+                    reject(err)
+                } else {
+                    resolve(res)
+                }
+            })
+        })
+    }
+
+    async getById(id, result) {
+        const teacherSQL = `SELECT * FROM teacher WHERE teacher_id = ${id};`
+
+
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+
+    }
+
 
     static getAll() {
         let sql = "SELECT * FROM teacher;"
@@ -16,11 +40,6 @@ class Teacher {
         return db.query(sql)
     }
 
-    static getById(id) {
-        let sql = `SELECT * FROM teacher WHERE teacher_id = ${id};`
-
-        return db.query(sql)
-    }
 }
 
 module.exports = new Teacher()

@@ -1,53 +1,51 @@
 const { name } = require('ejs');
 const List = require('../models/List');
-const bcrypt = require('bcrypt');
-// const { mutipleMongooseToObject } = require('../../util/mongoose')
+const Teacher = require('../models/Teacher');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 class LoginController {
-    // [GET] /login
+
     showLoginForm(req, res, next) {
         res.render('auth/login', { layout: "login" });
     }
-    // [POST] /login
-    login(req, res, next) {
-        // rule = 0 sinh viên, rule = 1 giáo viên
-        const { id, password, rule } = req.body;
-        console.log(req.body);
-        if (id && password) {
-            List.findById(id, (err, user) => {
-                console.log(user);
-                if (!user) {
-                    res.redirect('/auth')
+
+    //[POST] /auth/login
+    async login(req, res, next) {
+        var { role, id, password } = req.body;
+        let query;
+        // console.log(req.body);
+        if (role == "giang_vien") {
+            Teacher.getById(id, function (data, err) {
+                if (data == 0) {
+                    res.redirect('/auth');
                 } else {
-                    console.log("ok");
-                    if (user.password == password) {
-                        console.log('1');
-                        console.log();
+                    // console.log(data);
+                    const user = data[0];
+                    if (data[0].password == password) {
                         req.session.loggedin = true;
                         req.session.user = user;
-                        res.redirect('/')
-                        // res.render('calendar', { user, layout: "main" }); // trả về id '
+                        res.redirect('/');
+                        console.log("Login success");
                     } else {
-                        // A user with that id address does not exists
                         const conflictError = 'User credentials are not valid.';
-                        console.log('2');
-                        res.redirect('/auth')
+                        res.redirect('auth/');
                     }
                 }
-
             })
-        } else {
-            // A user with that id address does not exists
-            const conflictError = 'User credentials are not valid.';
-            res.render('/', { id, password, conflictError });
-            console.log('3');
         }
     }
+
+
     // [GET] logout
     logout(req, res, next) {
         req.session.destroy((err) => {
             if (err) res.redirect('/500');
+            req.session.loggedin = false;
+            req.session.use = null;
             res.redirect('/auth');
         })
+
         // res.render('auth/login', { layout: "login" });
     }
 }
