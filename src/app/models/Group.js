@@ -45,6 +45,64 @@ class Group {
         });
 
     }
+    // thêm nhóm
+    static addGroup(group) {
+        return new Promise((resolve, reject) => {
+            db.query(
+                `INSERT INTO groupstudent
+                VALUES(${group.group_id}, '${group.course_id}',
+                    '${group.projectname}', '${group.coursename}',
+                    ${group.term} )`,
+                    function (err, res) {
+                        if (err) {
+                            console.log("Error Insert group: ", err);
+                            reject(err);
+                            return;
+                        } else {
+                            resolve(res);
+                        }
+            })
+
+        });
+    }
+    // xóa nhóm
+    static deleteGroup(group_id) {
+        if (!Number(group_id))
+            return false;
+        return new Promise((resolve, reject) => {
+            db.query(
+                `DELETE FROM groupstudent
+                WHERE group_id=${group_id}`,
+                    function (err, res) {
+                        if (err) {
+                            console.log("Error Insert group: ", err);
+                            reject(err);
+                            return;
+                        } else {
+                            resolve(res);
+                        }
+            })
+
+        });
+    }
+    // sửa nhóm
+    static editGroup(oldGroupId, newGr) {
+        return new Promise((resolve, reject) => {
+            db.query(`UPDATE groupstudent 
+            SET group_id=${newGr.group_id}, course_id='${newGr.course_id}',
+            projectname='${newGr.projectname}', coursename='${newGr.coursename}',
+            term=${newGr.term}
+            WHERE group_id=${oldGroupId}`,
+                function (err, res) {
+                    if (err) {
+                        console.log('Error Edit: ', err);
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
+                })
+        })
+    }
 }
 
 module.exports = Group;

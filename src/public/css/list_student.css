@@ -4,6 +4,7 @@
 } */
 .table-student {
     max-height: 100%;
+    position: relative;
 }
 .wrapper-content .table-student table {
     margin-top: 12px;
@@ -77,7 +78,7 @@
     padding: 10px;
     margin: 10px;
 }
-.group-modal a{
+.group-modal a, .manipulate-group i{
     position: absolute;
     text-align: center;
     vertical-align: center;
@@ -85,9 +86,31 @@
     padding: 8px 16px;
     background-color: rgb(9, 158, 212);
     right: 0;
-    top: -16px;
+    top: -24px;
 }
-.group-modal a:hover{
+.group-modal a:hover, .manipulate-group i:hover{
     background-color: red;
+}
+.manipulate-group {
+    width: 200px;
+    position: absolute;
+
+}
+.manipulate-group a, .manipulate-group .group-id {
+    display: block;
+    padding: 16px;
+    border: #0e0101 1px solid;
+    text-decoration: none;
+    text-align: center;
+    background-color: aqua;
+    width: 100%;
+
+}
+.manipulate-group .group-id {
+    width: 100%;
+}
+.manipulate-group a:hover {
+    background-color: aquamarine;
+    opacity: 0.8;
 }
 

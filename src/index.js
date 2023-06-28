@@ -44,6 +44,11 @@ app.engine(
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
 
+// dùng lấy dứ liệu từ post
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // Connect Database
 const con = mysql.createPool({
     host: "sql.freedb.tech",

@@ -126,6 +126,47 @@ class ListController {
         }
 
     }
+    // thêm nhóm
+    addGroup(req, res, next) {
+        const data = req.body;
+        if (!Number(data.group_id)){
+            res.send('mã nhóm không hợp lệ');
+            return;
+        }
+        Group.addGroup(data)
+        .then(result => {
+            res.send('số nhóm đã thêm: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('đã xảy ra lỗi' + err);
+        });
+    }
+    // xóa nhóm
+    deleteGroup(req, res, next) {
+        const group_id = req.query.group_id;
+        Group.deleteGroup(group_id)
+        .then(result => {
+            res.send('số nhóm đã xóa: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('lỗi xóa nhóm: ' + err);
+        })
+    }
+    // sua nhom
+    editGroup(req, res, next) {
+        const data=req.body;
+        if (!Number(data.group_id)){
+            res.send('mã nhóm không hợp lệ');
+            return;
+        }
+        Group.editGroup(data.oldGroupId, data)
+        .then(result => {
+            res.send('số nhóm đã sửa: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('đã xảy ra lỗi' + err);
+        });
+    }
 
 
 }
