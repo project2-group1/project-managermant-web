@@ -3,46 +3,25 @@
     <div class="assignment-student" style="overflow-x:auto">
         <table>
             <tr>
-                <th>Thông tin cuộc họp</th>
-                <th>Danh sách file</th>
-                <th>Deadline</th>
+                <th>Nhóm</th>
+                <th>Cuộc họp</th>
+                <th>Tiêu đề</th>
+                <th>Thời gian nộp</th>
+                <th>Báo cáo</th>
+                <th>Ghi chú</th>
             </tr>
-            <tr>
-                <td>
-                    <a href="Nhóm 1 | Ngày 4/5/2023 | 15h">Nhóm 1 | Ngày 4/5/2023 | 15h</a>
-                </td>
-                <td>
-                    <ul>
-                        <li><a href="#">mo_ta_chuc_nang.pptx</a></li>
-                        <li><a href="#">mo_ta_chuc_nang.pdf</a></li>
-                    </ul>
-                </td>
-                <td>15/05/2023</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="Nhóm 2 | Ngày 5/5/2023 | 15h">Nhóm 2 | Ngày 5/5/2023 | 15h</a>
-                </td>
-                <td>
-                    <ul>
-                        <li><a href="#">database.spl</a></li>
-                        <li><a href="#">database.png</a></li>
-                    </ul>
-                </td>
-                <td>20/05/2023</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="Nhóm 3 | Ngày 9/5/2023 | 15h">Nhóm 3 | Ngày 9/5/2023 | 15h</a>
-                </td>
-                <td>
-                    <ul>
-                        <li><a href="#">main.html</a></li>
-                        <li><a href="#">main.css</a></li>
-                    </ul>
-                </td>
-                <td>30/05/2023</td>
-            </tr>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{this.group_id}}</td>
+                    <td>{{this.meeting_id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.reportdeadline}}</td>
+                    <td>{{this.report}}</td>
+                    <td>{{this.note}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
 </div>

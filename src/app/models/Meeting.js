@@ -2,17 +2,46 @@ const db = require("../../config/db/index.js")
 
 class Meeting {
     constructor(meeting) {
-        this.group_id = meeting?.group_id;
-        this.course_id = meeting?.course_id
-        this.projectname = meeting?.projectname;
-        this.coursename = meeting?.coursename;
-        this.term = meeting?.term;
+
+    }
+    // Thực thi câu lệnh SQL
+    executeQuery(sql) {
+        return new Promise((resolve, reject) => {
+            db.query(sql, function (err, res) {
+                if (err) {
+                    console.error('Error executing query:', err)
+                    reject(err)
+                } else {
+                    resolve(res)
+                }
+            })
+        })
     }
 
-    static getAll() {
-        let sql = "SELECT * FROM meeting;"
+    async getAll(result) {
+        const teacherSQL = "SELECT * FROM meeting;"
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
 
-        return db.query(sql)
+    }
+
+    async getById(id, result) {
+        const teacherSQL = `SELECT * FROM meeting WHERE teacher_id = ${id};`
+
+
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+
     }
 
     static getById(id) {
