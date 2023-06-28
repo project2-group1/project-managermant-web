@@ -1,4 +1,4 @@
-class Aithorization {
+class Authorization {
     loggedin(req, res, next) {
         if (req.session.loggedin) {
             res.locals.user = req.session.user
@@ -19,4 +19,4 @@ class Aithorization {
 
 }
 
-module.exports = new Aithorization();
+module.exports = new Authorization();

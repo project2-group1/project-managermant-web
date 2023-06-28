@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/project2-group1/project-managermant-web#readme",
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "flatpickr": "^4.6.13",
+    "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.22"
