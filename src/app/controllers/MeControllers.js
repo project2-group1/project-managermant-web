@@ -1,4 +1,5 @@
 const List = require('../models/List');
+const Teacher = require('../models/Teacher');
 class MeController {
     // [GET] /news
     setting(req, res, next) {
@@ -11,13 +12,15 @@ class MeController {
             displayBtn: true,
         });
     }
-
-    account(req, res, next) {
-        List.findById(20204843,function (err, data) {
+    //me//account
+    async account(req, res, next) {
+        const id = req.session.user.teacher_id;
+        Teacher.getById(id,function (data, err) {
             if (err) {
+                console.log("1");
                 res.status(500).send(err);
             } else {
-                console.log(req.params);
+                console.log("2");
                 res.render('me/account', {
                     title: 'Thông tin tài khoản',
                     css: [
@@ -25,7 +28,7 @@ class MeController {
                     ],
                     libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
                     displayBtn: true,
-                    id: data
+                    user: data
                 });
             }
         })

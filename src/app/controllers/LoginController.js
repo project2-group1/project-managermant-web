@@ -14,13 +14,13 @@ class LoginController {
     async login(req, res, next) {
         var { role, id, password } = req.body;
         let query;
-        console.log(req.body);
+        // console.log(req.body);
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
                 if (data == 0) {
                     res.redirect('/auth');
                 } else {
-                    console.log(data);
+                    // console.log(data);
                     const user = data[0];
                     if (data[0].password == password) {
                         req.session.loggedin = true;

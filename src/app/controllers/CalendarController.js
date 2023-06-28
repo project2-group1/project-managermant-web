@@ -3,7 +3,7 @@ const Events = require('../models/Meeting.js')
 class CalendarController {
     // [GET] /calender
     show(req, res, next) {
-        // console.log(session.user);
+        // console.log(req.session.user.teacher_id);
         res.render('calendar', {
             title: 'Lịch',
             css: [
