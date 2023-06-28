@@ -9,7 +9,7 @@ class LoginController {
     showLoginForm(req, res, next) {
         res.render('auth/login', { layout: "login" });
     }
-    
+
     //[POST] /auth/login
     async login(req, res, next) {
         var { role, id, password } = req.body;
@@ -17,9 +17,8 @@ class LoginController {
         console.log(req.body);
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
-                if (err) {
-                    res.status(500).send(err);
-                    return;
+                if (data == 0) {
+                    res.redirect('/auth');
                 } else {
                     console.log(data);
                     const user = data[0];
@@ -28,7 +27,7 @@ class LoginController {
                         req.session.user = user;
                         res.redirect('/');
                         console.log("Login success");
-                    }else{
+                    } else {
                         const conflictError = 'User credentials are not valid.';
                         res.redirect('auth/');
                     }
