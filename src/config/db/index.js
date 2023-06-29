@@ -23,7 +23,7 @@ con.on("connection", connection => {
     });
 
     connection.on("close", err => {
-        console.error(new Date(), "MySQL close", err);
+        console.error(new Date(), "MySQL close", err);z
     });
 });
 

@@ -39,32 +39,49 @@
 
         <!-- Function button -->
         <div class="list-button">
-            <a href="#"><i class="fa-solid fa-edit"></i> Sửa</a>
-            <a href="#"><i class="fa-solid fa-floppy-disk"></i>Lưu</a>
-            <a href=""><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href="#"><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
             <a href="#"><i class="fa-solid fa-user-plus"></i>Thêm sinh viên</a>
+            <a href="#" class="add-group"><i class="fa-solid fa-user-plus"></i>Thêm nhóm</a>
             <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
+        </div>
+        {{!-- thao tác với nhóm --}}
+        <div class="manipulate-group" style="display: none;">
+            <i class="fa-solid fa-xmark form-button"></i>    
+            <div class="group-id"></div>
+            <a href="#" class="edit">Sửa</a>
+            <a href="#" class="delete">Xóa</a>
+            <a href="#">Xem danh sách lịch gặp</a>
         </div>
     </div>
     {{!-- modal thông tin chi tiết nhóm --}}
+    <script>
+        function validateForm(e) {
+            setTimeout(() => {
+                location.reload();
+            }, 2000)
+        }
+    </script>
     <div class="group-modal" style="display: none;">
         <a href="#"><i class="fa-solid fa-xmark form-button"></i></a>        
-        <form action="#">
+        <form action="/list/addgroup" method="POST" onsubmit="validateForm()" target="_blank">
         
             <label for="group_id" class="form__label">Mã nhóm</label>
-            <input type="number" placeholder="mã nhóm" id="group_id" />
+            <input name="group_id" type="number" placeholder="mã nhóm" id="group_id" required />
 
             <label for="term" class="form__label">Học kỳ</label>
-            <input type="number" placeholder="Học kỳ" id="term" />
+            <input name="term" type="number" placeholder="Học kỳ" id="term" />
 
             <label for="projectname" class="form__label">Tên project</label>
-            <input type="text" placeholder="Tên đề tài" id="projectname" />
+            <input name="projectname" type="text" placeholder="Tên đề tài" id="projectname" />
 
             <label for="course_id" class="form__label">Mã khóa học</label>
-            <input type="text" placeholder="Mã khóa học" id="course_id" />
+            <input name="course_id" type="text" placeholder="Mã khóa học" id="course_id" />
 
             <label for="coursename" class="form__label">Tên khóa học</label>
-            <input type="text" placeholder="Tên khóa học" id="coursename" />
+            <input name="coursename" type="text" placeholder="Tên khóa học" id="coursename" />
+
+            <labelclass="form__label">Mã nhóm cũ</label>
+            <input name="oldGroupId" type="Number" id="old_id"/>
 
             <input type="submit" class="form-button">
         </form>

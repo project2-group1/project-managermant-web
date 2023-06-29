@@ -3,19 +3,22 @@ const Teacher = require('../models/Teacher');
 class MeController {
     // [GET] /news
     setting(req, res, next) {
+        const password = req.session.user.password;
+        console.log(password);
         res.render('me/setting', {
-            title: 'Cài đặt',
+            title: 'Đổi mật khẩu',
             css: [
-                '/css/form.css',
+                '/css/setting.css',
             ],
-            libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-            displayBtn: true,
+            libraryJS: '/js/Validator.js',
+            displayBtn: true
         });
     }
     //me//account
     async account(req, res, next) {
+        console.log(req.session.user);
         const id = req.session.user.teacher_id;
-        Teacher.getById(id,function (data, err) {
+        Teacher.getById(id, function (data, err) {
             if (err) {
                 console.log("1");
                 res.status(500).send(err);
@@ -34,8 +37,7 @@ class MeController {
         })
     }
 
-    
-    settingUp(req, res, next){
+    settingUp(req, res, next) {
         console.log(req.body);
         res.render('calendar');
     }

@@ -33,6 +33,19 @@ class Teacher {
 
     }
 
+    async updatePassword(id, password, result) {
+        const teacherSQL = `UPDATE teacher SET teacher.password = ${password} WHERE teacher_id = ${id};`
+
+
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+
+    }
 
     static getAll() {
         let sql = "SELECT * FROM teacher;"

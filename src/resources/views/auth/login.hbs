@@ -5,45 +5,42 @@
         <img src="img\logoHUST.jpg" alt="IMG" />
       </div>
 
-      <form class="login100-form validate-form" method="POST" action="auth/login">
-        <div class="login100-form-title">Quản lý Project</div>
-        <div class="select-role">
-          <p class="role">Bạn là:</p>
-          <div class="giang_vien">
+      <form action="auth/login" method="POST" class="form" id="form-2">
+        <h3 class="heading">Đăng nhập</h3>
+        <p class="desc">Hệ thống quản lý sinh viên làm Đồ án❤️</p>
+
+        <div class="spacer"></div>
+
+        <div class="form-group">
+          <label for="role" class="form-label">Bạn là: </label>
+
+          <div class="form-message">
             <input type="radio" name="role" id="giang_vien" value="giang_vien" />
             <label for="giang_vien">Giảng viên</label>
           </div>
-          <div class="sinh_vien">
+          <div class="form-message">
             <input type="radio" name="role" id="sinh_vien" value="sinh_vien" />
             <label for="sinh_vien">Sinh viên</label>
           </div>
+
+          <span class="form-message"></span>
+        </div>
+        <div class="form-group">
+          <label for="id" class="form-label">Email</label>
+          <input id="id" name="id" type="text" placeholder="VD: email@domain.com" class="form-control">
+          <span class="form-message"></span>
         </div>
 
-        <div class="wrap-input100 validate-input">
-          <input class="input100" type="text" name="id" placeholder="Id" id="id" />
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="wrap-input100 validate-input" data-validate="Password is required">
-          <input class="input100" type="password" name="password" placeholder="Password" id="password" />
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-          </span>
+        <div class="form-group">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+          <span class="form-message"></span>
         </div>
 
-        <div class="container-login100-form-btn">
-          <button class="login100-form-btn" type="submit">Đăng nhập</button>
-        </div>
-
-        <div class="text-center p-t-12">
-          <span class="txt1"> Quên </span>
-          <a class="txt2" href="#"> mật khẩu</a>
-          <span class="txt1">?</span>
-        </div>
+        <button class="form-submit">Đăng nhập</button>
       </form>
+
     </div>
   </div>
+</div>
 </div>
