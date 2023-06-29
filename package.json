@@ -19,6 +19,7 @@
   "homepage": "https://github.com/project2-group1/project-managermant-web#readme",
   "devDependencies": {
     "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "flatpickr": "^4.6.13",
@@ -29,7 +30,6 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "ejs": "^3.1.9",
     "express-handlebars": "^7.0.7",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",

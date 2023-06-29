@@ -6,35 +6,73 @@ const make_calendar_container = $('.make-calendar.container');
 
 /* START - NGỌC XỬ LÝ MODAL */
 var text = `
-            <div class="modal">
-                <div class="modal-header">
-                    <h3 class="title">Thêm cuộc họp mới</h3>
-                    <button onclick="closeCalendar()"class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <label for="title">Tiêu đề:</label><br>
-                        <input type="text" id="title" name="title" placeholder="Thêm tiêu đề"><br>
-
-                        <label for="start_time">Thời gian bắt đầu:</label><br>
-                        <input type="datetime-local" id="start_time" name="start_time"><br>
-
-                        <label for="group">Nhóm tham gia:</label><br>
-                        <select id="group" name="group">
-                            <option value="group1">Nhóm 1</option>
-                            <option value="group2">Nhóm 2</option>
-                            <option value="group3">Nhóm 3</option>
-                        </select><br>
-                        <label for="deadline">Deadline báo báo:</label><br>
-                        <input type="datetime-local" id="end_time" name="end_time"><br>
-                        <label for="subject">Subject</label>
-                        <textarea id="subject" name="subject" placeholder="Ghi chú" style="height:200px"></textarea>
-                        <input type="submit" value="Thêm cuộc họp mới">
-                        
-                    </form>
-                </div>
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="title">Thêm cuộc họp mới</h3>
+                <button onclick="closeCalendar()"class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
             </div>
-         `
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <h4>Tiêu đề</h4>
+                        <div class="input-group input-group-icon">
+                            <div class="input-icon"><i class="fa-solid fa-server"></i></div>
+                            <input class="input-text" type="text" placeholder="Tiêu đề"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4>Nhóm</h4>
+                        <div class="input-group">
+                            <div class="col-third">
+                                <select id="term" name="term" required>
+                                    <option value="" disabled selected>Kì</option>
+                                    <option value="20221">20221</option>
+                                    <option value="20222">20222</option>
+                                    <option value="20231">20231</option>
+                                </select>
+                            </div>
+                            <div class="col-third">
+                                <select id="course" name="course" required>
+                                    <option value="" disabled selected>Học phần</option>
+                                </select>
+                            </div>
+                            <div class="col-third">
+                                <select id="group" name="group" required>
+                                    <option value="" disabled selected>Nhóm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4>Thời gian</h4>
+                        <div class="row">
+                            <p class="p-time">Bắt đầu</p>
+                            <input class="input-time start_time" type="text" step="1800" min="07:00" max="18:00" id="start_time" name="start_time">
+                        </div>
+                        <div class="row">
+                            <p class="p-time">Kết thúc</p>
+                            <input class="input-time end_time" type="text" step="1800" min="07:00" max="18:00" id="end_time" name="end_time">
+                        </div>
+                        <div class="row">
+                            <p class="p-time">Báo cáo</p>
+                            <input class="input-time report_time" type="text" step="1800" min="07:00" max="18:00" id="dl_report_time" name="dl_report_time">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <h4>Ghi chú</h4>
+                        <textarea class="note" name="note" placeholder="Ghi chú"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <input type="submit"  class="submit" value="Thêm cuộc họp mới">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        `
 make_calendar_container.innerHTML = text;
 
 if (btn_add_calendar) {
@@ -49,6 +87,21 @@ var closeCalendar = function () {
         make_calendar_container.classList.remove('show');
     }
 }
+
+/* END - NGỌC */
+
+const btnAvatarNav = $('.btn-avatar')
+
+btnAvatarNav.onclick = function () {
+    const avatarNav = this.children
+    for (let i = 0; i < avatarNav.length; i++) {
+        if (avatarNav[i].classList.contains('avatar-nav')) {
+            avatarNav[i].classList.toggle('show')
+        }
+    }
+}
+
+/* # Ngọc: START */
 
 /* END - NGỌC */
 

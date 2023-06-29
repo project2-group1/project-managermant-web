@@ -28,41 +28,58 @@ app.use(session({
     saveUninitialized: true,
 }))
 
+const monthMapping = {
+    jan: '01',
+    feb: '02',
+    mar: '03',
+    apr: '04',
+    may: '05',
+    jun: '06',
+    jul: '07',
+    aug: '08',
+    sep: '09',
+    oct: '10',
+    nov: '11',
+    dec: '12',
+}
+
 // Template Engine
 app.engine(
     'hbs',
     handlebars.engine({
-        defaultLayout: 'main',
         extname: '.hbs',
         helpers: {
             getGroupName: group => 'Group ' + group % 100,
             getMeetingSerial: meeting => meeting % 100,
+            formatDate: dateTime => {
+                let y = dateTime.toString().substring(11,15)
+                let m = dateTime.toString().substring(4,7).toLowerCase()
+                m = monthMapping[m]
+                let d = dateTime.toString().substring(8,10)
+
+                return (y + '-' + m + '-' + d)
+            } ,
+            formatTime: dateTime => {
+                let h = dateTime.toString().substring(16,18)
+                let m = dateTime.toString().substring(19,21)
+
+                return (Number)(h) + (m == 30 ? '.5' : '')
+            },
+            formatDisplayTime: (startTime, endTime) => {
+                let h_st = startTime.toString().substring(16,18)
+                let m_st = startTime.toString().substring(19,21)
+                let h_et = endTime.toString().substring(16,18)
+                let m_et = endTime.toString().substring(19,21)
+                let st = (Number)(h_st) + (m_st == 30 ? ':30' : ':00')
+                let et = (Number)(h_et) + (m_et == 30 ? ':30' : ':00')
+
+                return st + ' - ' + et
+            },
         }
     }),
 )
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
-
-// Connect Database
-const con = mysql.createPool({
-    host: "sql.freedb.tech",
-    port: "3306",
-    user: "freedb_sql12628666",
-    password: "3CjwD6?vZhhRRVA",
-    database: "freedb_project_ii"
-});
-
-con.on("connection", connection => {
-    console.log("Database connected!");
-
-    connection.on("error", err => {
-        console.error(new Date(), "MySQL error", err.code);
-    });
-
-    connection.on("close", err => {
-        console.error(new Date(), "MySQL close", err);
-    });
-});
 
 route(app)
 

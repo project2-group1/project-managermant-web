@@ -1,18 +1,19 @@
 const mysql = require('mysql');
 
-// var con = mysql.createConnection({
-//     host: "127.0.0.1",
-//     user: "root",
-//     password: "",
-//     database: "project_ii_ver01"
-
 var con = mysql.createPool({
-    host: "sql.freedb.tech",
-    port: "3306",
-    user: "freedb_sql12628666",
-    password: "3CjwD6?vZhhRRVA",
-    database: "freedb_project_ii"
-});
+    host: "127.0.0.1",
+    user: "root",
+    password: "",
+    database: "project_ii_ver02"
+})
+
+// var con = mysql.createPool({
+//     host: "sql.freedb.tech",
+//     port: "3306",
+//     user: "freedb_sql12628666",
+//     password: "3CjwD6?vZhhRRVA",
+//     database: "freedb_project_ii"
+// });
 
 con.on("connection", connection => {
     console.log("Database connected!");

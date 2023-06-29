@@ -10,7 +10,6 @@ class CalendarController {
                 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
                 '/css/calendar.css',
             ],
-            libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
             handle: '/js/calendar.js',
         })
     }

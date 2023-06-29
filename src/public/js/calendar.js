@@ -1,3 +1,5 @@
+// const { default: flatpickr } = require("flatpickr")
+
 // variable
 let currentDate = new Date()
 
@@ -93,26 +95,9 @@ const calendar = {
             return duration * 40.8 - 1 + 'px'
         }
 
-        // render event elements array
-        const eventHtmls = this.eventsData.map((event, index) => {
-            let start = event.startTime.replace('.5', ':30')
-            let end = event.endTime.replace('.5', ':30')
-            return `
-                <button class="event" date="${event.date}" startTime="${event.startTime}" endTime="${event.endTime}">
-                    <div class="content">
-                        <p class="title">${event.title}</p>
-                        <p class="info">${event.info}</p>
-                        <p class="time">${start.includes(':') ? start : (start + ':00')} - ${end.includes(':') ? end : (end + ':00')}</p>
-                    </div>
-                </button>
-            `
-        })
+        
 
-        // store in a container
-        const container = document.createElement('div')
-        container.innerHTML = eventHtmls.join('')
-
-        const eventContainer = Array.from(container.querySelectorAll('.event'))
+        const eventContainer = Array.from($$('.event'))
 
         // Render event to calendar
         for (let i = 0; i < eventContainer.length; i++) {
@@ -138,7 +123,7 @@ const calendar = {
     handleEvents: function () {
         const _this = this // trỏ vào calendar
 
-        
+
         // Xử lý sự kiện thay đổi trong lịch tháng
         datePicker.set('onChange', function (selectedDates, dateStr, instance) {
             currentDate = selectedDates[0]
@@ -174,19 +159,28 @@ const calendar = {
             currentDate = today
         })
 
+        // Chuyển đổi thời gian cho đúng chuyển đề hiện thị ra placeholder
+        const convertTime = function (time) {
+            var hours = parseInt(time);
+            var minutes = (time - hours) * 60;
+            var midifyMinitues = minutes.toString().padStart(2, '0')
+            var midifyHours = hours.toString().padStart(2, '0')
+            return `${midifyHours}:${midifyMinitues}`;
+        };
+
         // Xử lý bật tạo lịch khi bấm vào work box
         workBoxes.forEach(function (workBox) {
             workBox.addEventListener('click', (workBox) => {
                 make_calendar_container.classList.add('show');
+
                 var startTimeElement = document.getElementById("start_time");
-                startTimeElement.value = `${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`;
+                startTimeElement.value = `${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')))}`;
+
                 var endTimeElement = document.getElementById("end_time");
-                endTimeElement.value = `${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`;
-                console.log(`${workBox.target.parentNode.getAttribute('date')}T${convertTime(workBox.target.getAttribute('time'))}`);
+                endTimeElement.value = `${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')) + 0.5)}`;
+
             })
         })
-
-        
 
         // add resize when size of browser changed
         window.addEventListener("resize", () => this.handleResizeWorkBox())
@@ -264,25 +258,33 @@ const calendar = {
 
         // Render events
         function getEvents(date) {
-            return events.find((event)=>(event.getAttribute('date') === date))
+            return events.filter((event) => (event.getAttribute('date') === date))
         }
 
+        let eventInCurWeek = []
         for (let i = 0; i < currentDays.length; i++) {
-            let eventInCurWeek = getEvents(currentDays[i].getAttribute('date'))
-            if(eventInCurWeek) {
-                eventInCurWeek.classList.add('active')
+            let tempEvent = getEvents(currentDays[i].getAttribute('date'))
+            if(tempEvent.length != 0) {
+                eventInCurWeek.push(...tempEvent)
             }
         }
+        
+        console.log(eventInCurWeek);
+        eventInCurWeek.forEach(function (event) {
+            event.classList.add('active')
+        })
+
+
 
         events.forEach(function (event) {
-            event.addEventListener('click', () => 
-                window.location.href = "/meeting"
+            event.addEventListener('click', () =>
+                window.location.href = `/meeting/${event.getAttribute('id')}`
             )
-            
+
             let curHeight
             event.addEventListener('mouseenter', (e) => {
                 curHeight = e.target.clientHeight
-                if(e.target.scrollHeight > e.target.clientHeight) {
+                if (e.target.scrollHeight > e.target.clientHeight) {
                     e.target.style.height = e.target.scrollHeight + 'px'
                 }
             })
@@ -305,13 +307,6 @@ const calendar = {
     },
 }
 
-// Chuyển đổi thời gian cho đúng chuyển đề hiện thị ra place holder
-var convertTime = function (time) {
-    var hours = parseInt(time);
-    var minutes = (time - hours) * 60;
-    var midifyMinitues = minutes.toString().padStart(2, '0')
-    var midifyHours = hours.toString().padStart(2, '0')
-    return `${midifyHours}:${midifyMinitues}`;
-};
+
 
 calendar.start()
