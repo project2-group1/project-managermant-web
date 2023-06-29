@@ -10,7 +10,7 @@ function route(app) {
     app.use('/list', listRouter);
     app.use('/', meetingRouter);
     app.use('/me', meRouter);
-    // app.use('/auth', loginRouter); // Xác thực
+    app.use('/auth', loginRouter); // Xác thực
     // app.use('/', calendarRouter);
 }
 

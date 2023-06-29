@@ -4,7 +4,7 @@ class AssignmentController {
     show(req, res, next) {
         console.log(req);
         const id = req.session.user.teacher_id;
-        Meeting.getById(id, function (data, err) {
+        Meeting.getByTeacherId(id, function (data, err) {
             console.log(data);
             if (err) {
                 console.log("1");

@@ -48,7 +48,20 @@ class Meeting {
             });
 
     }
+    // user by assginment
+    async getByTeacherId(id, result) {
+        const teacherSQL = `SELECT * FROM meeting WHERE teacher_id = ${id};`
 
+
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+
+    }
     getAll(result) {
         const responseData = {}
 
