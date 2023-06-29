@@ -53,7 +53,7 @@ class MeetingController {
                 return
             }
             // Check fetch data
-            res.send(data)
+            // res.send(data)
             // res.send(data.meeting)
             // res.send(data.groupstudent)
 
@@ -62,10 +62,10 @@ class MeetingController {
                 title: 'Cuộc hẹn',
                 css: [
                     '//cdn.quilljs.com/1.3.6/quill.snow.css',
-                    'css/meeting.css',
+                    '/css/meeting.css',
                 ],
                 libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-                handle: 'js/meeting.js',
+                handle: '/js/meeting.js',
                 displayBtn: true,
                 addMeeting: true,
                 meetings: data.meeting,
@@ -74,6 +74,8 @@ class MeetingController {
 
         })
     }
+
+    // [GET] /meeting/end
 
     // [GET] /meeting
     getAllMeetings(req, res, next) {
@@ -92,10 +94,10 @@ class MeetingController {
                 title: 'Cuộc hẹn',
                 css: [
                     '//cdn.quilljs.com/1.3.6/quill.snow.css',
-                    'css/meeting.css',
+                    '/css/meeting.css',
                 ],
                 libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-                handle: 'js/meeting.js',
+                handle: '/js/meeting.js',
                 displayBtn: true,
                 addMeeting: true,
                 meetings: data.meeting,
