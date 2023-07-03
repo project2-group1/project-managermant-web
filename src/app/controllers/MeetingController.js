@@ -15,6 +15,7 @@ class MeetingController {
                 });
             })
             // res.json(responseData)
+            console.log(responseData);
             res.render('calendar.hbs', {
                 title: 'Lịch',
                 css: [
