@@ -97,21 +97,22 @@ const meeting = {
 
         btnEndMeeting.addEventListener('click', (btn) => {
             btn.preventDefault()
-            make_calendar_container.classList.add('show')
+            const btnAddMeeting = $('.make-calendar.container')
+            btnAddMeeting.classList.add('show')
             
-            const term = make_calendar_container.querySelector('#term')
+            const term = btnAddMeeting.querySelector('#term')
             for (let i = 0; i < term.options.length; i++) {
                 if(meetingData.term.toString() === term.options[i].value)
                     term.options[i].selected = true
             }
 
-            const course = make_calendar_container.querySelector('#course_id')
+            const course = btnAddMeeting.querySelector('#course_id')
             for (let i = 0; i < course.options.length; i++) {
                 if(meetingData.course_id === course.options[i].value)
                     course.options[i].selected = true
             }
 
-            const group = make_calendar_container.querySelector('#group_id')
+            const group = btnAddMeeting.querySelector('#group_id')
             for (let i = 0; i < group.options.length; i++) {
                 if(meetingData.group_id.toString() === group.options[i].value)
                     group.options[i].selected = true

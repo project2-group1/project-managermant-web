@@ -51,7 +51,7 @@ class MeetingController {
             }
             res.redirect('/')
         })
-            // res.json(req.body)
+        // res.json(req.body)
     }
 
     // [GET] /meeting/api/:id

@@ -131,7 +131,7 @@ class Meeting {
                 // this array by [meeting]
                 const [meeting] = await _this.executeQuery(maxMeetingIdSQL) 
                 if (meeting) {
-                    return meeting.meeting_id + 1
+                    return meeting
                 } else {
                     return null
                 } 
@@ -142,8 +142,9 @@ class Meeting {
             }
         }
 
-        const next_meeting_id = (await getMeetingInfo())
-        console.log(next_meeting_id)
+        const curMeetingData = await getMeetingInfo()
+        console.log(curMeetingData)
+        const next_meeting_id = curMeetingData.meeting_id + 1
 
         const insertTheFirstMeetingSQL = `
             INSERT INTO meeting (meeting_id, group_id, teacher_id, starttime, endtime, reportdeadline, note, next_meeting_id, report)
@@ -164,31 +165,34 @@ class Meeting {
             INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
-                    teacher_id, 
+                    teacher_id,
+                    title, 
                     starttime, 
                     endtime, 
                     reportdeadline, 
-                    require_meeting, 
-                    note, 
+                    require_meeting,
                     next_meeting_id, 
                     previous_meeting_id, 
-                    report)
+                    report
+                    )
             VALUES (
                 '${next_meeting_id}', 
                 '${data.group_id}', 
                 '${fake_teacher_id}', 
+                '${data.title}',
                 '${formatDate(data.start_time)}', 
                 '${formatDate(data.end_time)}', 
                 '${formatDate(data.dl_report_time)}', 
-                '${data.require_meeting}', 
-                '${data.note}', 
+                '${data.require_meeting}',
                 NULL,   
-                '${data.meeting_id}', 
+                '${curMeetingData.meeting_id}', 
                 NULL
                 );
         `
 
-        
+                   
+
+
 
         function formatDate(dateTime) {
             const year = dateTime.substring(0,4)
@@ -201,7 +205,7 @@ class Meeting {
             return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
         }
 
-        if(await getMeetingInfo()) {
+        if(curMeetingData.meeting_id) {
             Promise.all([_this.executeQuery(insertMeetingSQL)])
             .then(([insertData]) => {
                 result(insertData, null)

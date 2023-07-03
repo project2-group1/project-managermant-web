@@ -1,8 +1,6 @@
 import { modalAddCalendar } from "./header.js"
 import { fetchData } from '../services/fetchData.js'
 
-
-
 // variable
 let currentDate = new Date()
 
