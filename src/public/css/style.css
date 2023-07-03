@@ -39,6 +39,10 @@ li {
     margin-right: 8px;
 }
 
+.mt-8 {
+    margin-top: 8px;
+}
+
 button {
     cursor: pointer;
 }
@@ -437,6 +441,7 @@ button {
   width: 100%;
   padding: 10px 0 10px 40px;
   line-height: 20px;
+  font-size: 16px;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
@@ -496,9 +501,13 @@ button {
 } */
 
 .modal-body .input-time {
-  padding: 10px 20px 10px 80px;
+  padding: 10px 20px 10px 100px;
   width: 150px;
   margin-bottom: 4px;
+}
+
+.modal-body h4 {
+    margin-bottom: 4px;
 }
 
 /* .modal-body input[type="checkbox"] {

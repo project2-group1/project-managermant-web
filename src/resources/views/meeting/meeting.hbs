@@ -2,7 +2,8 @@
     <div class="meeting-container">
         {{#each meetings}}
         <form action="/meeting/end" method="post" class="form-meeting">
-            <div class="meeting" course="" id="">
+            <input type="hidden" name="meeting_id" value="{{this.meeting_id}}">
+            <div class="meeting">
                 <div class="meeting-header">
                     <div class="title">
                         <span class="title-course">{{this.coursename}}</span>
@@ -49,6 +50,7 @@
                     </div>
                 </div>
                 <div class="meeting-content">
+                    <input type="hidden" name="note" value="">
                     <div class="editor"></div>
                 </div>
                 <div class="meeting-end">

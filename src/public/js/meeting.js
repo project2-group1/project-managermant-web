@@ -1,9 +1,19 @@
+// import
+import { fetchData } from '../services/fetchData.js'
+
 // selector
 const btnAddMeeting = $('.sidebar-add-meeting')
+const btnEndMeeting = $('.btn-end-meeting')
 const btnDisplay = $('.btn-display')
 let meetings = Array.from($$('.meeting'))
 let btnsOut = Array.from($$('.btn-out'))
 let dateTime = Array.from($$('.date'))
+let editors = Array.from($$('.editor'))
+let meetingId = document.querySelector('input[name="meeting_id"]').getAttribute('value')
+let note = []
+let meetingData
+
+
 
 const monthMapping = {
     jan: '1',
@@ -22,16 +32,28 @@ const monthMapping = {
 
 const meeting = {
 
-    
+    API: async function() {
+        async function getData() {
+            try{
+                const meetingData = await fetchData(`/meeting/api/?id=${meetingId}`)
+                return meetingData
+            } catch (err) {
+                console.log(err)
+            }
+        }
 
+        [meetingData] = await getData() // destructuring
+        // console.log(meetingData)
+
+    },
     config: function () {
         // Render quill note for each meeting
         for (let i = 0; i < meetings.length; i++) {
-            const editors = Array.from($$('.editor'))
 
-            editors.map((editor,index) => {
+            editors.map((editor, index) => {
                 editor.classList.add('editor' + index)
             })
+
             var quill = new Quill('.editor' + i, {
                 modules: {
                     toolbar: [
@@ -51,17 +73,51 @@ const meeting = {
         }
     },
     handleEvents: function () {
-        
+        // console.log(editors[0].firstElementChild.innerHTML)
+
         btnDisplay.addEventListener('click', () => {
             meetings.map((e) => {
-                if(!e.classList.contains('double-screen')) {
+                if (!e.classList.contains('double-screen')) {
                     e.classList.add('double-screen')
                 } else {
                     e.classList.remove('double-screen')
                 }
             })
         })
-        
+
+        editors.forEach((editor) => {
+            editor.addEventListener("mousedown", function () {
+                this.classList.add("focus");
+            })
+
+            editor.addEventListener("blur", function () {
+                this.classList.remove("focus");
+            })
+        })
+
+        btnEndMeeting.addEventListener('click', (btn) => {
+            btn.preventDefault()
+            make_calendar_container.classList.add('show')
+            
+            const term = make_calendar_container.querySelector('#term')
+            for (let i = 0; i < term.options.length; i++) {
+                if(meetingData.term.toString() === term.options[i].value)
+                    term.options[i].selected = true
+            }
+
+            const course = make_calendar_container.querySelector('#course_id')
+            for (let i = 0; i < course.options.length; i++) {
+                if(meetingData.course_id === course.options[i].value)
+                    course.options[i].selected = true
+            }
+
+            const group = make_calendar_container.querySelector('#group_id')
+            for (let i = 0; i < group.options.length; i++) {
+                if(meetingData.group_id.toString() === group.options[i].value)
+                    group.options[i].selected = true
+            }
+        })
+
     },
     renderMeeting: function () {
         // Render and Update variable
@@ -78,31 +134,32 @@ const meeting = {
         // Render date
         dateTime.forEach((e) => {
             console.log(e.getAttribute('starttime'))
-            e.innerText = formatDate(e.getAttribute('starttime')) + 
-                        formatTime(e.getAttribute('starttime')) + ' - ' +
-                        formatTime(e.getAttribute('endtime')) 
-                        
+            e.innerText = formatDate(e.getAttribute('starttime')) +
+                formatTime(e.getAttribute('starttime')) + ' - ' +
+                formatTime(e.getAttribute('endtime'))
+
         })
 
         // Format time from Date object
         function formatTime(dateTime) {
-            let hourAndMinutes = dateTime.substring(16,21) 
+            let hourAndMinutes = dateTime.substring(16, 21)
             return hourAndMinutes
         }
 
         // Format date from Date object
         function formatDate(dateTime) {
-            let year = dateTime.substring(11,16)
-            let month = dateTime.substring(4,7).toLowerCase()
+            let year = dateTime.substring(11, 16)
+            let month = dateTime.substring(4, 7).toLowerCase()
             month = monthMapping[month]
-            let date = dateTime.substring(8,10)
-            return date +'/' + month + '/' + year
+            let date = dateTime.substring(8, 10)
+            return date + '/' + month + '/' + year
         }
     },
-    start: function () {
-        this.handleEvents()
-        this.renderMeeting()
+    start: async function () {
         this.config()
+        await this.API()
+        this.handleEvents()
+        await this.renderMeeting()
     }
 }
 

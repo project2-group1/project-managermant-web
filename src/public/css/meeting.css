@@ -142,7 +142,12 @@
 
 /* -------------------End: Quill CSS------------------- */
 
-.ql-editor {
+.meeting-content .editor.focus{
+    border: 1px solid #3d75be !important;
+    outline: none;
+}
+
+.meeting-content .ql-editor {
     height: 200px;
 }
 

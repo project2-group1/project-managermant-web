@@ -1,4 +1,7 @@
-// const { default: flatpickr } = require("flatpickr")
+import { modalAddCalendar } from "./header.js"
+import { fetchData } from '../services/fetchData.js'
+
+
 
 // variable
 let currentDate = new Date()
@@ -20,54 +23,31 @@ const datePicker = flatpickr('.btn-change-week', {
 
 
 const currentDays = [
-    monday = $('.works[name="monday"]'),
-    tuesday = $('.works[name="tuesday"]'),
-    wednesday = $('.works[name="wednesday"]'),
-    thursday = $('.works[name="thursday"]'),
-    friday = $('.works[name="friday"]'),
-    saturday = $('.works[name="saturday"]'),
-    sunday = $('.works[name="sunday"]'),
+    $('.works[name="monday"]'),
+    $('.works[name="tuesday"]'),
+    $('.works[name="wednesday"]'),
+    $('.works[name="thursday"]'),
+    $('.works[name="friday"]'),
+    $('.works[name="saturday"]'),
+    $('.works[name="sunday"]'),
 ]
 
+let eventsAPI
+
 const calendar = {
-    // APM -> Data
-    eventsData: [
-        {
-            date: '2023-05-23',
-            startTime: '8',
-            endTime: '8.5',
-            title: 'Project II - Nhóm 1',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-24',
-            startTime: '9',
-            endTime: '11.5',
-            title: 'Đồ án tốt nghiệp II - Nhóm 3',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-27',
-            startTime: '11',
-            endTime: '13',
-            title: 'Graduated Research',
-            info: 'artificial intelligence project',
-        },
-        {
-            date: '2023-05-29',
-            startTime: '9',
-            endTime: '11.5',
-            title: 'Đồ án tốt nghiệp II - Nhóm 3',
-            info: 'Website quản lý Project',
-        },
-        {
-            date: '2023-05-19',
-            startTime: '11',
-            endTime: '12',
-            title: 'Graduated Research',
-            info: 'IOT project',
-        },
-    ],
+
+    API: async function() {
+        async function getEvents() {
+            try{
+                const event = await fetchData(`/event/api`)
+                return 
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        eventsAPI = [await getEvents()] // destructuring
+    },
     config: function () {
 
 
@@ -171,14 +151,23 @@ const calendar = {
         // Xử lý bật tạo lịch khi bấm vào work box
         workBoxes.forEach(function (workBox) {
             workBox.addEventListener('click', (workBox) => {
+                const make_calendar_container = $('.make-calendar.container')
                 make_calendar_container.classList.add('show');
 
-                var startTimeElement = document.getElementById("start_time");
-                startTimeElement.value = `${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')))}`;
+                // render startTime vào flatpickr
+                const startTime = new Date(`${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')))}`)
+                const inputStartTimeInstance = modalAddCalendar.inputStartTime
+                inputStartTimeInstance.setDate(startTime)
 
-                var endTimeElement = document.getElementById("end_time");
-                endTimeElement.value = `${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')) + 0.5)}`;
+                // render endTime vào flatpickr
+                const endTime = startTime.setMinutes(startTime.getMinutes() + 30)
+                const inputEndTimeInstance = modalAddCalendar.inputEndTime
+                inputEndTimeInstance.setDate(endTime)
 
+                // render reportTime vào flatpickr
+                const reportTime = startTime.setHours(0)
+                const inputReportTimeInstance = modalAddCalendar.inputReportTime
+                inputReportTimeInstance.setDate(reportTime)
             })
         })
 
@@ -269,16 +258,13 @@ const calendar = {
             }
         }
         
-        console.log(eventInCurWeek);
         eventInCurWeek.forEach(function (event) {
             event.classList.add('active')
         })
 
-
-
         events.forEach(function (event) {
             event.addEventListener('click', () =>
-                window.location.href = `/meeting/${event.getAttribute('id')}`
+                window.location.href = `/meeting/?id=${event.getAttribute('id')}`
             )
 
             let curHeight
@@ -298,7 +284,8 @@ const calendar = {
         this.handleResizeWorkBox()
 
     },
-    start: function () {
+    start: async function () {
+        await this.API()
         this.config()
         this.renderWeek(currentDate)
         this.loadEvents()
