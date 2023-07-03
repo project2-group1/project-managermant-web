@@ -20,59 +20,14 @@
 
 <body>
     <div class="master">
-        <!-- Header -->
         {{> header}}
         {{> sidebar}}
-
         {{{body}}}
-
-
         {{>footer}}
-
     </div>
-
-    <script>
-        /*--------------------Nghĩa : START---------------------*/
-        // selector
-        const wrapperSidebar = $('.wrapper-sidebar')
-        const wrapperContent = $('.wrapper-content')
-
-        // Button on/off avatar nav
-
-        // Button on/off sidebar
-        btnSidebar.onclick = function () {
-            //console.log(btnSidebar) // check
-            if (wrapperSidebar.classList.contains('hidden')) {
-                wrapperSidebar.classList.remove('hidden')
-                wrapperContent.classList.remove('fullwidth')
-            }
-            else {
-                wrapperSidebar.classList.add('hidden')
-                wrapperContent.classList.add('fullwidth')
-            }
-        }
-
-        /*--------------------Nghĩa : END---------------------*/
-
-
-
-        // chuyển hướng ds sinh viên
-        /*const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-studentlist > button');
-        studentList.onclick = function () {
-            window.location.href = "./dssinhvien.html"
-        }
-        */
-
-        /* # Ngọc: START */
-        const logo_page = $('.logo-page')
-        logo_page.onclick = function () {
-            window.location.href = "/"
-        }
-
-    </script>
-
-    {{!-- Handle --}}
-    <script src="{{ handle }}"></script>
+    
+    <script src="/js/index.js"></script>
+    <script type="module" src="{{ handle }}"></script>
 </body>
 
 </html>

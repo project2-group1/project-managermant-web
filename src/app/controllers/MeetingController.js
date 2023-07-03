@@ -30,6 +30,16 @@ class MeetingController {
         }
     }
 
+    // [GET] /event
+    getAllEvents(req, res, next) {
+        Meeting.getAllEvents(null , function (data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+        })
+    }
 
 
     // [POST] /create -> redirect to /
@@ -44,10 +54,21 @@ class MeetingController {
             // res.json(req.body)
     }
 
+    // [GET] /meeting/api/:id
+    getDataMeetingByID(req, res ,next) {
+        console.log(req.query.id)
+        Meeting.getDataMeeting(req.query.id , function (data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+        })
+    }
+
     // [GET] /meeting/:id - Get meeting by id access though Model
     getMeetingById(req, res, next) {
-        console.log(req.params)
-        Meeting.getById(req.params.id, function (data, err) {
+        Meeting.getById(req.query.id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
@@ -75,7 +96,10 @@ class MeetingController {
         })
     }
 
-    // [GET] /meeting/end
+    // [POST] /meeting/end
+    endMeeting(req, res, next) {
+        res.send(req.body)
+    }
 
     // [GET] /meeting
     getAllMeetings(req, res, next) {
