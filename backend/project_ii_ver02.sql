@@ -1,11 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
+ -- phpMyAdmin SQL Dump
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 25, 2023 lúc 03:48 PM
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.1.12
+-- Host: 127.0.0.1
+-- Generation Time: Jun 29, 2023 at 07:52 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `project_ii_ver01`
+-- Database: `project_ii_ver02`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `groupstudent`
+-- Table structure for table `groupstudent`
 --
 
 CREATE TABLE `groupstudent` (
@@ -36,7 +36,7 @@ CREATE TABLE `groupstudent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `groupstudent`
+-- Dumping data for table `groupstudent`
 --
 
 INSERT INTO `groupstudent` (`group_id`, `course_id`, `projectname`, `coursename`, `term`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `groupstudent` (`group_id`, `course_id`, `projectname`, `coursename`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `meeting`
+-- Table structure for table `meeting`
 --
 
 CREATE TABLE `meeting` (
@@ -65,24 +65,22 @@ CREATE TABLE `meeting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `meeting`
+-- Dumping data for table `meeting`
 --
 
 INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`) VALUES
 (2022200101, 20222001, 19990131, '2023-05-24 10:30:00', '2023-06-29 00:00:00', 'Lập trình database', NULL, NULL, '2023-05-24 11:00:00', 'Họp buổi 1'),
 (2022200102, 20222001, 19990131, '2023-06-16 15:00:00', '2023-06-29 23:59:59', '', NULL, NULL, '2023-06-16 17:00:00', 'Họp buổi 1'),
 (2022200103, 20222001, 19990131, '2023-06-21 13:30:00', '2023-06-30 23:59:00', 'Báo cáo tiến độ lần 3', NULL, NULL, '2023-06-21 14:30:00', 'Họp buổi 1'),
-(2022200104, 20222001, 19990131, '2023-06-22 08:30:00', '0000-00-00 00:00:00', '', NULL, NULL, '2023-06-22 11:30:00', 'Họp buổi 1'),
-(2022200105, 20222001, 19990131, '2023-06-20 08:30:00', '0000-00-00 00:00:00', 'test', NULL, NULL, '2023-06-20 09:30:00', 'Họp buổi 1'),
-(2022200106, 20222001, 19990131, '2023-06-21 13:00:00', '0000-00-00 00:00:00', '', NULL, NULL, '2023-06-21 14:00:00', 'Họp buổi 1'),
-(2022200107, 20222001, 19990131, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', NULL, NULL, '0000-00-00 00:00:00', 'Họp buổi 1'),
-(2022200202, 20222002, 19990131, '2023-06-23 11:30:00', '0000-00-00 00:00:00', 'Note của nhóm 2', NULL, NULL, '2023-06-23 11:30:00', 'Họp buổi 2'),
-(2022200203, 20222002, 19990131, '2023-06-24 09:30:00', '0000-00-00 00:00:00', 'note 3', NULL, NULL, '2023-06-24 10:30:00', 'Họp buổi 2');
+(2022200201, 20222002, 19990131, '2023-07-01 08:00:00', '2023-07-06 11:55:00', 'n2', NULL, NULL, '2023-07-01 08:30:00', ''),
+(2022200301, 20222003, 19990131, '2023-06-30 08:30:00', '2023-07-06 11:48:00', 'note nhóm 3 buổi 1', NULL, NULL, '2023-06-30 09:00:00', ''),
+(2022200302, 20222003, 19990131, '2023-07-01 09:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 2', NULL, NULL, '2023-07-01 10:00:00', ''),
+(2022200303, 20222003, 19990131, '2023-06-30 10:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 3', NULL, NULL, '2023-06-30 13:00:00', '');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `student`
+-- Table structure for table `student`
 --
 
 CREATE TABLE `student` (
@@ -96,7 +94,7 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `student`
+-- Dumping data for table `student`
 --
 
 INSERT INTO `student` (`student_id`, `group_id`, `fullname`, `password`, `email`, `phonenumber`, `birthday`) VALUES
@@ -109,7 +107,7 @@ INSERT INTO `student` (`student_id`, `group_id`, `fullname`, `password`, `email`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `teacher`
+-- Table structure for table `teacher`
 --
 
 CREATE TABLE `teacher` (
@@ -122,7 +120,7 @@ CREATE TABLE `teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `teacher`
+-- Dumping data for table `teacher`
 --
 
 INSERT INTO `teacher` (`teacher_id`, `fullname`, `password`, `address`, `phonenumber`, `email`) VALUES
@@ -131,17 +129,17 @@ INSERT INTO `teacher` (`teacher_id`, `fullname`, `password`, `address`, `phonenu
 (20110003, 'Lã Thế Vinh', '123456', 'Hoàng Mai Hà Nội', 981122288, 'vinh.lathe@hust.edu.vn');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `groupstudent`
+-- Indexes for table `groupstudent`
 --
 ALTER TABLE `groupstudent`
   ADD PRIMARY KEY (`group_id`);
 
 --
--- Chỉ mục cho bảng `meeting`
+-- Indexes for table `meeting`
 --
 ALTER TABLE `meeting`
   ADD PRIMARY KEY (`meeting_id`,`group_id`,`teacher_id`),
@@ -149,31 +147,31 @@ ALTER TABLE `meeting`
   ADD KEY `FK_TeacherID` (`teacher_id`);
 
 --
--- Chỉ mục cho bảng `student`
+-- Indexes for table `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`student_id`,`group_id`),
   ADD KEY `FK_GroupID` (`group_id`);
 
 --
--- Chỉ mục cho bảng `teacher`
+-- Indexes for table `teacher`
 --
 ALTER TABLE `teacher`
   ADD PRIMARY KEY (`teacher_id`);
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `meeting`
+-- Constraints for table `meeting`
 --
 ALTER TABLE `meeting`
   ADD CONSTRAINT `FK_MeetingID_To_GroupID` FOREIGN KEY (`group_id`) REFERENCES `groupstudent` (`group_id`),
   ADD CONSTRAINT `FK_TeacherID` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
 
 --
--- Các ràng buộc cho bảng `student`
+-- Constraints for table `student`
 --
 ALTER TABLE `student`
   ADD CONSTRAINT `FK_GroupID` FOREIGN KEY (`group_id`) REFERENCES `groupstudent` (`group_id`);
