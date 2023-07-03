@@ -1,9 +1,9 @@
- -- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2023 at 07:52 AM
+-- Generation Time: Jul 02, 2023 at 10:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -58,24 +58,28 @@ CREATE TABLE `meeting` (
   `starttime` datetime NOT NULL,
   `reportdeadline` datetime DEFAULT NULL,
   `note` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `next_meeting_id` int(8) DEFAULT NULL,
+  `next_meeting_id` int(10) DEFAULT NULL,
   `report` longblob DEFAULT NULL,
   `endtime` datetime DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `previous_meeting_id` int(10) DEFAULT NULL,
+  `require_meeting` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `meeting`
 --
 
-INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`) VALUES
-(2022200101, 20222001, 19990131, '2023-05-24 10:30:00', '2023-06-29 00:00:00', 'Lập trình database', NULL, NULL, '2023-05-24 11:00:00', 'Họp buổi 1'),
-(2022200102, 20222001, 19990131, '2023-06-16 15:00:00', '2023-06-29 23:59:59', '', NULL, NULL, '2023-06-16 17:00:00', 'Họp buổi 1'),
-(2022200103, 20222001, 19990131, '2023-06-21 13:30:00', '2023-06-30 23:59:00', 'Báo cáo tiến độ lần 3', NULL, NULL, '2023-06-21 14:30:00', 'Họp buổi 1'),
-(2022200201, 20222002, 19990131, '2023-07-01 08:00:00', '2023-07-06 11:55:00', 'n2', NULL, NULL, '2023-07-01 08:30:00', ''),
-(2022200301, 20222003, 19990131, '2023-06-30 08:30:00', '2023-07-06 11:48:00', 'note nhóm 3 buổi 1', NULL, NULL, '2023-06-30 09:00:00', ''),
-(2022200302, 20222003, 19990131, '2023-07-01 09:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 2', NULL, NULL, '2023-07-01 10:00:00', ''),
-(2022200303, 20222003, 19990131, '2023-06-30 10:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 3', NULL, NULL, '2023-06-30 13:00:00', '');
+INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`, `previous_meeting_id`, `require_meeting`) VALUES
+(2022200101, 20222001, 19990131, '2023-05-24 10:30:00', '2023-06-29 00:00:00', 'Lập trình database', NULL, NULL, '2023-05-24 11:00:00', 'Họp buổi 1', NULL, NULL),
+(2022200102, 20222001, 19990131, '2023-06-16 15:00:00', '2023-06-29 23:59:59', '', NULL, NULL, '2023-06-16 17:00:00', 'Họp buổi 1', NULL, NULL),
+(2022200103, 20222001, 19990131, '2023-06-21 13:30:00', '2023-06-30 23:59:00', 'Báo cáo tiến độ lần 3', NULL, NULL, '2023-06-21 14:30:00', 'Họp buổi 1', NULL, NULL),
+(2022200104, 20222001, 19990131, '2023-07-02 09:00:00', '2023-07-06 13:15:00', 'note nhóm 1 mùng 2/7', NULL, NULL, '2023-07-02 10:30:00', '', NULL, NULL),
+(2022200105, 20222001, 19990131, '2023-06-28 07:00:00', '2023-07-07 20:37:00', '', NULL, NULL, '2023-06-28 08:00:00', '', NULL, NULL),
+(2022200201, 20222002, 19990131, '2023-07-01 08:00:00', '2023-07-06 11:55:00', 'n2', NULL, NULL, '2023-07-01 08:30:00', '', NULL, NULL),
+(2022200301, 20222003, 19990131, '2023-06-30 08:30:00', '2023-07-06 11:48:00', 'note nhóm 3 buổi 1', NULL, NULL, '2023-06-30 09:00:00', '', NULL, NULL),
+(2022200302, 20222003, 19990131, '2023-07-01 09:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 2', NULL, NULL, '2023-07-01 10:00:00', '', NULL, NULL),
+(2022200303, 20222003, 19990131, '2023-06-30 10:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 3', NULL, NULL, '2023-06-30 13:00:00', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
