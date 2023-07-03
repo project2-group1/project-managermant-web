@@ -5,9 +5,7 @@ class CalendarController {
     // [GET] /calender
     async show(req, res, next) {
         const id = req.session.user.teacher_id;
-        console.log(id);
         FreeTime.getByTeacherId(id, function (data, err) {
-            console.log(data);
             if (err) {
                 console.log("1");
                 res.status(500).send(err);
@@ -21,11 +19,23 @@ class CalendarController {
                         '/css/calendar.css',
                     ],
                     libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
-                    handle: '/js/calendar.js',
+                    handle: '/js/freetime.js',
                     data: responseData,
                 })
             }
         })
     }
+    // [GET] /freetime/api
+    getFreeTime(req, res, next) {
+        const id = req.session.user.teacher_id;
+        FreeTime.getByTeacherId(id, function (data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+        })
+    }
+
 }
 module.exports = new CalendarController()
