@@ -8,13 +8,13 @@ export function putRequest(URL, request) {
         .then(response => {
             // Kiểm tra phản hồi thành công (status 200-299)
             if (response.ok) {
-                console.log('Cuộc họp đã được xóa thành công.');
+                console.log('đã được xóa thành công.');
             } else {
-                console.log('Xóa cuộc họp không thành công.');
+                console.log('không thành công.');
             }
         })
         .catch(error => {
-            console.error('Lỗi khi gửi yêu cầu DELETE:', error);
+            console.error('PUT error:', error);
     
         })
 }
