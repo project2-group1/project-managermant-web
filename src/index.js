@@ -8,6 +8,7 @@ const path = require('path') // lib của nodejs để lấy địa chỉ
 const mysql = require('./config/db/index.js');
 const app = express()
 const port = 3000
+const bodyParser = require('body-parser');
 
 app.use(morgan('combined'))
 
@@ -21,6 +22,7 @@ app.use(
         extended: true,
     }),
 );
+app.use(bodyParser.json());
 
 app.use(session({
     secret: 'keyboard cat',

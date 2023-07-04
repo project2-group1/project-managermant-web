@@ -61,7 +61,7 @@
     border-radius: 5%;
 }
 
-.group-modal {
+.form-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -70,15 +70,15 @@
     transform: translate(-50%, -50%);
     background-color: rgb(70, 231, 231);
 }
-.group-modal form label, .group-modal form input {
+.form-modal form label, .form-modal form input {
     display: block;
     margin: 12px;
 }
-.group-modal input[type=submit] {
+.form-modal input[type=submit] {
     padding: 10px;
     margin: 10px;
 }
-.group-modal a, .manipulate-group i{
+.form-modal a, .manipulate i{
     position: absolute;
     text-align: center;
     vertical-align: center;
@@ -88,15 +88,15 @@
     right: 0;
     top: -24px;
 }
-.group-modal a:hover, .manipulate-group i:hover{
+.form-modal a:hover, .manipulate i:hover{
     background-color: red;
 }
-.manipulate-group {
+.manipulate{
     width: 200px;
-    position: absolute;
+    position: fixed;
 
 }
-.manipulate-group a, .manipulate-group .group-id {
+.manipulate a, .manipulate .id {
     display: block;
     padding: 16px;
     border: #0e0101 1px solid;
@@ -106,10 +106,10 @@
     width: 100%;
 
 }
-.manipulate-group .group-id {
+.manipulate .id {
     width: 100%;
 }
-.manipulate-group a:hover {
+.manipulate a:hover {
     background-color: aquamarine;
     opacity: 0.8;
 }

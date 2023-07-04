@@ -45,30 +45,14 @@ class List {
     }
     // Thêm 1 sinh viên
     static insertStudent(student) {
-        let student_id = student?.student_id;
-        let group_id = student?.group_id;
-        let fullname = student?.fullname;
-        let password = student?.password;
-        let projectname = student?.projectname;
-        let email = student?.email;
-        let phonenumber = student?.phonenumber;
-        let term = student?.term;
-        let birthday = student?.birthday;
-
-        //check student
-        if (!student_id || !group_id || !fullname || !password ||
-            !projectname || !email || !phonenumber || !term || !birthday) {
-            return false;
-        }
-
         return new Promise((resolve, reject) => {
             db.query(`INSERT INTO student 
-            VALUES(${student_id}, ${group_id}, '${fullname}',
-            '${password}', '${projectname}', '${email}', 
-            ${phonenumber}, ${term}, '${birthday}')`,
+            VALUES(${student.student_id}, ${student.group_id}, '${student.fullname}',
+            '${student.password}', '${student.email}', 
+            ${student.phonenumber}, '${student.birthday}')`,
                 function (err, res) {
                     if (err) {
-                        console.log('Error Insert: ', err);
+                        console.log('Error Insert student: ', err);
                         reject(err);
                     } else {
                         resolve(res);
@@ -81,21 +65,15 @@ class List {
 
     }
     // xóa 1 sinh viên
-    static deleteStudent(student) {
-        let student_id = student?.student_id;
-
-
-        //check id student
-        if (!student_id) {
-            return false;
-        }
+    static deleteStudent(student_id) {
+  
 
         return new Promise((resolve, reject) => {
             db.query(`DELETE FROM student 
             WHERE student_id = ${student_id}`,
                 function (err, res) {
                     if (err) {
-                        console.log('Error Insert: ', err);
+                        console.log('Error delete student: ', err);
                         reject(err);
                     } else {
                         resolve(res);
@@ -104,31 +82,13 @@ class List {
         })
     }
     // sửa 1 sinh viên 
-    static editStudent(student1, student) {
-        let student1_id = student1?.student_id;
-
-        let student_id = student?.student_id;
-        let group_id = student?.group_id;
-        let fullname = student?.fullname;
-        let password = student?.password;
-        let projectname = student?.projectname;
-        let email = student?.email;
-        let phonenumber = student?.phonenumber;
-        let term = student?.term;
-        let birthday = student?.birthday;
-
-        //check student
-        if (!student_id || !group_id || !fullname || !password ||
-            !projectname || !email || !phonenumber || !term || !birthday) {
-            return false;
-        }
-
+    static editStudent(oldStudentId, newStudent) {
         return new Promise((resolve, reject) => {
             db.query(`UPDATE student 
-            SET student_id=${student_id}, group_id=${group_id}, fullname='${fullname}',
-            password='${password}', projectname='${projectname}', email='${email}', 
-            phonenumber=${phonenumber}, term=${term}, birthday='${birthday}'
-            WHERE student_id=${student1_id}`,
+            SET student_id=${newStudent.student_id}, group_id=${newStudent.group_id}, fullname='${newStudent.fullname}',
+             email='${newStudent.email}', 
+            phonenumber=${newStudent.phonenumber}, birthday='${newStudent.birthday}'
+            WHERE student_id=${newStudent.oldStudentId}`,
                 function (err, res) {
                     if (err) {
                         console.log('Error Insert: ', err);
@@ -140,57 +100,5 @@ class List {
         })
     }
 }
-
-// List.instertGruop = function (group_id, projectname, coursecode, coursename, result) {
-//     db.query(`
-//         INSERT INTO groupstudent
-//         (group_id, projectname, coursecode, coursename) 
-//         VALUES (${group_id}, ${projectname}, ${coursecode}, ${coursename});
-//         `, function (err, res) {
-//         if (err) {
-//             console.log("Error: ", err);
-//             result(null, err);
-//         } else {
-//             // console.log("Student: ", res.fullname);
-//             result(null, res);
-//         }
-//     })
-// }
-
-// List.getAll = function (result) {
-//     db.query(
-//         `SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname, coursecode, coursename
-//         FROM student, groupstudent
-//         WHERE student.group_id = groupstudent.group_id
-//         ORDER BY term DESC 
-//         `, function (err, res) {
-//         if (err) {
-//             console.log("Error getAll: ", err);
-//             result(null, err);
-//         } else {
-//             // console.log("Student: ", res.fullname);
-//             result(null, res);
-//         }
-//     })
-// }
-
-
-// List.findById = function (studentID, result) {
-//     db.query(`
-//         SELECT student_id, student.group_id, phonenumber, term, birthday, password, email, fullname, projectname
-//         FROM student, groupstudent
-//         WHERE student.group_id = groupstudent.group_id AND student.student_id = ${studentID}
-//         ORDER BY term DESC`, (err, res) => {
-//         if (err) {
-//             result(err, null);
-//             return;
-//         }
-//         if (res.length) {
-//             result(null, res[0])
-//             return;
-//         }
-//         result(null, null);
-//     });
-// }
 
 module.exports = List;
