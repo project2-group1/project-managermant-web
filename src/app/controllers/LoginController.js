@@ -29,7 +29,7 @@ class LoginController {
                         console.log("Login success");
                     } else {
                         const conflictError = 'User credentials are not valid.';
-                        res.redirect('auth/');
+                        res.redirect('/auth');
                     }
                 }
             })

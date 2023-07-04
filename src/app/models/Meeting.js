@@ -4,7 +4,7 @@ const db = require("../../config/db/index.js")
 class Meeting {
 
     constructor() {
- 
+
     }
 
     executeQuery(sql) {
@@ -25,7 +25,7 @@ class Meeting {
 
         const meetingSQL = `
             SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id, coursename, 
-                    projectname, starttime, endtime, note, next_meeting_id, report
+                    projectname, starttime, endtime, require_meeting , note, next_meeting_id, report
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
             WHERE meeting.meeting_id = ${meeting_id}
@@ -47,6 +47,20 @@ class Meeting {
                 console.error('Error:', err);
                 result(err);
             });
+
+    }
+
+    // user by assginment
+    async getByTeacherId(id, result) {
+        const teacherSQL = `SELECT * FROM meeting WHERE teacher_id = ${id};`
+
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
 
     }
 
@@ -82,7 +96,7 @@ class Meeting {
             throw err;
         }
     }
-
+    
     getAll(result) {
         const responseData = {}
 
@@ -129,12 +143,12 @@ class Meeting {
             try {
                 // executeQuery return Array so we neet to destructuring
                 // this array by [meeting]
-                const [meeting] = await _this.executeQuery(maxMeetingIdSQL) 
+                const [meeting] = await _this.executeQuery(maxMeetingIdSQL)
                 if (meeting) {
                     return meeting
                 } else {
                     return null
-                } 
+                }
 
             } catch (err) {
                 console.error('Error:', err);
@@ -190,41 +204,39 @@ class Meeting {
                 );
         `
 
-                   
-
-
+        
 
         function formatDate(dateTime) {
-            const year = dateTime.substring(0,4)
-            const month = dateTime.substring(5,7)
-            const date = dateTime.substring(8,10)
+            const year = dateTime.substring(0, 4)
+            const month = dateTime.substring(5, 7)
+            const date = dateTime.substring(8, 10)
 
-            const hour = dateTime.substring(11,13)
-            const minutes = dateTime.substring(14,16)
-            
+            const hour = dateTime.substring(11, 13)
+            const minutes = dateTime.substring(14, 16)
+
             return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
         }
 
         if(curMeetingData.meeting_id) {
             Promise.all([_this.executeQuery(insertMeetingSQL)])
-            .then(([insertData]) => {
-                result(insertData, null)
-            }) 
-            .catch((err) => {
-                console.log(err)
-                // result(null, err);
-            })
+                .then(([insertData]) => {
+                    result(insertData, null)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    // result(null, err);
+                })
         } else {
             Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
-            .then(([insertData]) => {
-                result(insertData, null)
-            }) 
-            .catch((err) => {
-                console.log(err)
-                // result(null, err);
-            })
+                .then(([insertData]) => {
+                    result(insertData, null)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    // result(null, err);
+                })
         }
-        
+
     }
 
     //data = data received
@@ -236,7 +248,7 @@ class Meeting {
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
         `
-        
+
         try {
             const event = await _this.executeQuery(meetingInfoSQL)
             result(event)
@@ -255,11 +267,50 @@ class Meeting {
             SELECT *
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+            WHERE is_ended = 0
         `
         // WHEN teacher.id = ${data}
 
         try {
             const event = await _this.executeQuery(getEventSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+    }
+
+    async endMeeting(data, result) {
+        const _this = this
+
+        const endMeetingSQL = `
+            UPDATE meeting
+            SET meeting.note = '${data.note}',
+                meeting.is_ended = 1
+            WHERE meeting.meeting_id = ${data.meeting_id} 
+        `
+
+        try {
+            const meeting = await _this.executeQuery(endMeetingSQL)
+            result(meeting)
+        }
+        catch(err) {
+            console.error('Error: ', err)
+            throw err
+        }
+    }
+
+    async deleteMeeting(data, result) {
+        const _this = this
+
+        const deleteMeetingSQL = `
+            DELETE
+            FROM meeting
+            WHERE meeting.meeting_id = ${data.meeting_id}
+        `
+
+        try {
+            const event = await _this.executeQuery(deleteMeetingSQL)
             result(event)
         } catch (err) {
             console.error('Error:', err);

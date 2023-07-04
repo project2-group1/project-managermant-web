@@ -1,7 +1,7 @@
 <div class="wrapper-content">
     <div class="meeting-container">
         {{#each meetings}}
-        <form action="/meeting/end" method="post" class="form-meeting">
+        <form method="POST" class="form-meeting">
             <input type="hidden" name="meeting_id" value="{{this.meeting_id}}">
             <div class="meeting">
                 <div class="meeting-header">
@@ -24,38 +24,69 @@
                         <p class="date" starttime="{{this.starttime}}" endtime="{{this.endtime}}"></p>
                     </div>
                     <div class="info">
-                        <div class="info-student">
+                        <div class="info-student col-second">
                             <table>
-                            <thead>
-                                <tr>
-                                    <th>Họ tên</th>
-                                    <th>MSSV</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each ../students}}
-                                <tr class="student">
-                                    <td class="student-name">{{this.fullname}}</td>
-                                    <td class="student-id">{{this.student_id}}</td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Họ tên</th>
+                                        <th>MSSV</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each ../students}}
+                                    <tr class="student">
+                                        <td class="student-name">{{this.fullname}}</td>
+                                        <td class="student-id">{{this.student_id}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
                             </table>
                         </div>
-                        
-                        <div class="file-report">
-                            <label for="file">Báo cáo: </label>
-                            <input type="file" accept=".doc,.docx,.pdf,.zip">
+                        <div class="file-report col-second">
+                            <div class="row">
+                                <h3>Yêu cầu</h3>
+                                <p class="require_meeting">{{this.require_meeting}}</p>
+                            </div>
+                            <div class="row">
+                                <label for="file">Báo cáo: </label>
+                                <input type="file" accept=".doc,.docx,.pdf,.zip">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="meeting-content">
-                    <input type="hidden" name="note" value="">
                     <div class="editor"></div>
                 </div>
                 <div class="meeting-end">
-                    <label for="submit"></label>
-                    <input type="submit" class="btn-end-meeting" value="Kết thúc">
+                    <div class="container-select-modal ">
+                        <details>
+                            <summary>
+                                <div class="button btn-end-meeting">Kết thúc</div>
+                                <div class="details-modal-overlay"></div>
+                            </summary>
+                            <div class="details-modal">
+                                <div class="details-modal-close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                                        fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z"
+                                            fill="black" />
+                                    </svg>
+                                </div>
+                                <div class="details-modal-title">
+                                    <h1>Kết thúc cuộc họp</h1>
+                                </div>
+                                <div class="details-modal-content">
+                                    <p>Bạn có thể lựa chọn tạo cuộc họp mới tại đây hoặc kết thúc cuộc họp mà không tạo
+                                        mới!</p>
+                                    <div class="modal-row">
+                                        <button class="button btn-modal btn-add-meeting">Tạo mới</button>
+                                        <button class="button btn-modal btn-end">Kết thúc</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
                 </div>
             </div>
         </form>

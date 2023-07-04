@@ -4,13 +4,15 @@ const listRouter = require('./list')
 const assignmentRouter = require('./assignment')
 const meetingRouter = require('./meeting')
 const loginRouter = require('./login.js');
+const freeTimeRouter = require('./freetime.js')
 
 function route(app) {
     app.use('/assignment', assignmentRouter);
     app.use('/list', listRouter);
     app.use('/', meetingRouter);
     app.use('/me', meRouter);
-    // app.use('/auth', loginRouter); // Xác thực
+    app.use('/auth', loginRouter); // Xác thực
+    app.use('/freetime', freeTimeRouter);
     // app.use('/', calendarRouter);
 }
 

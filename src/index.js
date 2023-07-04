@@ -6,8 +6,13 @@ const xlsx = require('xlsx')
 const handlebars = require('express-handlebars')
 const path = require('path') // lib của nodejs để lấy địa chỉ
 const mysql = require('./config/db/index.js');
+const multer = require('multer');
+
 const app = express()
 const port = 3000
+
+const upload = multer();
+app.use(upload.any());
 
 app.use(morgan('combined'))
 

@@ -1,27 +1,29 @@
 var express = require('express')
 var router = express.Router()
 
-const listController = require('../app/controllers/ListControllers.js')
+const listController = require('../app/controllers/ListControllers.js');
+const authMiddleware = require('../middlewares/Authorization.js');
+
 // Thêm file exel
-router.get('/importexcel', listController.importexcel)
+router.get('/importexcel', authMiddleware.loggedin, listController.importexcel)
 //  thêm Student
-router.get('/insertstudent', listController.insertStudent)
+router.get('/insertstudent', authMiddleware.loggedin, listController.insertStudent)
 //  sửa Student
-router.get('/editstudent', listController.editStudent)
+router.get('/editstudent', authMiddleware.loggedin, listController.editStudent)
 //  xóa Student
-router.get('/deletestudent', listController.deleteStudent)
+router.get('/deletestudent', authMiddleware.loggedin, listController.deleteStudent)
 // lấy ds theo kỳ học
-router.get('/getterm', listController.getTerm)
+router.get('/getterm', authMiddleware.loggedin, listController.getTerm)
 //thêm excel
-router.post('/importexcel', listController.importexcel)
+router.post('/importexcel', authMiddleware.loggedin, listController.importexcel)
 // thêm nhóm
-router.post('/addgroup', listController.addGroup)
+router.post('/addgroup', authMiddleware.loggedin, listController.addGroup)
 // xóa nhóm
-router.get('/deletegroup', listController.deleteGroup)
+router.get('/deletegroup', authMiddleware.loggedin, listController.deleteGroup)
 // sua nhom
-router.post('/editgroup', listController.editGroup)
+router.post('/editgroup', authMiddleware.loggedin, listController.editGroup)
 // tải trang
-router.get('/', listController.show)
+router.get('/', authMiddleware.loggedin, listController.show)
 
 
 module.exports = router

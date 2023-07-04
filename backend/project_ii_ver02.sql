@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 25, 2023 lúc 03:48 PM
+-- Thời gian đã tạo: Th7 03, 2023 lúc 02:14 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.1.12
 
@@ -18,8 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `project_ii_ver01`
+-- Cơ sở dữ liệu: `project_ii_ver02`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `freetime`
+--
+
+CREATE TABLE `freetime` (
+  `teacher_id` int(8) NOT NULL,
+  `starttime` datetime DEFAULT NULL,
+  `endtime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `freetime`
+--
+
+INSERT INTO `freetime` (`teacher_id`, `starttime`, `endtime`) VALUES
+(19990131, '2023-07-03 19:00:00', '2023-07-03 19:30:00');
 
 -- --------------------------------------------------------
 
@@ -58,26 +77,29 @@ CREATE TABLE `meeting` (
   `starttime` datetime NOT NULL,
   `reportdeadline` datetime DEFAULT NULL,
   `note` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `next_meeting_id` int(8) DEFAULT NULL,
+  `next_meeting_id` int(10) DEFAULT NULL,
   `report` longblob DEFAULT NULL,
   `endtime` datetime DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `previous_meeting_id` int(10) DEFAULT NULL,
+  `require_meeting` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `meeting`
 --
 
-INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`) VALUES
-(2022200101, 20222001, 19990131, '2023-05-24 10:30:00', '2023-06-29 00:00:00', 'Lập trình database', NULL, NULL, '2023-05-24 11:00:00', 'Họp buổi 1'),
-(2022200102, 20222001, 19990131, '2023-06-16 15:00:00', '2023-06-29 23:59:59', '', NULL, NULL, '2023-06-16 17:00:00', 'Họp buổi 1'),
-(2022200103, 20222001, 19990131, '2023-06-21 13:30:00', '2023-06-30 23:59:00', 'Báo cáo tiến độ lần 3', NULL, NULL, '2023-06-21 14:30:00', 'Họp buổi 1'),
-(2022200104, 20222001, 19990131, '2023-06-22 08:30:00', '0000-00-00 00:00:00', '', NULL, NULL, '2023-06-22 11:30:00', 'Họp buổi 1'),
-(2022200105, 20222001, 19990131, '2023-06-20 08:30:00', '0000-00-00 00:00:00', 'test', NULL, NULL, '2023-06-20 09:30:00', 'Họp buổi 1'),
-(2022200106, 20222001, 19990131, '2023-06-21 13:00:00', '0000-00-00 00:00:00', '', NULL, NULL, '2023-06-21 14:00:00', 'Họp buổi 1'),
-(2022200107, 20222001, 19990131, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', NULL, NULL, '0000-00-00 00:00:00', 'Họp buổi 1'),
-(2022200202, 20222002, 19990131, '2023-06-23 11:30:00', '0000-00-00 00:00:00', 'Note của nhóm 2', NULL, NULL, '2023-06-23 11:30:00', 'Họp buổi 2'),
-(2022200203, 20222002, 19990131, '2023-06-24 09:30:00', '0000-00-00 00:00:00', 'note 3', NULL, NULL, '2023-06-24 10:30:00', 'Họp buổi 2');
+INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`, `previous_meeting_id`, `require_meeting`) VALUES
+(2022200101, 20222001, 19990131, '2023-05-24 10:30:00', '2023-06-29 00:00:00', 'Lập trình database', NULL, NULL, '2023-05-24 11:00:00', 'Họp buổi 1', NULL, NULL),
+(2022200102, 20222001, 19990131, '2023-06-16 15:00:00', '2023-06-29 23:59:59', '', NULL, NULL, '2023-06-16 17:00:00', 'Họp buổi 1', NULL, NULL),
+(2022200103, 20222001, 19990131, '2023-06-21 13:30:00', '2023-06-30 23:59:00', 'Báo cáo tiến độ lần 3', NULL, NULL, '2023-06-21 14:30:00', 'Họp buổi 1', NULL, NULL),
+(2022200104, 20222001, 19990131, '2023-07-02 09:00:00', '2023-07-06 13:15:00', 'note nhóm 1 mùng 2/7', NULL, NULL, '2023-07-02 10:30:00', '', NULL, NULL),
+(2022200105, 20222001, 19990131, '2023-06-28 07:00:00', '2023-07-07 20:37:00', '', NULL, NULL, '2023-06-28 08:00:00', '', NULL, NULL),
+(2022200201, 20222002, 19990131, '2023-07-01 08:00:00', '2023-07-06 11:55:00', 'n2', NULL, NULL, '2023-07-01 08:30:00', '', NULL, NULL),
+(2022200202, 20222002, 19990131, '2023-07-05 07:00:00', '2023-07-05 00:30:00', '', NULL, NULL, '2023-07-05 07:30:00', '', 0, 'undefined'),
+(2022200301, 20222003, 19990131, '2023-06-30 08:30:00', '2023-07-06 11:48:00', 'note nhóm 3 buổi 1', NULL, NULL, '2023-06-30 09:00:00', '', NULL, NULL),
+(2022200302, 20222003, 19990131, '2023-07-01 09:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 2', NULL, NULL, '2023-07-01 10:00:00', '', NULL, NULL),
+(2022200303, 20222003, 19990131, '2023-06-30 10:30:00', '2023-07-06 11:50:00', 'nhóm 3 buổi 3', NULL, NULL, '2023-06-30 13:00:00', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -135,6 +157,12 @@ INSERT INTO `teacher` (`teacher_id`, `fullname`, `password`, `address`, `phonenu
 --
 
 --
+-- Chỉ mục cho bảng `freetime`
+--
+ALTER TABLE `freetime`
+  ADD KEY `freetime_ibfk_1` (`teacher_id`);
+
+--
 -- Chỉ mục cho bảng `groupstudent`
 --
 ALTER TABLE `groupstudent`
@@ -164,6 +192,12 @@ ALTER TABLE `teacher`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `freetime`
+--
+ALTER TABLE `freetime`
+  ADD CONSTRAINT `freetime_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
 
 --
 -- Các ràng buộc cho bảng `meeting`
