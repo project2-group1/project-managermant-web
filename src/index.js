@@ -10,6 +10,7 @@ const multer = require('multer');
 
 const app = express()
 const port = 3000
+const bodyParser = require('body-parser');
 
 const upload = multer();
 app.use(upload.any());
@@ -26,6 +27,7 @@ app.use(
         extended: true,
     }),
 );
+app.use(bodyParser.json());
 
 app.use(session({
     secret: 'keyboard cat',
