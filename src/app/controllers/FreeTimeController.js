@@ -7,7 +7,6 @@ class CalendarController {
         const id = req.session.user.teacher_id;
         FreeTime.getByTeacherId(id, function (data, err) {
             if (err) {
-                console.log("1");
                 res.status(500).send(err);
             } else {
                 // res.json(responseData)
@@ -42,6 +41,18 @@ class CalendarController {
         const start = req.body.start_time;
         const end = req.body.end_time;
         FreeTime.create(id, start, end, function (data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            res.redirect('/freetime')
+        })
+    }
+
+    // [GET] /freetime/:id/end
+    delete(req, res, next) {
+        const id = req.params.id;
+        FreeTime.deleteById(id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return

@@ -28,9 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `freetime` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `teacher_id` int(8) NOT NULL,
   `starttime` datetime NOT NULL,
-  `endtime` datetime DEFAULT NULL
+  `endtime` datetime DEFAULT NULL,
+  PRIMARY KEY (Personid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

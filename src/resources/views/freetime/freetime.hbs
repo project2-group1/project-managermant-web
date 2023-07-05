@@ -115,7 +115,7 @@
                 <div class="col works" name="monday" date="">
                     {{#each data}}
                     <button class="event" date="{{formatDate this.starttime}}" startTime="{{formatTime this.starttime}}"
-                        endTime="{{formatTime this.endtime}}" id="{{this.meeting_id}}">
+                        endTime="{{formatTime this.endtime}}" id="{{this.id}}">
                         <div class="content">
                             {{!-- <p class="title">{{this.projectname}} #{{getMeetingSerial this.meeting_id}}</p>
                             <p class="info">{{this.coursename}} - {{getGroupName this.group_id}}</p> --}}

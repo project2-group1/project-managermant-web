@@ -156,14 +156,13 @@ const calendar = {
                 const startTime = new Date(`${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')))}`)
                 const inputStartTimeInstance = modalAddFreeTime.inputStartTime
                 inputStartTimeInstance.setDate(startTime)
-
+                
                 // render endTime vào flatpickr
                 const endTime = startTime.setMinutes(startTime.getMinutes() + 30)
                 const inputEndTimeInstance = modalAddFreeTime.inputEndTime
                 inputEndTimeInstance.setDate(endTime)
-            
+
                 const form = $('.addfreetime');
-                console.log(form);
                 form.submit();
             })
         })
@@ -260,8 +259,10 @@ const calendar = {
         })
 
         events.forEach(function (event) {
-            event.addEventListener('click', () =>
-                window.location.href = `/meeting/?id=${event.getAttribute('id')}`
+            event.addEventListener('click', () => {
+                window.location.href = `/freetime/${event.getAttribute('id')}/ok`
+                // window.location.href = `/freetime/end`;
+            }
             )
 
             let curHeight

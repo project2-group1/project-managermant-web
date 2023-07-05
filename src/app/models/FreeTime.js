@@ -31,6 +31,19 @@ class FreeTime {
         }
 
     }
+
+    async deleteById(id, result) {
+        const teacherSQL = `DELETE FROM freetime WHERE id = ${id};`
+        try {
+            const event = await this.executeQuery(teacherSQL)
+            result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+
+    }
+
     async create(id, start, end, result) {
         const _this = this;
         function formatDate(dateTime) {
