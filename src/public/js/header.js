@@ -31,7 +31,7 @@ const modalAddCalendar = {
                         <div class="input-group">
                             <div class="col-third">
                                 <select id="term" name="term" required>
-                                    <option value="" disabled selected>Kì</option>
+                                    <option value="" disabled selected>Kỳ</option>
                                     <option value="20221">20221</option>
                                     <option value="20222">20222</option>
                                     <option value="20231">20231</option>
@@ -76,7 +76,6 @@ const modalAddCalendar = {
                     <div class="row">
                         <input type="submit"  class="submit" value="Thêm cuộc họp mới">
                     </div>
-
                 </form>
             </div>
         </div>
@@ -100,7 +99,7 @@ const modalAddCalendar = {
             minTime: "7:00",
             maxTime: "18:00"
         })
-        
+
         const today = new Date();
         const thisDayNextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
         this.inputReportTime = flatpickr('.input-time.report_time', {
@@ -120,7 +119,7 @@ const modalAddCalendar = {
             }
         }
 
-        btnCloseCalendar.addEventListener('click',function () {
+        btnCloseCalendar.addEventListener('click', function () {
             make_calendar_container.classList.remove('show');
         })
 

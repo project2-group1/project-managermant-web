@@ -6,10 +6,12 @@ import { modalAddCalendar } from './header.js'
 const btnAddMeeting = $('.sidebar-add-meeting')
 const btnEndMeeting = $('.btn-end-meeting')
 const btnDisplay = $('.btn-display')
-const btnModalDetail = Array.from($$('.btn-modal'))
+const btnDisplayNewMeeting = $('.sidebar-add-meeting')
+const containerDisplayNewMeeting = $('.container.display-new-meeting')
 const btnModalAddMeeting = $('.btn-add-meeting')
 const btnModalEndMeeting = $('.btn-end')
 const meetingForm = $('.form-meeting')
+let btnCloseDisplayMeeting
 let meetings = Array.from($$('.meeting'))
 let btnsOut = Array.from($$('.btn-out'))
 let dateTime = Array.from($$('.date'))
@@ -52,6 +54,60 @@ const meeting = {
 
     },
     config: function () {
+        var addMeetingHTML = `
+        <div class="modal md-display-meeting">
+            <div class="modal-header">
+                <h3 class="title">Hiển thị cuộc họp</h3>
+                <button class="btn btn-close-display-meeting"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form method="GET" action="">
+                    <div class="row">
+                        <div class="input-group">
+                            <div class="col-third">
+                                <h4>Kỳ</h4>
+                                <select id="term" name="term" required>
+                                    <option value="" disabled selected>Kỳ</option>
+                                </select>
+                            </div>
+                            <div class="col-third">
+                                <h4>Học phần</h4>
+                                <select id="course_id" name="course_id" required>
+                                    <option value="" disabled selected>Học phần</option>
+                                </select>
+                            </div>
+                            <div class="col-third">
+                                <h4>Nhóm</h4>
+                                <select id="group_id" name="group_id" required>
+                                    <option value="" disabled selected>Nhóm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="wrap-table">
+                            <table class="table">
+                                <tr class="table-header">
+                                    <th class="cell">Họ và tên</th>
+                                    <th class="cell">MSSV</th>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="cell student-name">this.fullname</td>
+                                    <td class="cell student-id">this.student_id</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="pos-rb-corner row">
+                        <input type="submit"  class="submit btn-accept" value="Hiển thị cuộc họp">
+                    </div>
+                </form>
+            </div>
+        </div>
+        `
+        containerDisplayNewMeeting.innerHTML = addMeetingHTML
+
+        btnCloseDisplayMeeting = $('.btn-close-display-meeting')
         // Render quill note for each meeting
         for (let i = 0; i < meetings.length; i++) {
 
@@ -63,7 +119,7 @@ const meeting = {
                 modules: {
                     toolbar: [
                         [{ header: [1, 2, false, 3] }],
-                        ['bold', 'italic', 'underline'], // object như 1 button đơn lẻ thì chỉ cần truyền vào string
+                        ['bold', 'italic', 'underline'],
                         [{ 'list': 'ordered' },
                         { 'list': 'bullet' },
                         { 'align': [] }],
@@ -98,6 +154,14 @@ const meeting = {
             })
         })
 
+        btnDisplayNewMeeting.addEventListener('click', () => {
+            containerDisplayNewMeeting.classList.add('show')
+        })
+
+        btnCloseDisplayMeeting.addEventListener('click', () => {
+            containerDisplayNewMeeting.classList.remove('show')
+        })
+
         editors.forEach((editor) => {
             editor.addEventListener("mousedown", function () {
                 this.classList.add("focus");
@@ -108,6 +172,7 @@ const meeting = {
             })
         })
 
+        // End meeting button: PUT Request to store note and end meeting
         btnModalEndMeeting.addEventListener('click', btn => {
             btn.preventDefault()
 
@@ -117,11 +182,14 @@ const meeting = {
             formData.append('note', meetingNote)
 
             putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
-                
+
             window.location.href = '/'
-            
+
         })
 
+        // Add meeting button: PUT Request to store note and end meeting
+        // After that open modal add meeting
+        // Auto config time by USER
         btnModalAddMeeting.addEventListener('click', btn => {
             btn.preventDefault()
 
@@ -129,7 +197,7 @@ const meeting = {
             const meetingNote = editors[0].firstChild.innerHTML
 
             formData.append('note', meetingNote)
-            
+
             putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
 
             const btnAddMeeting = $('.make-calendar.container')
@@ -153,9 +221,13 @@ const meeting = {
                     group.options[i].selected = true
             }
 
-            modalAddCalendar.inputStartTime.setDate(formatDateFromUTCToLocal(meetingData.starttime))
-            modalAddCalendar.inputEndTime.setDate(formatDateFromUTCToLocal(meetingData.endtime))
-            const reportTime = new Date(formatDateFromUTCToLocal(meetingData.reportdeadline))
+            const startTime = formatDateFromUTCToLocal(meetingData.starttime)
+            modalAddCalendar.inputStartTime.setDate(startTime.setDate(startTime.getDate() + 7))
+
+            const endTime = formatDateFromUTCToLocal(meetingData.endtime)
+            modalAddCalendar.inputEndTime.setDate(endTime.setDate(endTime.getDate() + 7))
+
+            const reportTime = formatDateFromUTCToLocal(meetingData.reportdeadline)
             modalAddCalendar.inputReportTime.setDate(reportTime.setDate(reportTime.getDate() + 7))
         })
 
@@ -181,13 +253,13 @@ const meeting = {
 
         })
 
-        // Format time from Date object
+        // Format time from Date object to hh:mm
         function formatTime(dateTime) {
             let hourAndMinutes = dateTime.substring(16, 21)
             return hourAndMinutes
         }
 
-        // Format date from Date object
+        // Format date from Date object to dd/mm/yyyy
         function formatDate(dateTime) {
             let year = dateTime.substring(11, 16)
             let month = dateTime.substring(4, 7).toLowerCase()

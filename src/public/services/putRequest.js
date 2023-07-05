@@ -8,7 +8,7 @@ export function putRequest(URL, request) {
         .then(response => {
             // Kiểm tra phản hồi thành công (status 200-299)
             if (response.ok) {
-                console.log('đã được xóa thành công.');
+                console.log('thành công.');
             } else {
                 console.log('không thành công.');
             }

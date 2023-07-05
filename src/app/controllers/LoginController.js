@@ -13,8 +13,6 @@ class LoginController {
     async login(req, res, next) {
         var { role, id, password } = req.body;
         let query;
-        console.log(req);
-        // console.log(req.body);
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
                 if (err) {
