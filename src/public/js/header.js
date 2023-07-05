@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 // XỬ lý add calendar
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
-
+const add_free_time = $('.add-free.container')
 
 const modalAddCalendar = {
     inputStartTime: null,
@@ -147,7 +147,7 @@ const modalAddFreeTime = {
     form: null,
     config: function () {
         var text = `
-        <form method="POST" action="" class="addfreetime">
+        <form method="POST" action="freetime/create" class="addfreetime">
             <div class="row">
                 <h4>Thời gian</h4>
                 <div class="row">
@@ -162,11 +162,11 @@ const modalAddFreeTime = {
             </div>
             </div>
             <div class="row">
-                <input type="submit"  class="submit1" value="Thêm cuộc họp mới">
+                <input type="submit" class="submit1" value="Thêm cuộc họp mới">
             </div>
         </form>        
      `
-        make_calendar_container.innerHTML = text;
+        add_free_time.innerHTML = text;
 
         this.inputStartTime = flatpickr('.input-time.start_time1', {
             enableTime: true,
@@ -187,11 +187,17 @@ const modalAddFreeTime = {
         })
 
         this.form = flatpickr('.addfreetime', {
-
+            
         });
     },
     handle: function () {
-        const form = $('.addfreetime');
+        const workBoxes = Array.from($$('.work-box'));
+        // workBoxes.forEach(function (workBox) {
+        //     workBox.addEventListener('click', (workBox) => {
+        //        const form = $('.addfreetime');
+        //        form.submit();
+        //     })
+        // })
     },
     start: function () {
         this.config();

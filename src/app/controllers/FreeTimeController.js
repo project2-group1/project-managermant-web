@@ -36,6 +36,19 @@ class CalendarController {
             res.send(data)
         })
     }
+    // [POST] /freetime/create
+    create(req, res, next) {
+        const id = req.session.user.teacher_id;
+        const start = req.body.start_time;
+        const end = req.body.end_time;
+        FreeTime.create(id, start, end, function (data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            res.redirect('/freetime')
+        })
+    }
 
 }
 module.exports = new CalendarController()

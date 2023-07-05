@@ -39,7 +39,7 @@ const calendar = {
     API: async function () {
         async function getEvents() {
             try {
-                const event = await fetchData(`/api`)
+                const event = await fetchData(`/freetime/api`)
                 console.log(event);
                 return
             } catch (err) {
@@ -161,10 +161,10 @@ const calendar = {
                 const endTime = startTime.setMinutes(startTime.getMinutes() + 30)
                 const inputEndTimeInstance = modalAddFreeTime.inputEndTime
                 inputEndTimeInstance.setDate(endTime)
-                
-                modalAddFreeTime.form;
+            
+                const form = $('.addfreetime');
+                console.log(form);
                 form.submit();
-
             })
         })
 
