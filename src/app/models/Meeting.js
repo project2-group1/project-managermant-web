@@ -97,7 +97,7 @@ class Meeting {
         }
     }
     
-    getAll(result) {
+    getAllMeetings(result) {
         const responseData = {}
 
         const meetingSQL = `
@@ -161,7 +161,16 @@ class Meeting {
         const next_meeting_id = curMeetingData.meeting_id + 1
 
         const insertTheFirstMeetingSQL = `
-            INSERT INTO meeting (meeting_id, group_id, teacher_id, starttime, endtime, reportdeadline, note, next_meeting_id, report)
+            INSERT INTO meeting 
+                (meeting_id, 
+                    group_id, 
+                    teacher_id, 
+                    starttime, 
+                    endtime, 
+                    reportdeadline, 
+                    require_meeting, 
+                    next_meeting_id, 
+                    report)
             VALUES (
                 '${(data.group_id + '01')}', 
                 '${data.group_id}', 
@@ -169,7 +178,7 @@ class Meeting {
                 '${formatDate(data.start_time)}', 
                 '${formatDate(data.end_time)}', 
                 '${formatDate(data.dl_report_time)}', 
-                '${data.note}', 
+                '${data.require_meeting}', 
                 NULL,   
                 NULL
                 );
@@ -187,8 +196,7 @@ class Meeting {
                     require_meeting,
                     next_meeting_id, 
                     previous_meeting_id, 
-                    report
-                    )
+                    report)
             VALUES (
                 '${next_meeting_id}', 
                 '${data.group_id}', 
@@ -224,7 +232,7 @@ class Meeting {
                 })
                 .catch((err) => {
                     console.log(err)
-                    // result(null, err);
+                    result(null, err);
                 })
         } else {
             Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
@@ -233,28 +241,8 @@ class Meeting {
                 })
                 .catch((err) => {
                     console.log(err)
-                    // result(null, err);
+                    result(null, err);
                 })
-        }
-
-    }
-
-    //data = data received
-    async getEvent(data, result) {
-        const _this = this
-
-        const meetingInfoSQL = `
-            SELECT *
-            FROM meeting
-            INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-        `
-
-        try {
-            const event = await _this.executeQuery(meetingInfoSQL)
-            result(event)
-        } catch (err) {
-            console.error('Error:', err);
-            throw err;
         }
 
     }
@@ -267,7 +255,7 @@ class Meeting {
             SELECT *
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE is_ended = 0
+            WHERE is_ended = 0 AND teacher_id = ${data.teacher_id}
         `
         // WHEN teacher.id = ${data}
 

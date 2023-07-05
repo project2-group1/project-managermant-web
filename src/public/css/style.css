@@ -408,7 +408,7 @@ button {
 }
 
 .modal .modal-body {
-    margin: 20px 20px;
+    margin: 20px;
 }
 
 .modal-body  h4 {
@@ -546,7 +546,7 @@ button {
 }
 .modal-body select {
   height: 30px;
-  padding: 0 10px;
+  padding: 0;
   font-size: var(--text-font-size-16);
   text-align: start;
 }

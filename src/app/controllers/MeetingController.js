@@ -6,7 +6,7 @@ class MeetingController {
     async show(req, res, next) {
         try {
             const responseData = await new Promise((resolve, reject) => {
-                Meeting.getAllEvents(null, function (data, err) {
+                Meeting.getAllEvents(req.session.user, function (data, err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -14,8 +14,7 @@ class MeetingController {
                     }
                 });
             })
-            // res.json(responseData)
-            console.log(responseData);
+            // console.log(responseData);
             res.render('calendar.hbs', {
                 title: 'Lịch',
                 css: [
@@ -33,26 +32,13 @@ class MeetingController {
 
     // [GET] /event
     getAllEvents(req, res, next) {
-        Meeting.getAllEvents(null , function (data, err) {
+        Meeting.getAllEvents(req.session.user , function (data, err) {
             if(err) {
                 res.status(500).send(err)
                 return
             }
             res.send(data)
         })
-    }
-
-
-    // [POST] /create -> redirect to /
-    create(req, res, next) {
-        Meeting.createMeeting(req.body, function (data, err) {
-            if (err) {
-                res.status(500).send(err)
-                return
-            }
-            res.redirect('/')
-        })
-        // res.json(req.body)
     }
 
     // [GET] /meeting/api/:id
@@ -99,26 +85,9 @@ class MeetingController {
         })
     }
 
-    // [PUT] /meeting/:id/end
-    endMeeting(req, res, next) {
-        console.log(req.body);
-        Meeting.endMeeting(req.body, function(data, err) {
-            if (err) {
-                res.status(500).send(err)
-                return
-            }
-            // res.redirect('/')
-        })
-        // res.json(req.body)
-    }
-
-    deleteMeeting(req, res, next) {
-
-    }
-
     // [GET] /meeting
     getAllMeetings(req, res, next) {
-        Meeting.getAll(function (data, err) {
+        Meeting.getAllMeetings(function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
@@ -145,6 +114,38 @@ class MeetingController {
 
         })
     }
+
+    // [POST] /create -> redirect to /
+    create(req, res, next) {
+        Meeting.createMeeting(req.body, function (data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            res.redirect('/')
+        })
+        // res.json(req.body)
+    }
+
+    
+    // [PUT] /meeting/:id/end
+    endMeeting(req, res, next) {
+        console.log(req.body);
+        Meeting.endMeeting(req.body, function(data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            // res.redirect('/')
+        })
+        // res.json(req.body)
+    }
+
+    deleteMeeting(req, res, next) {
+
+    }
+
+    
 
 }
 

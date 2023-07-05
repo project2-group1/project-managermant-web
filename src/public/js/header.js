@@ -31,7 +31,7 @@ const modalAddCalendar = {
                         <div class="input-group">
                             <div class="col-third">
                                 <select id="term" name="term" required>
-                                    <option value="" disabled selected>Kì</option>
+                                    <option value="" disabled selected>Kỳ</option>
                                     <option value="20221">20221</option>
                                     <option value="20222">20222</option>
                                     <option value="20231">20231</option>
@@ -76,7 +76,6 @@ const modalAddCalendar = {
                     <div class="row">
                         <input type="submit"  class="submit" value="Thêm cuộc họp mới">
                     </div>
-
                 </form>
             </div>
         </div>

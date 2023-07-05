@@ -49,6 +49,7 @@
 
 }
 
+/* TABLE info Student */
 .info-student th {
     text-align: left;
 }
@@ -80,8 +81,266 @@
     width: 50%;
 }
 
+/* template */
+@font-face {
+    font-family: Poppins-Regular;
+    src: url(../fonts/poppins/Poppins-Regular.ttf)
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(../fonts/poppins/Poppins-Bold.ttf)
+}
+
+.wrapper-table {
+    display: flex;
+    margin-bottom: 4px;
+}
+
+.wrap-table:nth-child(1) {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.wrap-table:nth-child(2) {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.wrap-table a:focus {
+    outline: none !important
+}
+
+.wrap-table a:hover {
+    text-decoration: none
+}
+
+.wrap-table h1,
+.wrap-table h2,
+.wrap-table h3,
+.wrap-table h4,
+.wrap-table h5,
+.wrap-table h6 {
+    margin: 0
+}
+
+.wrap-table p {
+    margin: 0
+}
+
+.wrap-table ul,
+.wrap-table li {
+    margin: 0;
+    list-style-type: none
+}
+
+.wrap-table input {
+    display: block;
+    outline: none;
+    border: none !important
+}
+
+.wrap-table textarea {
+    display: block;
+    outline: none
+}
+
+.wrap-table textarea:focus,
+.wrap-table input:focus {
+    border-color: transparent !important
+}
+
+.wrap-table button {
+    outline: none !important;
+    border: none;
+    background: 0 0
+}
+
+.wrap-table button:hover {
+    cursor: pointer
+}
+
+.wrap-table iframe {
+    border: none !important
+}
+
+.wrap-table {
+    width: 50%;
+    overflow: hidden
+}
+
+.wrap-table .table {
+    width: 100%;
+    border-spacing: 0;
+    margin: 0
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .wrap-table .table {
+        display: block
+    }
+}
+
+.wrap-table .table-row {
+    display: table-row;
+    background: #fff
+}
+
+.wrap-table .table-header {
+    color: #fff;
+    background: #6c7ae0;
+    text-align: left;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .wrap-table .table-row {
+        display: block
+    }
+
+    .wrap-table .table-header {
+        padding: 0;
+        height: 0
+    }
+
+    .wrap-table .table-header .cell {
+        display: none
+    }
+
+    .wrap-table .table-row .cell:before {
+        font-family: Poppins-Bold;
+        font-size: 12px;
+        color: gray;
+        line-height: 1.2;
+        text-transform: uppercase;
+        font-weight: unset !important;
+        margin-bottom: 13px;
+        content: attr(data-title);
+        min-width: 98px;
+        display: block
+    }
+}
+
+.wrap-table .cell {
+    display: table-cell
+}
+
+@media screen and (max-width: 768px) {
+    .wrap-table .cell {
+        display: block
+    }
+}
+
+.wrap-table .cell {
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    color: #666;
+    line-height: 20px;
+    font-weight: unset !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f2f2f2;
+    border-spacing: 0;
+}
+
+.wrap-table .table-header .cell {
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    color: #fff;
+    line-height: 20px;
+    font-weight: unset !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.wrap-table .cell:nth-child(1) {
+    width: 30%;
+    padding-right: 8px;
+    padding-left: 20px;
+}
+
+.wrap-table .cell:nth-child(2) {
+    width: 15%;
+}
+
+.wrap-table .table-row:hover .cell:nth-child(1),
+.wrap-table .table-row:hover .cell:nth-child(2) {
+    background-color: #ececff;
+    cursor: pointer
+}
+
+.wrap-table .table,
+.wrap-table .table-row {
+    width: 100% !important
+}
+
+.wrap-table .cell.fullrow {
+    padding: 0 4px;
+}
+
+.wrap-table .report-link {
+    /* padding: 20px 0; */
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 100%;
+    display: inline-table;
+    text-decoration: none;
+    transition: all .4s;
+}
+
+
+
+.wrap-table .report-meeting:hover {
+    background-color: #ddddff;
+}
+
+
+@media(max-width: 768px) {
+    .wrap-table .table-row {
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: 18px;
+        padding-top: 30px;
+        padding-right: 15px;
+        margin: 0
+    }
+
+    .wrap-table .table-row .cell {
+        border: none;
+        padding-left: 30px;
+        padding-top: 16px;
+        padding-bottom: 16px
+    }
+
+    .wrap-table .table-row .cell:nth-child(1) {
+        padding-left: 30px
+    }
+
+    .wrap-table .table-row .cell {
+        font-family: Poppins-Regular;
+        font-size: 18px;
+        color: #555;
+        line-height: 1.2;
+        font-weight: unset !important
+    }
+
+    .wrap-table .table,
+    .wrap-table .table-row,
+    .wrap-table .cell {
+        width: 100% !important
+    }
+}
+/* End Table info student */
 .row {
     margin-bottom: 12px;
+}
+
+.md-display-meeting .wrap-table {
+    border-radius: 10px;
+    width: 70%;
 }
 
 
@@ -150,6 +409,18 @@
     background-color: var(--backgr-color-hover-blue1);
     color: var(--btn-color-hover-blue);
 }
+
+.pos-rb-corner {
+    position: absolute !important;
+    width: 100%;
+    bottom: 8px;
+    right: 20px;
+}
+/* -------------------Start: Modal Display Meeting------------------- */
+.md-display-meeting.modal .modal-body{
+    height: 300px;
+}
+/* -------------------End: Modal Display Meeting------------------- */
 
 /* -------------------Start: Modal warning end button------------------- */
 
