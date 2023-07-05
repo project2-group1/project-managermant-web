@@ -23,7 +23,7 @@ const modalAddCalendar = {
                         <h4>Tiêu đề</h4>
                         <div class="input-group input-group-icon">
                             <div class="input-icon"><i class="fa-solid fa-server"></i></div>
-                            <input class="input-text" type="text" placeholder="Tiêu đề"/>
+                            <input class="input-text" type="text" name="title" placeholder="Tiêu đề"/>
                         </div>
                     </div>
                     <div class="row">
@@ -71,7 +71,7 @@ const modalAddCalendar = {
                     </div>
                     <div class="row mt-8">
                         <h4>Yêu cầu</h4>
-                        <textarea class="note" name="note" placeholder="Yêu cầu"></textarea>
+                        <textarea class="note" name="require_meeting" placeholder="Yêu cầu"></textarea>
                     </div>
                     <div class="row">
                         <input type="submit"  class="submit" value="Thêm cuộc họp mới">

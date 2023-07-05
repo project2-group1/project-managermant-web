@@ -6,7 +6,7 @@ class MeetingController {
     async show(req, res, next) {
         try {
             const responseData = await new Promise((resolve, reject) => {
-                Meeting.getEvent(null, function (data, err) {
+                Meeting.getAllEvents(null, function (data, err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -52,7 +52,7 @@ class MeetingController {
             }
             res.redirect('/')
         })
-            // res.json(req.body)
+        // res.json(req.body)
     }
 
     // [GET] /meeting/api/:id
@@ -64,7 +64,9 @@ class MeetingController {
                 return
             }
             res.send(data)
+            // res.json(data)
         })
+
     }
 
     // [GET] /meeting/:id - Get meeting by id access though Model
@@ -97,9 +99,21 @@ class MeetingController {
         })
     }
 
-    // [POST] /meeting/end
+    // [PUT] /meeting/:id/end
     endMeeting(req, res, next) {
-        res.send(req.body)
+        console.log(req.body);
+        Meeting.endMeeting(req.body, function(data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            // res.redirect('/')
+        })
+        // res.json(req.body)
+    }
+
+    deleteMeeting(req, res, next) {
+
     }
 
     // [GET] /meeting

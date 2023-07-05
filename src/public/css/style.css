@@ -393,7 +393,7 @@ button {
     width: 80%;
     position: absolute;
     left: 10%;
-    top: 5px;
+    top: 80px;
     border-radius: 10px;
     border: 1px solid black;
 }
@@ -628,12 +628,19 @@ button {
 }
 
 .modal-body .submit {
-  float: right;
-  width: 25%;
-  padding: 10px;
-  text-align: center;
-  background-color: var(--text-color-blue);
-  color: var(--text-color-white);
+    float: right;
+    width: 25%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--text-color-blue);
+    color: var(--text-color-white);
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.modal-body .submit:hover {
+    opacity: 1;
+    scale: 0.98;
 }
 
 .modal-body .row {

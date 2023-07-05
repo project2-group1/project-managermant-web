@@ -149,7 +149,9 @@
   transition: all ease-out 0.3s; }
 
 .event:hover {
-  transform: scale(1.1); }
+  transform: scale(1.1);
+  z-index: 2;
+}
 
 .event.active {
   display: flex; }

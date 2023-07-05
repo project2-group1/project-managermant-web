@@ -20,92 +20,58 @@ class ListController {
     }
     // sửa
     editStudent(req, res, next) {
-        let kq;
-        let student1 = {
-            student_id: '202011',
-            group_id: 1,
-            fullname: 'Duong Nam Kim',
-            password: '123',
-            projectname: 'pj2',
-            email: '123@email.com',
-            phonenumber: 19008198,
-            term: 20222,
-            birthday: '2002-02-15'
+        const data=req.body;
+        if (!Number(data.student_id)){
+            res.send('mã sinh viên không hợp lệ');
+            return;
         }
-        let student = {
-            student_id: '202011',
-            group_id: 1,
-            fullname: 'Duong Kim Nam',
-            password: '123',
-            projectname: 'pj2',
-            email: '123@email.com',
-            phonenumber: 19008198,
-            term: 20222,
-            birthday: '2002-02-15'
-        }
-        if (kq = List.editStudent(student, student1)) {
-            kq.then(result => {
-                res.send("Number of records edited: " +
-                result.affectedRows);     
-            }).catch(err => {
-                res.send(false);
-            });
-        }
-        else {
-            res.send(JSON.stringify(false));
-        } 
+        List.editStudent(data.oldStudentId, data)
+        .then(result => {
+            res.send('số sinh viên đã sửa: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('đã xảy ra lỗi' + err);
+        });
     }
     // xóa
     deleteStudent(req, res, next) {
-        let kq;
-        let student = {
-            student_id: '202011',
-            group_id: 1,
-            fullname: 'Duong Kim Nam',
-            password: '123',
-            projectname: 'pj2',
-            email: '123@email.com',
-            phonenumber: 19008198,
-            term: 20222,
-            birthday: '2002-02-15'
-        }
-        if (kq = List.deleteStudent(student)) {
-            kq.then(result => {
-                res.send("Number of records inserted: " +
-                result.affectedRows);     
-            }).catch(err => {
-                res.send(false);
-            });
-        }
-        else {
-            res.send(JSON.stringify(false));
-        }
+        const student_id = req.query.student_id;
+        List.deleteStudent(student_id)
+        .then(result => {
+            res.send('số sinh viên đã xóa: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('lỗi xóa sinh viên: ' + err);
+        })
     }
-    // thêm
+    // thêm student
     insertStudent(req, res, next) {
-        let kq;
-        let student = {
-            student_id: '202011',
-            group_id: 1,
-            fullname: 'Duong Kim Nam',
-            password: '123',
-            projectname: 'pj2',
-            email: '123@email.com',
-            phonenumber: 19008198,
-            term: 20222,
-            birthday: '2002-02-15'
+        const data = req.body;
+        if (!Number(data.student_id)){
+            res.send('mã sinh viên không hợp lệ');
+            return;
         }
-        if (kq = List.insertStudent(student)) {
-            kq.then(result => {
-                res.send("Number of records inserted: " +
-                result.affectedRows);     
-            }).catch(err => {
-                res.send(false);
-            });
+        if (!data?.password) {
+            data.password = '123456';
         }
-        else {
-            res.send(JSON.stringify(false));
-        } 
+        List.insertStudent(data)
+        .then(result => {
+            res.send('số sinh viên đã thêm: ' + result.affectedRows)
+        })
+        .catch(err => {
+            res.send('đã xảy ra lỗi' + err);
+        });
+    }
+    // them nhieu sinh vien
+    insertStudents(req, res, next) {
+        const data = req.body;
+        console.log(typeof data);
+        data.forEach(element => {
+            element.password = '123456';
+            List.insertStudent(element)
+            .then(result => {})
+            .catch(err => {})
+        })
     }
     // lấy ds nhóm và sinh viên theo kỳ học
     async getTerm(req, res, next) {
@@ -139,6 +105,20 @@ class ListController {
         })
         .catch(err => {
             res.send('đã xảy ra lỗi' + err);
+        });
+    }
+    // thêm nhiều nhóm bằng excel
+    addGroups(req, res, next) {
+        const data = req.body;
+        console.log(typeof data);
+        data.forEach(element => {
+            Group.addGroup(element)
+            .then(result => {
+
+            })
+            .catch(err => {
+
+            });
         });
     }
     // xóa nhóm

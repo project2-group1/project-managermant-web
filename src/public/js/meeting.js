@@ -1,10 +1,15 @@
-// import
 import { fetchData } from '../services/fetchData.js'
+import { putRequest } from '../services/putRequest.js'
+import { modalAddCalendar } from './header.js'
 
 // selector
 const btnAddMeeting = $('.sidebar-add-meeting')
 const btnEndMeeting = $('.btn-end-meeting')
 const btnDisplay = $('.btn-display')
+const btnModalDetail = Array.from($$('.btn-modal'))
+const btnModalAddMeeting = $('.btn-add-meeting')
+const btnModalEndMeeting = $('.btn-end')
+const meetingForm = $('.form-meeting')
 let meetings = Array.from($$('.meeting'))
 let btnsOut = Array.from($$('.btn-out'))
 let dateTime = Array.from($$('.date'))
@@ -32,9 +37,9 @@ const monthMapping = {
 
 const meeting = {
 
-    API: async function() {
+    API: async function () {
         async function getData() {
-            try{
+            try {
                 const meetingData = await fetchData(`/meeting/api/?id=${meetingId}`)
                 return meetingData
             } catch (err) {
@@ -42,7 +47,7 @@ const meeting = {
             }
         }
 
-        [meetingData] = await getData() // destructuring
+        [meetingData] = await getData() // destructuring 
         // console.log(meetingData)
 
     },
@@ -71,9 +76,17 @@ const meeting = {
                 theme: 'snow',
             })
         }
+
+
     },
     handleEvents: function () {
-        // console.log(editors[0].firstElementChild.innerHTML)
+        const _this = this
+
+        function formatDateFromUTCToLocal(dataTime) {
+            const time = new Date(dataTime)
+            const timezoneOffset = time.getTimezoneOffset()
+            return new Date(time.getTime() - timezoneOffset * 60)
+        }
 
         btnDisplay.addEventListener('click', () => {
             meetings.map((e) => {
@@ -95,34 +108,62 @@ const meeting = {
             })
         })
 
-        btnEndMeeting.addEventListener('click', (btn) => {
+        btnModalEndMeeting.addEventListener('click', btn => {
             btn.preventDefault()
-            make_calendar_container.classList.add('show')
+
+            const formData = new FormData(meetingForm)
+            const meetingNote = editors[0].firstChild.innerHTML
+
+            formData.append('note', meetingNote)
+
+            putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
+                
+            window.location.href = '/'
             
-            const term = make_calendar_container.querySelector('#term')
+        })
+
+        btnModalAddMeeting.addEventListener('click', btn => {
+            btn.preventDefault()
+
+            const formData = new FormData(meetingForm)
+            const meetingNote = editors[0].firstChild.innerHTML
+
+            formData.append('note', meetingNote)
+            
+            putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
+
+            const btnAddMeeting = $('.make-calendar.container')
+            btnAddMeeting.classList.add('show')
+
+            const term = btnAddMeeting.querySelector('#term')
             for (let i = 0; i < term.options.length; i++) {
-                if(meetingData.term.toString() === term.options[i].value)
+                if (meetingData.term.toString() === term.options[i].value)
                     term.options[i].selected = true
             }
 
-            const course = make_calendar_container.querySelector('#course_id')
+            const course = btnAddMeeting.querySelector('#course_id')
             for (let i = 0; i < course.options.length; i++) {
-                if(meetingData.course_id === course.options[i].value)
+                if (meetingData.course_id === course.options[i].value)
                     course.options[i].selected = true
             }
 
-            const group = make_calendar_container.querySelector('#group_id')
+            const group = btnAddMeeting.querySelector('#group_id')
             for (let i = 0; i < group.options.length; i++) {
-                if(meetingData.group_id.toString() === group.options[i].value)
+                if (meetingData.group_id.toString() === group.options[i].value)
                     group.options[i].selected = true
             }
+
+            modalAddCalendar.inputStartTime.setDate(formatDateFromUTCToLocal(meetingData.starttime))
+            modalAddCalendar.inputEndTime.setDate(formatDateFromUTCToLocal(meetingData.endtime))
+            const reportTime = new Date(formatDateFromUTCToLocal(meetingData.reportdeadline))
+            modalAddCalendar.inputReportTime.setDate(reportTime.setDate(reportTime.getDate() + 7))
         })
+
+
 
     },
     renderMeeting: function () {
-        // Render and Update variable
-        // meetings = Array.from($$('.meeting'))
-        // btnsOut = Array.from($$('.btn-out'))
+        meetingForm.action = '/meeting/' + `${meetingData.meeting_id}` + '/end'
 
         // Add event click for btnsOut 
         btnsOut.forEach((btnOut) => {

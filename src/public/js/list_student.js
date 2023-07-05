@@ -1,11 +1,24 @@
 let group_modal = document.querySelector('.group-modal');
 let manipulate_group = document.querySelector('.manipulate-group');
+let manipulate_student = document.querySelector('.manipulate-student');
+let student_modal = document.querySelector('.student-modal');
 
-// đóng modal
+
+// đóng modal group
 document.querySelector('.group-modal a').addEventListener('click', e => {
     e.preventDefault;
     group_modal.style.display = 'none';
 })
+// đóng modal student
+document.querySelector('.student-modal a').addEventListener('click', e => {
+    e.preventDefault;
+    student_modal.style.display = 'none';
+})
+// đóng form student
+document.querySelector('.manipulate-student i').addEventListener('click', e =>{
+    manipulate_student.style.display = 'none';
+})
+// đóng form group
 document.querySelector('.manipulate-group i').addEventListener('click', e =>{
     manipulate_group.style.display = 'none';
 })
@@ -29,9 +42,24 @@ function clickRowGroup(e) {
     // editGroup(group);
     manipulateGroup(group);
 }
+// click vào student
 function clickRowStudent(e) {
-    console.log(e.currentTarget);
     e.stopPropagation;
+
+    let row = e.currentTarget;
+    let student = {};
+    student.student_id = row.children[0].innerText;
+    student.group_id = row.children[1].innerText;
+    student.fullname = row.children[2].innerText;
+    student.phonenumber = row.children[3].innerText
+    student.email = row.children[4].innerText
+    student.birthday = row.children[5].innerText
+    console.log(student);
+
+    manipulate_student.style.left = e.clientX + "px"; // set the manipulate-student position to the last stored position
+    manipulate_student.style.top = e.clientY + "px";
+    // editstudent(student);
+    manipulateStudent(student);
 }
 
 const tableBody = document.querySelector('.table-student table tbody')
@@ -64,8 +92,10 @@ function renderTable(groupList) {
         value.students.forEach(student => {
             let row = document.createElement('tr');
             row.innerHTML = `<td>${student[student_id]}</td>
+            <td style="display: none;">${student[group_id]}</td>
             <td>${student[fullname]}</td><td>${student[phonenumber]}</td>
             <td>${student[email]}</td><td>${student[birthday]}</td>`;
+            row.addEventListener('click', clickRowStudent);
             row.addEventListener('click', clickRowStudent);
             tableBody.appendChild(row);
         })
@@ -84,15 +114,43 @@ var ExcelExport = function (event) {
         wb.SheetNames.forEach(function (sheetName) {
             var rowObj = XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
             parseExcel = rowObj;
-            console.log(rowObj)
-            // gọi hàm render
-            // var formok = document.querySelector('.formok');
-            // console.log(formok);
-            renderTable(rowObj)
+            handleExcel(rowObj);
         })
     };
     reader.readAsBinaryString(input.files[0]);
 };
+
+function handleExcel(obj) {
+    console.log(obj);
+    const groups = [];
+    const students = [];
+    let projectname = 'Tên đề tài';
+    obj.forEach(value => {
+        let group = {};
+        group.group_id = value.groupid;
+        group.course_id = value.courseid;
+        group.projectname = value[projectname];
+        group.coursename = value.name;
+        group.term = value.termid;
+        groups.push(group);
+
+        let student = {};
+        student.student_id = value.StudentID;
+        student.group_id = value.groupid;
+        student.fullname = value.studentname;
+        student.email = value.Email;
+        student.phonenumber = "0123456789";
+        student.birthday = "0000-00-00";
+        students.push(student);
+    });
+    console.log(groups)
+    console.log(students)
+    importGroups(groups);
+    importStudents(students);
+
+}
+
+
 var inputFile = document.querySelector('#file')
 inputFile.addEventListener('change', ExcelExport, false)
 
@@ -168,7 +226,7 @@ function manipulateGroup(group) {
         editGroup(group)
     };
     manipulate_group.querySelector('.delete').onclick = e => {
-        if(window.confirm('xác nhận xóa nhóm')) {
+        if(window.confirm('xác nhận xóa nhóm: ' + group.group_id)) {
             fetch(`/list/deletegroup?group_id=${group.group_id}`)
             .then(response => response.text())
             .then(serverResponse => {
@@ -181,7 +239,112 @@ function manipulateGroup(group) {
         }
     }
 }
+// thao tac voi student
+function manipulateStudent(student) {
+    document.querySelector('.manipulate-student .student-id').innerText = student.student_id;
+    manipulate_student.style.display = 'block';
+    manipulate_student.querySelector('.edit').onclick = e => {
+        editStudent(student)
+    };
+    manipulate_student.querySelector('.delete').onclick = e => {
+        if(window.confirm('xác nhận xóa student: ' + student.student_id)) {
+            fetch(`/list/deletestudent?student_id=${student.student_id}`)
+            .then(response => response.text())
+            .then(serverResponse => {
+                alert(serverResponse); // Hiển thị thông báo với chuỗi nhận được từ máy chủ
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+            });
+        }
+    }
+}
 
+// sửa student
+function editStudent(student) {
+    let form = document.querySelector('.student-modal form');
+    form.querySelector('#student_id').value = student.student_id;
+    form.querySelector('#old_id').value = student.student_id;
+    form.querySelector('#old_id').style.display = 'block';
+    form.querySelector('#group_id').value = student.group_id;
+    form.querySelector('#fullname').value = student.fullname;
+    form.querySelector('#email').value = student.email;
+    form.querySelector('#phonenumber').value = student.phonenumber;
+    form.querySelector('#birthday').value = student.birthday;
+    student_modal.style.display = 'block';
+    form.action = '/list/editstudent';
+
+}
+//  thêm student
+let buttonAddStudent = document.querySelector('.list-button .add-student');
+buttonAddStudent.addEventListener('click', addStudent);
+function addStudent(event) {
+    event.stopPropagation;
+    event.preventDefault;
+    let form = document.querySelector('.student-modal form');
+    form.querySelector('#student_id').value = "";
+    form.querySelector('#old_id').value = "";
+    form.querySelector('#old_id').style.display = 'none';
+    form.querySelector('#group_id').value = "";
+    form.querySelector('#fullname').value = "";
+    form.querySelector('#email').value = "";
+    form.querySelector('#phonenumber').value = "";
+    // form.querySelector('#birthday').value = "";
+    student_modal.style.display = 'block';
+    form.action = '/list/insertstudent';
+}
+
+function importGroups(groups) {
+    // Gửi dữ liệu lên server
+    fetch('/list/importgroups', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json' // Định dạng dữ liệu là JSON
+        },
+        body: JSON.stringify(groups) // Chuyển đối tượng dữ liệu thành chuỗi JSON
+    })
+    .then(response => {
+        if (response.ok) {
+        // Xử lý kết quả trả về nếu gửi thành công
+        console.log('Dữ liệu đã được gửi thành công!');
+        } else {
+        // Xử lý lỗi nếu gửi không thành công
+        console.log('Đã xảy ra lỗi khi gửi dữ liệu!');
+        }
+    })
+    .catch(error => {
+        // Xử lý lỗi nếu có lỗi xảy ra trong quá trình gửi
+        console.log('Đã xảy ra lỗi:', error);
+    });
+}
+
+function importStudents(students) {
+    // Gửi dữ liệu lên server
+    fetch('/list/importstudents', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json' // Định dạng dữ liệu là JSON
+        },
+        body: JSON.stringify(students) // Chuyển đối tượng dữ liệu thành chuỗi JSON
+    })
+    .then(response => {
+        if (response.ok) {
+        // Xử lý kết quả trả về nếu gửi thành công
+        console.log('Dữ liệu đã được gửi thành công!');
+        } else {
+        // Xử lý lỗi nếu gửi không thành công
+        console.log('Đã xảy ra lỗi khi gửi dữ liệu!');
+        }
+    })
+    .catch(error => {
+        // Xử lý lỗi nếu có lỗi xảy ra trong quá trình gửi
+        console.log('Đã xảy ra lỗi:', error);
+    });
+    setTimeout(() => {
+        location.reload();
+    }, 5000)
+}
 
 
 
