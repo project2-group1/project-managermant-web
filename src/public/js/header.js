@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 // XỬ lý add calendar
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
-
+const add_free_time = $('.add-free.container')
 
 const modalAddCalendar = {
     inputStartTime: null,
@@ -140,6 +140,71 @@ const modalAddCalendar = {
     }
 }
 
+const modalAddFreeTime = {
+    inputStartTime: null,
+    inputEndTime: null,
+    form: null,
+    config: function () {
+        var text = `
+        <form method="POST" action="freetime/create" class="addfreetime">
+            <div class="row">
+                <h4>Thời gian</h4>
+                <div class="row">
+                    <p class="p-time">Bắt đầu</p>
+                    <input class="input-time start_time1" type="text" id="start_time" name="start_time">
+                    <div class="modal-flatpickr"></div>
+                </div>
+                <div class="row">
+                    <p class="p-time">Kết thúc</p>
+                    <input class="input-time end_time1" type="text" id="end_time" name="end_time">
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <input type="submit" class="submit1" value="Thêm cuộc họp mới">
+            </div>
+        </form>        
+     `
+        add_free_time.innerHTML = text;
+
+        this.inputStartTime = flatpickr('.input-time.start_time1', {
+            enableTime: true,
+            defaultDate: "today",
+            dateFormat: "Y-m-d H:i",
+            minuteIncrement: 30,
+            minTime: "7:00",
+            maxTime: "18:00"
+        })
+
+        this.inputEndTime = flatpickr('.input-time.end_time1', {
+            enableTime: true,
+            defaultDate: "today",
+            dateFormat: "Y-m-d H:i",
+            minuteIncrement: 30,
+            minTime: "7:00",
+            maxTime: "18:00"
+        })
+
+        this.form = flatpickr('.addfreetime', {
+            
+        });
+    },
+    handle: function () {
+        const workBoxes = Array.from($$('.work-box'));
+        // workBoxes.forEach(function (workBox) {
+        //     workBox.addEventListener('click', (workBox) => {
+        //        const form = $('.addfreetime');
+        //        form.submit();
+        //     })
+        // })
+    },
+    start: function () {
+        this.config();
+        this.handle();
+    }
+}
+
+modalAddFreeTime.start();
 modalAddCalendar.start()
 
-export { modalAddCalendar }
+export { modalAddCalendar, modalAddFreeTime }

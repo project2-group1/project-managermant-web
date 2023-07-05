@@ -1,4 +1,4 @@
-import { modalAddCalendar } from "./header.js"
+import { modalAddFreeTime } from "./header.js"
 import { fetchData } from '../services/fetchData.js'
 
 
@@ -36,12 +36,12 @@ let eventsAPI
 
 const calendar = {
 
-    API: async function() {
+    API: async function () {
         async function getEvents() {
-            try{
-                const event = await fetchData(`/api`)
+            try {
+                const event = await fetchData(`/freetime/api`)
                 console.log(event);
-                return 
+                return
             } catch (err) {
                 console.log(err)
             }
@@ -76,7 +76,7 @@ const calendar = {
             return duration * 40.8 - 1 + 'px'
         }
 
-        
+
 
         const eventContainer = Array.from($$('.event'))
 
@@ -152,23 +152,19 @@ const calendar = {
         // Xử lý bật tạo lịch khi bấm vào work box
         workBoxes.forEach(function (workBox) {
             workBox.addEventListener('click', (workBox) => {
-                const make_calendar_container = $('.make-calendar.container')
-                make_calendar_container.classList.add('show');
-
                 // render startTime vào flatpickr
                 const startTime = new Date(`${workBox.target.parentNode.getAttribute('date')} ${convertTime(Number(workBox.target.getAttribute('time')))}`)
-                const inputStartTimeInstance = modalAddCalendar.inputStartTime
+                const inputStartTimeInstance = modalAddFreeTime.inputStartTime
                 inputStartTimeInstance.setDate(startTime)
 
                 // render endTime vào flatpickr
                 const endTime = startTime.setMinutes(startTime.getMinutes() + 30)
-                const inputEndTimeInstance = modalAddCalendar.inputEndTime
+                const inputEndTimeInstance = modalAddFreeTime.inputEndTime
                 inputEndTimeInstance.setDate(endTime)
-
-                // render reportTime vào flatpickr
-                const reportTime = startTime.setHours(0)
-                const inputReportTimeInstance = modalAddCalendar.inputReportTime
-                inputReportTimeInstance.setDate(reportTime)
+            
+                const form = $('.addfreetime');
+                console.log(form);
+                form.submit();
             })
         })
 
@@ -254,11 +250,11 @@ const calendar = {
         let eventInCurWeek = []
         for (let i = 0; i < currentDays.length; i++) {
             let tempEvent = getEvents(currentDays[i].getAttribute('date'))
-            if(tempEvent.length != 0) {
+            if (tempEvent.length != 0) {
                 eventInCurWeek.push(...tempEvent)
             }
         }
-        
+
         eventInCurWeek.forEach(function (event) {
             event.classList.add('active')
         })
