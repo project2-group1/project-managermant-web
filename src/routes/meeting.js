@@ -4,6 +4,8 @@ const meetingController = require('../app/controllers/MeetingController.js')
 const authMiddleware = require('../middlewares/Authorization.js');
 
 // router.get('/meeting', meetingController.getAllMeetings)
+router.get('/meeting/api/general', meetingController.getGeneralData)
+router.get('/meeting/api/all', meetingController.getAllMeetingsData)
 router.get('/meeting/api', meetingController.getDataMeetingByID)
 router.get('/meeting/:id', authMiddleware.loggedin, meetingController.getMeetingById)
 router.post('/create', authMiddleware.loggedin, meetingController.create)

@@ -97,7 +97,7 @@ class Meeting {
         }
     }
     
-    getAllMeetings(result) {
+    getAllMeetings(data, result) { // data = req.session.user
         const responseData = {}
 
         const meetingSQL = `
@@ -107,9 +107,9 @@ class Meeting {
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
         `
         const groupstudentSQL = `
-            SELECT fullname, student_id
+            SELECT term, groupstudent.group_id, course_id
             FROM groupstudent
-            INNER JOIN student ON student.group_id = groupstudent.group_id
+            
         `
 
         Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)])
@@ -124,10 +124,30 @@ class Meeting {
             });
     }
 
-    async createMeeting(data, result) {
+    getGeneralData(data, result) {
+        const responseData = {}
+
+        const termSQL = `SELECT DISTINCT term FROM groupstudent`
+
+        const courseIdSQL = `SELECT DISTINCT course_id, term FROM groupstudent`
+
+
+        Promise.all([this.executeQuery(termSQL), this.executeQuery(courseIdSQL)])
+            .then(([termDB, courseIdDB]) => {
+                responseData.termDB = termDB;
+                responseData.courseIdDB = courseIdDB;
+                result(responseData, null); // null indicates no error, passing the retrieved data (responseData) back to the caller
+            })
+            .catch((err) => {
+                console.error('Error:', err);
+                result(err);
+            });
+    }
+
+    async createMeeting(result, meetingData, user) {
         const _this = this
 
-        const fake_teacher_id = 19990131;
+        const tearcherId = user.teacher_id;
 
         const maxMeetingIdSQL = `
             SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, meeting.starttime, meeting.endtime
@@ -135,7 +155,7 @@ class Meeting {
             WHERE meeting.meeting_id = (
                 SELECT MAX(meeting.meeting_id) 
                 FROM meeting 
-                WHERE meeting.group_id = ${data.group_id}
+                WHERE meeting.group_id = ${meetingData.group_id}
                 );
         `
 
@@ -172,13 +192,13 @@ class Meeting {
                     next_meeting_id, 
                     report)
             VALUES (
-                '${(data.group_id + '01')}', 
-                '${data.group_id}', 
-                '${fake_teacher_id}', 
-                '${formatDate(data.start_time)}', 
-                '${formatDate(data.end_time)}', 
-                '${formatDate(data.dl_report_time)}', 
-                '${data.require_meeting}', 
+                '${(meetingData.group_id + '01')}', 
+                '${meetingData.group_id}', 
+                '${tearcherId}', 
+                '${formatDate(meetingData.start_time)}', 
+                '${formatDate(meetingData.end_time)}', 
+                '${formatDate(meetingData.dl_report_time)}', 
+                '${meetingData.require_meeting}', 
                 NULL,   
                 NULL
                 );
@@ -199,13 +219,13 @@ class Meeting {
                     report)
             VALUES (
                 '${next_meeting_id}', 
-                '${data.group_id}', 
-                '${fake_teacher_id}', 
-                '${data.title}',
-                '${formatDate(data.start_time)}', 
-                '${formatDate(data.end_time)}', 
-                '${formatDate(data.dl_report_time)}', 
-                '${data.require_meeting}',
+                '${meetingData.group_id}', 
+                '${tearcherId}', 
+                '${meetingData.title}',
+                '${formatDate(meetingData.start_time)}', 
+                '${formatDate(meetingData.end_time)}', 
+                '${formatDate(meetingData.dl_report_time)}', 
+                '${meetingData.require_meeting}',
                 NULL,   
                 '${curMeetingData.meeting_id}', 
                 NULL
@@ -247,17 +267,16 @@ class Meeting {
 
     }
 
-    //data = data received
-    async getAllEvents(data, result) {
+    //data = user ID
+    async getAllEvents(user, result) {
         const _this = this
 
         const getEventSQL = `
             SELECT *
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE is_ended = 0 AND teacher_id = ${data.teacher_id}
+            WHERE is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
         `
-        // WHEN teacher.id = ${data}
 
         try {
             const event = await _this.executeQuery(getEventSQL)

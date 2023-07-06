@@ -19,6 +19,8 @@ let editors = Array.from($$('.editor'))
 let meetingId = document.querySelector('input[name="meeting_id"]').getAttribute('value')
 let note = []
 let meetingData
+let allMeetingsData
+let generalData
 
 
 
@@ -40,18 +42,22 @@ const monthMapping = {
 const meeting = {
 
     API: async function () {
-        async function getData() {
+        async function getData(URL) {
             try {
-                const meetingData = await fetchData(`/meeting/api/?id=${meetingId}`)
-                return meetingData
+                const responseData = await fetchData(URL)
+                return responseData
             } catch (err) {
                 console.log(err)
             }
         }
 
-        [meetingData] = await getData() // destructuring 
-        // console.log(meetingData)
+        [meetingData] = await getData(`/meeting/api/?id=${meetingId}`) // destructuring 
 
+        generalData = await getData(`/meeting/api/general`)
+        
+        // allMeetingsData dùng trực tiếp ko try catch (nguy hiểm)
+        // chứa 2 bảng kiểu object là groupstudent và meeting
+        allMeetingsData = await fetchData('/meeting/api/all')
     },
     config: function () {
         var addMeetingHTML = `
@@ -82,25 +88,70 @@ const meeting = {
                                     <option value="" disabled selected>Nhóm</option>
                                 </select>
                             </div>
+                            <div class="pos-rb-corner">
+                                <input type="submit"  class="submit btn-accept" value="Hiển thị cuộc họp">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="wrap-table">
                             <table class="table">
                                 <tr class="table-header">
-                                    <th class="cell">Họ và tên</th>
+                                    <th class="cell">
+                                        <div class="">
+                                            <input class="check-all-input" type="checkbox" name="groupIds[]" value="this.id">
+                                        </div>
+                                    </th>
+                                    <th class="cell">#</th>
+                                    <th class="cell">Nhóm/Họ và tên</th>
                                     <th class="cell">MSSV</th>
+                                    <th class="cell">Học phần</th>
+                                    <th class="cell">Thời gian</th>
+                                    <th class="cell">Đề tài</th>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="cell student-name">this.fullname</td>
+                                    <td class="cell">
+                                        <div class="">
+                                            <input class="check-input" type="checkbox" name="groupIds[]" value="this.id">
+                                        </div>
+                                    </td>
+                                    <td class="cell">1</td>
+                                    <td class="cell name">this.fullname</td>
                                     <td class="cell student-id">this.student_id</td>
+                                    <td class="cell course-id">course-id</td>
+                                    <td class="cell time">time</td>
+                                    <td class="cell project-name">project-name</td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="cell">
+                                        <div class="">
+                                            <input class="check-input" type="checkbox" name="groupIds[]" value="this.id">
+                                        </div>
+                                    </td>
+                                    <td class="cell">1</td>
+                                    <td class="cell name">this.fullname</td>
+                                    <td class="cell student-id">this.student_id</td>
+                                    <td class="cell course-id">course-id</td>
+                                    <td class="cell time">time</td>
+                                    <td class="cell project-name">project-name</td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="cell">
+                                        <div class="">
+                                            <input class="check-input" type="checkbox" name="groupIds[]" value="this.id">
+                                        </div>
+                                    </td>
+                                    <td class="cell">1</td>
+                                    <td class="cell name">this.fullname</td>
+                                    <td class="cell student-id">this.student_id</td>
+                                    <td class="cell course-id">course-id</td>
+                                    <td class="cell time">time</td>
+                                    <td class="cell project-name">project-name</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <div class="pos-rb-corner row">
-                        <input type="submit"  class="submit btn-accept" value="Hiển thị cuộc họp">
-                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -268,11 +319,67 @@ const meeting = {
             return date + '/' + month + '/' + year
         }
     },
+    renderModalAddMeeting: function () {
+
+        const termSelectTag = containerDisplayNewMeeting.querySelector('#term')
+        const courseIdSelectTag = containerDisplayNewMeeting.querySelector('#course_id')
+        const groupIdSelectTag = containerDisplayNewMeeting.querySelector('#group_id')
+
+        for (let i = 0; i < generalData.termDB.length; i++) {
+            let optionElement = document.createElement("option")
+            optionElement.text = generalData.termDB[i].term
+            optionElement.value = generalData.termDB[i].term
+            termSelectTag.add(optionElement)
+        }
+
+        termSelectTag.addEventListener('change', function () {
+            courseIdSelectTag.innerHTML = `
+                <option value="" disabled selected>Học phần</option>
+            `
+            const selectedTerm = termSelectTag.options[termSelectTag.selectedIndex]
+            console.log("Đã chọn kỳ: " + selectedTerm.value)
+
+            for (let i = 0; i < generalData.courseIdDB.length; i++) {
+                let optionElement = document.createElement("option")
+                if (generalData.courseIdDB[i].term == selectedTerm.value) {
+                    optionElement.text = generalData.courseIdDB[i].course_id
+                    optionElement.value = generalData.courseIdDB[i].course_id
+                    courseIdSelectTag.add(optionElement)
+                }
+            }
+        })
+
+        courseIdSelectTag.addEventListener('change', function() {
+            groupIdSelectTag.innerHTML = `
+                <option value="" disabled selected>Nhóm</option>
+            `
+            const selectedCourseId = courseIdSelectTag.options[courseIdSelectTag.selectedIndex]
+            console.log("Đã chọn học phần: " + selectedCourseId.value)
+
+            for (let i = 0; i < allMeetingsData.groupstudent.length; i++) {
+                let optionElement = document.createElement("option")
+                if (allMeetingsData.groupstudent[i].course_id == selectedCourseId.value) {
+                    optionElement.text = allMeetingsData.groupstudent[i].group_id
+                    optionElement.value = allMeetingsData.groupstudent[i].group_id
+                    groupIdSelectTag.add(optionElement)
+                }
+            }
+        })
+
+        groupIdSelectTag.addEventListener('change', function() {
+            
+        })
+
+        
+
+
+    },
     start: async function () {
         this.config()
         await this.API()
         this.handleEvents()
         await this.renderMeeting()
+        this.renderModalAddMeeting()
     }
 }
 

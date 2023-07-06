@@ -98,13 +98,13 @@
 }
 
 .wrap-table:nth-child(1) {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 .wrap-table:nth-child(2) {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .wrap-table a:focus {
@@ -190,7 +190,7 @@
 
 .wrap-table .table-header {
     color: #fff;
-    background: #6c7ae0;
+    background: #596ae8;
     text-align: left;
 }
 
@@ -338,10 +338,7 @@
     margin-bottom: 12px;
 }
 
-.md-display-meeting .wrap-table {
-    border-radius: 10px;
-    width: 70%;
-}
+
 
 
 /*-------------------Start: Meeting-content-------------------*/
@@ -411,14 +408,56 @@
 }
 
 .pos-rb-corner {
-    position: absolute !important;
+    /* position: absolute !important;
     width: 100%;
     bottom: 8px;
-    right: 20px;
+    right: 20px; */
 }
 /* -------------------Start: Modal Display Meeting------------------- */
 .md-display-meeting.modal .modal-body{
-    height: 300px;
+    min-height: 300px;
+}
+
+.md-display-meeting .btn-accept {
+    width: 100%;
+    padding: 16px;
+}
+
+.md-display-meeting .check-all-input {
+    line-height: 22px;
+}
+
+.md-display-meeting .wrap-table {
+    border-radius: 4px;
+    width: 100%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(1) {
+    width: 15px;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(2) {
+    width: unset;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(2) {
+    width: unset;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(3) {
+    width: unset;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(4) {
+    width: unset;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(5) {
+    width: 20%;
+}
+
+.md-display-meeting .wrap-table .table-row:hover .cell {
+    background-color: #ececff;
 }
 /* -------------------End: Modal Display Meeting------------------- */
 

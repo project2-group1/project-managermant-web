@@ -85,45 +85,41 @@ class MeetingController {
         })
     }
 
-    // [GET] /meeting
-    getAllMeetings(req, res, next) {
-        Meeting.getAllMeetings(function (data, err) {
+    // [GET] /meeting/api/all
+    getAllMeetingsData(req, res, next) {
+        Meeting.getAllMeetings(req.session.user, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
             }
-            // Check fetch data
-            // res.send(data)
+            res.send(data)
             // res.send(data.meeting)
             // res.send(data.groupstudent)
+        })
+    }
 
-            // Render data
-            res.render('meeting/meeting', {
-                title: 'Cuộc hẹn',
-                css: [
-                    '//cdn.quilljs.com/1.3.6/quill.snow.css',
-                    '/css/meeting.css',
-                ],
-                libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
-                handle: '/js/meeting.js',
-                displayBtn: true,
-                addMeeting: true,
-                meetings: data.meeting,
-                students: data.groupstudent,
-            })
-
+    // [GET] /meeting/api/modal
+    getGeneralData(req, res, next) {
+        Meeting.getGeneralData(req.session.user, function (data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+            // res.send(data.meeting)
+            // res.send(data.groupstudent)
         })
     }
 
     // [POST] /create -> redirect to /
     create(req, res, next) {
-        Meeting.createMeeting(req.body, function (data, err) {
+        Meeting.createMeeting(function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
             }
             res.redirect('/')
-        })
+        }, req.body, req.session.user)
         // res.json(req.body)
     }
 
