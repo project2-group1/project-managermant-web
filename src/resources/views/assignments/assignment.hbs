@@ -1,0 +1,29 @@
+<div class="wrapper-content">
+    <h1>Danh sách báo cáo</h1>
+    <div class="assignment-student" style="overflow-x:auto">
+        <table>
+            <tr>
+                <th>Nhóm</th>
+                <th>Cuộc họp</th>
+                <th>Tiêu đề</th>
+                <th>Thời gian nộp</th>
+                <th>Báo cáo</th>
+                <th>Ghi chú</th>
+            </tr>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{this.group_id}}</td>
+                    <td>{{this.meeting_id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.reportdeadline}}</td>
+                    <td>
+                        <a href="{{this.report}}" target="_blank">Xem</a>
+                    </td>
+                    <td>{{this.note}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="wrapper-content">
+    <div class="setting">
+
+        <form action="/me/changepassword" method="POST" class="form-hi" id="form-1">
+
+            <h3 class="heading">ĐỔI MẬT KHẨU</h3>
+
+            {{#if state}}
+            <p class="warning">{{state}}</p>
+            {{/if}}
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="old_password" class="form-label">Mật khẩu cũ</label>
+                <input id="old_password" name="old_password" type="password" placeholder="Nhập mật khẩu"
+                    class="form-control">
+
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu"
+                    type="password" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <button class="form-submit">Cập nhật mật khẩu</button>
+
+        </form>
+
+    </div>
+</div>
+
+</script>

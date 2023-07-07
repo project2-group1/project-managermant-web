@@ -1,0 +1,52 @@
+/* bảng student */
+/* .wrapper-content {
+    position: relative;
+} */
+.assignment-student {
+    max-height: 600px;
+}
+.wrapper-content .assignment-student table {
+    margin-top: 12px;
+    margin-right: 16px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.assignment-student th, .assignment-student td {
+    border: 1px solid #0e0101;
+    padding: 4px;
+    text-align: left;
+}
+
+.assignment-student tr:hover {
+    background-color: rgb(247, 228, 217);
+}
+/* sọc */
+.assignment-student tr:nth-child(even) {
+    background-color: #efebeb;
+}
+.assignment-student tr:nth-child(even):hover {
+    background-color: #f3e4e4;
+}
+
+.wrapper-content .list-button a {
+    display: block;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 12px;
+    text-decoration: none;
+}
+.wrapper-content .list-button a:hover {
+    background-color: rgb(6, 128, 243);
+    color: #ffffff;
+    border-radius: 5%;
+}
+/* hidden input file */
+.inputfile {
+    opacity: 0.5;
+}
+
+
+
+
