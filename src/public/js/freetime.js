@@ -255,7 +255,7 @@ const calendar = {
         }
 
         eventInCurWeek.forEach(function (event) {
-            event.classList.add('active')
+            event.classList.add('active','freetime')
         })
 
         events.forEach(function (event) {

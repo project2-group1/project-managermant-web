@@ -72,6 +72,9 @@ button {
     --icon-color-dark: rgb(65, 65, 65);
     --icon-color-hover: rgb(0, 0, 0);
 
+    --event-freetime: rgb(187, 255, 179);
+    --event-meeting: rgb(150, 217, 255);
+
     --workbox-color-hover: rgb();
 
     --btn-color-hover-blue: rgb(57 101 224);
@@ -498,6 +501,10 @@ button {
   color: #fff;
   border-color: var(--text-color-blue);
 } */
+
+.modal-body select:focus {
+  border: 1px solid black;
+}
 
 .modal-body .input-time {
   padding: 10px 20px 10px 100px;

@@ -37,7 +37,7 @@ const calendar = {
     API: async function() {
         async function getEvents() {
             try{
-                const event = await fetchData(`/event/api`)
+                const event = await fetchData(`/event/api/?r=st`) //[NEED TO FIX]
                 return 
             } catch (err) {
                 console.log(err)
@@ -45,6 +45,7 @@ const calendar = {
         }
 
         eventsAPI = [await getEvents()] // destructuring
+        // not used
     },
     config: function () {
 

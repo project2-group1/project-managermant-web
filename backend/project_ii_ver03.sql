@@ -17,15 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Cơ sở dữ liệu: `project_ii_ver02`
---
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `freetime`
---
 
 CREATE TABLE `freetime` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -35,59 +27,51 @@ CREATE TABLE `freetime` (
   PRIMARY KEY (Personid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Đang đổ dữ liệu cho bảng `freetime`
---
 
 INSERT INTO `freetime` (`teacher_id`, `starttime`, `endtime`) VALUES
 (19990131, '2023-07-03 08:00:00', '2023-07-03 09:30:00'),
 (19990131, '2023-07-04 07:30:00', '2023-07-03 08:00:00'),
 (19990131, '2023-07-05 07:30:00', '2023-07-05 08:00:00');
 
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `groupstudent`
---
+
 
 CREATE TABLE `groupstudent` (
   `group_id` int(8) NOT NULL,
+  `teacher_id` int(8) NOT NULL,
   `course_id` varchar(8) NOT NULL,
   `projectname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `coursename` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `term` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
---
--- Đang đổ dữ liệu cho bảng `groupstudent`
---
 
-INSERT INTO `groupstudent` (`group_id`, `course_id`, `projectname`, `coursename`, `term`) VALUES
-(20200001, 'IT4434', 'Ứng dụng IoT điều khiển thiết bị', 'Đồ án các công nghệ xây dựng hệ thống thông tin', 20222),
-(20200006, 'IT5021E', 'Game giải đố: game engine đã hỗ trợ gì rồi', 'Graduation Research 1', 20222),
-(20200014, 'IT5022', 'undefined', 'Nghiên cứu tốt nghiệp 2', 20222),
-(20200017, 'IT3910Q', 'undefined', 'Project I', 20222),
-(20200025, 'IT3931', 'Nhóm 1 giao diện web', 'Project II', 20222),
-(20200029, 'IT3931', 'Nhóm 2', 'Project II', 20222),
-(20200032, 'IT3920Q', 'Nhóm 3 Web', 'Project II', 20222),
-(20200035, 'IT3920Q', 'Nhóm 4: Quản lý thông tin tour', 'Project II', 20222),
-(20200037, 'IT3920Q', 'Nhóm 4 bis', 'Project II', 20222),
-(20200039, 'IT3930E', 'Nhóm 5', 'Project II', 20222),
-(20200041, 'IT3930', 'Nhóm riêng', 'Project II', 20222),
-(20200042, 'IT4997', 'Hệ thống quản lý nguồn hàng -> Magento', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200043, 'IT4997', 'Mô đun điểm thưởng và xếp hạng khách hàng  trên nền tảng Magento cho Theme Hyva.', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200044, 'IT4997', 'Ứng dụng phi tập trung (dApp)', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200045, 'IT4997', 'Web  Quản lý ký túc xá', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200046, 'IT4997', 'Đề tài website dạy nấu ăn, phát triển thêm  gợi ý video, mua bán sản phẩm ', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200047, 'IT4997', 'Ứng dụng chat + video call', 'Đồ án tốt nghiệp cử nhân', 20222),
-(20200048, 'IT5150', 'App quản lý bãi gửi xe, giao diện cho người gửi và quản lý', 'Đồ án kỹ sư', 20222),
-(20200049, 'IT5120E', 'Chuyển Bằng đã hướng dẫn GR1', 'Thesis', 20222),
-(20200050, 'IT5120', '', 'Đồ án tốt nghiệp', 20222),
-(20200051, 'IT5120', 'Web bán thiết bị điện tử, tích điểm thưởng, phân loại người dùng, tích điểm thưởng (admin có thể điều chỉnh), thanh toán online', 'Đồ án tốt nghiệp', 20222),
-(20222001, 'IT3931', 'Project Management Website', 'Project II', 20222),
-(20222002, 'IT3931', 'Gunny Game Website', 'Project II', 20222),
-(20222003, 'IT3931', 'Learn English Application', 'Project III', 20222),
-(20222004, 'IT3931', 'Artificial Intelligence', 'Project II', 20222);
+INSERT INTO `groupstudent` (`group_id`, `course_id`, `projectname`, `coursename`, `term`, `teacher_id`) VALUES
+(20200001, 'IT4434', 'Ứng dụng IoT điều khiển thiết bị', 'Đồ án các công nghệ xây dựng hệ thống thông tin', 20222, 19990131),
+(20200006, 'IT5021E', 'Game giải đố: game engine đã hỗ trợ gì rồi', 'Graduation Research 1', 20222, 19990131),
+(20200014, 'IT5022', 'undefined', 'Nghiên cứu tốt nghiệp 2', 20222, 19990131),
+(20200017, 'IT3910Q', 'undefined', 'Project I', 20222, 19990131),
+(20200025, 'IT3931', 'Nhóm 1 giao diện web', 'Project II', 20222, 19990131),
+(20200029, 'IT3931', 'Nhóm 2', 'Project II', 20222, 19990131),
+(20200032, 'IT3920Q', 'Nhóm 3 Web', 'Project II', 20222, 19990131),
+(20200035, 'IT3920Q', 'Nhóm 4: Quản lý thông tin tour', 'Project II', 20222, 19990131),
+(20200037, 'IT3920Q', 'Nhóm 4 bis', 'Project II', 20222, 19990131),
+(20200039, 'IT3930E', 'Nhóm 5', 'Project II', 20222, 19990131),
+(20200041, 'IT3930', 'Nhóm riêng', 'Project II', 20222, 19990131),
+(20200042, 'IT4997', 'Hệ thống quản lý nguồn hàng -> Magento', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200043, 'IT4997', 'Mô đun điểm thưởng và xếp hạng khách hàng  trên nền tảng Magento cho Theme Hyva.', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200044, 'IT4997', 'Ứng dụng phi tập trung (dApp)', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200045, 'IT4997', 'Web  Quản lý ký túc xá', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200046, 'IT4997', 'Đề tài website dạy nấu ăn, phát triển thêm  gợi ý video, mua bán sản phẩm ', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200047, 'IT4997', 'Ứng dụng chat + video call', 'Đồ án tốt nghiệp cử nhân', 20222, 19990131),
+(20200048, 'IT5150', 'App quản lý bãi gửi xe, giao diện cho người gửi và quản lý', 'Đồ án kỹ sư', 20222, 19990131),
+(20200049, 'IT5120E', 'Chuyển Bằng đã hướng dẫn GR1', 'Thesis', 20222, 19990131),
+(20200050, 'IT5120', '', 'Đồ án tốt nghiệp', 20222, 19990131),
+(20200051, 'IT5120', 'Web bán thiết bị điện tử, tích điểm thưởng, phân loại người dùng, tích điểm thưởng (admin có thể điều chỉnh), thanh toán online', 'Đồ án tốt nghiệp', 20222, 19990131),
+(20222001, 'IT3931', 'Project Management Website', 'Project II', 20222, 19990131),
+(20222002, 'IT3931', 'Gunny Game Website', 'Project II', 20222, 19990131),
+(20222003, 'IT3931', 'Learn English Application', 'Project III', 20222, 19990131),
+(20222004, 'IT3931', 'Artificial Intelligence', 'Project II', 20222, 19990131);
 
 -- --------------------------------------------------------
 
@@ -242,6 +226,7 @@ ALTER TABLE `freetime`
 --
 ALTER TABLE `groupstudent`
   ADD PRIMARY KEY (`group_id`);
+  ADD KEY `FK_TeacherID`
 
 --
 -- Chỉ mục cho bảng `meeting`

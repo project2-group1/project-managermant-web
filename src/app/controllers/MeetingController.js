@@ -4,9 +4,10 @@ class MeetingController {
  
     // [GET] /
     async show(req, res, next) {
+        let role = req.query.r // te = teacher || st = student
         try {
             const responseData = await new Promise((resolve, reject) => {
-                Meeting.getAllEvents(req.session.user, function (data, err) {
+                Meeting.getAllEvents(req.session.user, role, function (data, err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -24,15 +25,16 @@ class MeetingController {
                 libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
                 handle: '/js/calendar.js',
                 data: responseData,
+                role: role,
             })
         } catch (err) {
             res.status(500).send(err);
         }
     }
 
-    // [GET] /event
+    // [GET] /event/api
     getAllEvents(req, res, next) {
-        Meeting.getAllEvents(req.session.user , function (data, err) {
+        Meeting.getAllEvents(req.session.user, req.query.r, function (data, err) {
             if(err) {
                 res.status(500).send(err)
                 return

@@ -6,11 +6,11 @@ const xlsx = require('xlsx')
 const handlebars = require('express-handlebars')
 const path = require('path') // lib của nodejs để lấy địa chỉ
 const mysql = require('./config/db/index.js');
-const multer = require('multer');
+const multer = require('multer'); // middleware để đọc json
 
 const app = express()
 const port = 3000
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');// middleware để đọc json
 
 const upload = multer();
 app.use(upload.any());
