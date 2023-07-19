@@ -156,6 +156,10 @@
 .event.active {
   display: flex; }
 
+.event.freetime {
+  background-color: var(--event-freetime);
+}
+
 .event .content {
   color: #000000; }
 

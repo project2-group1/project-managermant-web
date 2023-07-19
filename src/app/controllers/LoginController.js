@@ -1,6 +1,7 @@
 const { name } = require('ejs');
 const List = require('../models/List');
 const Teacher = require('../models/Teacher');
+const Student = require('../models/Student');
 class LoginController {
 
     showLoginForm(req, res, next) {
@@ -11,7 +12,8 @@ class LoginController {
 
     //[POST] /auth/login
     async login(req, res, next) {
-        var { role, id, password } = req.body;
+        let { role, id, password } = req.body;
+
         let query;
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
@@ -23,11 +25,28 @@ class LoginController {
                     if (data[0].password == password) {
                         req.session.loggedin = true;
                         req.session.user = user;
-                        res.redirect('/');
+                        res.redirect('/?r=te'); // send a param: role = teacher
                         console.log("Login success");
                     } else {
                         const conflictError = 'User credentials are not valid.';
                         res.redirect('/auth');
+                    }
+                }
+            })
+        }
+        
+        if(role == "sinh_vien") {
+            Student.getById(id, function (data, err) {
+                if(err) {
+                    res.redirect('auth')
+                } else {
+                    // console.log(data)
+                    if(data[0].password == password) {
+                        req.session.loggedin = true
+                        req.session.user = data[0]
+                        res.redirect('/?r=st') // send a param: role = student
+                    } else {
+                        res.redirect('/auth')
                     }
                 }
             })
@@ -44,4 +63,4 @@ class LoginController {
     }
 }
 
-module.exports = new LoginController();
+ module.exports = new LoginController();

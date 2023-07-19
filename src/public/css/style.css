@@ -72,6 +72,9 @@ button {
     --icon-color-dark: rgb(65, 65, 65);
     --icon-color-hover: rgb(0, 0, 0);
 
+    --event-freetime: rgb(187, 255, 179);
+    --event-meeting: rgb(150, 217, 255);
+
     --workbox-color-hover: rgb();
 
     --btn-color-hover-blue: rgb(57 101 224);
@@ -141,6 +144,7 @@ button {
 
 .header-start .btn-logo {
     height: 40px;
+    cursor: pointer;
 }
 
 .header-start .btn-logo img {
@@ -192,6 +196,108 @@ button {
 
 /* End Header-center */
 
+/* Start Header-notification */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+.container-notification * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.container-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.container-notification .btn-notification {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border: solid 1px black;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.container-notification .btn-notification .box-notification.show{
+    display: block;
+} 
+
+.container-notification .box-notification {
+    width: 350px;
+    position: absolute;
+    margin-top: 8px;
+    top: 50%;
+    right: -4px;
+    overflow: hidden;
+    /* border: 1px solid rgba(0, 0, 0, 0.137); */
+    border-radius: 10px;
+    background-color: var(--backgr-color-light);
+    box-shadow: 0px 4px 4px var(--box-shadow-color);
+    background-color: #fff;
+    display: none;
+}
+.container-notification .header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.082);
+}
+.container-notification .header a {
+    text-decoration: none;
+}
+.container-notification .content {
+    width: 100%;
+}
+.container-notification .notification {
+    width: 350px;
+    height: 100px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    transition: all ease-out 0.3s;
+}
+.container-notification .notification:hover {
+    background-color: var(--backgr-color-hover);
+}
+.container-notification .notification img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.container-notification .notification .text p {
+    text-align: start;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.container-notification .notification .text p:first-child {
+  height: 60px;
+  
+}
+
+.container-notification .notification .text p span {
+    font-weight: 700;
+}
+.container-notification .notification .text .time {
+    font-size: 14px;
+    text-align: start;
+    color: rgba(0, 0, 0, 0.61);
+}
+
+.container-notification .icon {
+    position: absolute;
+}
+/* End Header-notification */
 /* Start Header-avatar */
 .header-end {
     display: flex;
@@ -435,12 +541,11 @@ button {
 
 .modal-body input,
 .modal-body input[type="radio"] + label,
-.modal-body input[type="checkbox"] + label:before,
 .modal-body select option,
 .modal-body select {
   width: 100%;
   padding: 10px 0 10px 40px;
-  line-height: 20px;
+  /* line-height: 20px; */
   font-size: 16px;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
@@ -499,6 +604,10 @@ button {
   color: #fff;
   border-color: var(--text-color-blue);
 } */
+
+.modal-body select:focus {
+  border: 1px solid black;
+}
 
 .modal-body .input-time {
   padding: 10px 20px 10px 100px;
@@ -618,7 +727,7 @@ button {
   transition: all 0.35s ease-in-out;
 }
 
-.modal-body .container {
+.make-calendar .modal-body .container {
   max-width: 38em;
   padding: 1em 3em 2em 3em;
   margin: 0em auto;
@@ -627,7 +736,7 @@ button {
   box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
 }
 
-.modal-body .submit {
+.make-calendar .modal-body .submit {
     float: right;
     width: 25%;
     padding: 10px;
@@ -638,7 +747,7 @@ button {
     cursor: pointer;
 }
 
-.modal-body .submit:hover {
+.make-calendar .modal-body .submit:hover {
     opacity: 1;
     scale: 0.98;
 }

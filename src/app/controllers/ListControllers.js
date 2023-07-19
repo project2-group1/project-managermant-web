@@ -5,13 +5,14 @@ const XLSX = require('xlsx');
 class ListController {
     // [GET] /news
     show(req, res, next) {
+        const role = req.query.r // te = teacher || st = student
         res.render('list/list', {
             title: 'Danh sách sinh viên',
             css: [
                 '/css/list_student.css'
             ],
             handle: '/js/list_student.js',
-            displayBtn: true,
+            teacher: role == 'te',
         });
     }
     // [POST] /list/importexcel

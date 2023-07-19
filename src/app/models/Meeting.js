@@ -79,7 +79,7 @@ class Meeting {
         //         result(response, null)
         //     })
         //     .catch(err => result(err))
-        
+
         // this.executeQuery(meetingInfoSQL)
         //     .then(response => {
         //         result(response, null)
@@ -96,20 +96,23 @@ class Meeting {
             throw err;
         }
     }
-    
-    getAllMeetings(result) {
+
+    getAllMeetings(user, result) { // data = req.session.user
         const responseData = {}
+        console.log(user);
 
         const meetingSQL = `
-            SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id, coursename, 
-                    projectname, starttime, endtime, note, next_meeting_id, report
+            SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
+            coursename, projectname, starttime, endtime, require_meeting, note, 
+            previous_meeting_id, next_meeting_id, report
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+            WHERE meeting.is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
         `
         const groupstudentSQL = `
-            SELECT fullname, student_id
+            SELECT term, groupstudent.group_id, course_id
             FROM groupstudent
-            INNER JOIN student ON student.group_id = groupstudent.group_id
+            
         `
 
         Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)])
@@ -124,47 +127,68 @@ class Meeting {
             });
     }
 
-    async createMeeting(data, result) {
+    getGeneralData(data, result) {
+        const responseData = {}
+
+        const termSQL = `SELECT DISTINCT term FROM groupstudent`
+
+        const courseIdSQL = `SELECT DISTINCT course_id, term FROM groupstudent`
+
+
+        Promise.all([this.executeQuery(termSQL), this.executeQuery(courseIdSQL)])
+            .then(([termDB, courseIdDB]) => {
+                responseData.termDB = termDB;
+                responseData.courseIdDB = courseIdDB;
+                result(responseData, null); // null indicates no error, passing the retrieved data (responseData) back to the caller
+            })
+            .catch((err) => {
+                console.error('Error:', err);
+                result(err);
+            });
+    }
+
+    async createMeeting(result, meetingData, user, role) {
         const _this = this
 
-        const fake_teacher_id = 19990131;
+        console.log('creating a meeting')
+        if (role == 'te') {
+            const tearcherId = user.teacher_id;
+            console.log(meetingData);
+            const maxMeetingIdSQL = `
+                SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, meeting.starttime, meeting.endtime
+                FROM meeting
+                WHERE meeting.meeting_id = (
+                    SELECT MAX(meeting.meeting_id) 
+                    FROM meeting 
+                    WHERE meeting.group_id = ${meetingData.group_id}
+                    );
+            `
 
-        const maxMeetingIdSQL = `
-            SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, meeting.starttime, meeting.endtime
-            FROM meeting
-            WHERE meeting.meeting_id = (
-                SELECT MAX(meeting.meeting_id) 
-                FROM meeting 
-                WHERE meeting.group_id = ${data.group_id}
-                );
-        `
+            async function getMeetingInfo() {
+                try {
+                    // executeQuery return Array so we neet to destructuring
+                    // this array by [meeting]
+                    const [meeting] = await _this.executeQuery(maxMeetingIdSQL)
+                    if (meeting) {
+                        return meeting
+                    } else {
+                        return null
+                    }
 
-        async function getMeetingInfo() {
-            try {
-                // executeQuery return Array so we neet to destructuring
-                // this array by [meeting]
-                const [meeting] = await _this.executeQuery(maxMeetingIdSQL)
-                if (meeting) {
-                    return meeting
-                } else {
-                    return null
+                } catch (err) {
+                    console.error('Error:', err);
+                    // throw err;
                 }
-
-            } catch (err) {
-                console.error('Error:', err);
-                // throw err;
             }
-        }
 
-        const curMeetingData = await getMeetingInfo()
-        console.log(curMeetingData)
-        const next_meeting_id = curMeetingData.meeting_id + 1
+            const curMeetingData = await getMeetingInfo()
 
-        const insertTheFirstMeetingSQL = `
+            const insertTheFirstMeetingSQL = `
             INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
-                    teacher_id, 
+                    teacher_id,
+                    title, 
                     starttime, 
                     endtime, 
                     reportdeadline, 
@@ -172,19 +196,20 @@ class Meeting {
                     next_meeting_id, 
                     report)
             VALUES (
-                '${(data.group_id + '01')}', 
-                '${data.group_id}', 
-                '${fake_teacher_id}', 
-                '${formatDate(data.start_time)}', 
-                '${formatDate(data.end_time)}', 
-                '${formatDate(data.dl_report_time)}', 
-                '${data.require_meeting}', 
+                '${meetingData.group_id + '01'}', 
+                '${meetingData.group_id}', 
+                '${tearcherId}', 
+                '${meetingData.title}', 
+                '${formatDate(meetingData.start_time)}', 
+                '${formatDate(meetingData.end_time)}', 
+                '${formatDate(meetingData.dl_report_time)}', 
+                '${meetingData.require_meeting}', 
                 NULL,   
                 NULL
                 );
-        `
+            `
 
-        const insertMeetingSQL = `
+            const insertMeetingSQL = `
             INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
@@ -198,73 +223,90 @@ class Meeting {
                     previous_meeting_id, 
                     report)
             VALUES (
-                '${next_meeting_id}', 
-                '${data.group_id}', 
-                '${fake_teacher_id}', 
-                '${data.title}',
-                '${formatDate(data.start_time)}', 
-                '${formatDate(data.end_time)}', 
-                '${formatDate(data.dl_report_time)}', 
-                '${data.require_meeting}',
+                '${curMeetingData == null ? 0 : curMeetingData.meeting_id + 1}', 
+                '${meetingData.group_id}', 
+                '${tearcherId}', 
+                '${meetingData.title}',
+                '${formatDate(meetingData.start_time)}', 
+                '${formatDate(meetingData.end_time)}', 
+                '${formatDate(meetingData.dl_report_time)}', 
+                '${meetingData.require_meeting}',
                 NULL,   
-                '${curMeetingData.meeting_id}', 
+                '${curMeetingData == null ? 0 : curMeetingData.meeting_id}', 
                 NULL
                 );
-        `
+            `
 
-        
+            function formatDate(dateTime) {
+                const year = dateTime.substring(0, 4)
+                const month = dateTime.substring(5, 7)
+                const date = dateTime.substring(8, 10)
 
-        function formatDate(dateTime) {
-            const year = dateTime.substring(0, 4)
-            const month = dateTime.substring(5, 7)
-            const date = dateTime.substring(8, 10)
+                const hour = dateTime.substring(11, 13)
+                const minutes = dateTime.substring(14, 16)
 
-            const hour = dateTime.substring(11, 13)
-            const minutes = dateTime.substring(14, 16)
+                return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
+            }
 
-            return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
+            if (curMeetingData) {
+                Promise.all([_this.executeQuery(insertMeetingSQL)])
+                    .then(([insertData]) => {
+                        result(insertData, null)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        result(null, err);
+                    })
+            } else {
+                Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
+                    .then(([insertData]) => {
+                        result(insertData, null)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        result(null, err);
+                    })
+            }
+
         }
-
-        if(curMeetingData.meeting_id) {
-            Promise.all([_this.executeQuery(insertMeetingSQL)])
-                .then(([insertData]) => {
-                    result(insertData, null)
-                })
-                .catch((err) => {
-                    console.log(err)
-                    result(null, err);
-                })
-        } else {
-            Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
-                .then(([insertData]) => {
-                    result(insertData, null)
-                })
-                .catch((err) => {
-                    console.log(err)
-                    result(null, err);
-                })
-        }
-
+        console.log('finish created');
     }
 
-    //data = data received
-    async getAllEvents(data, result) {
+    //data = user ID
+    async getAllEvents(user, role, result) {
+        console.log("get All Events of : " + user.fullname);
+        console.log("role: " + role);
         const _this = this
+        if (role == 'te') {
+            const getEventTeacherSQL = `
+                SELECT *
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
+            `
+            try {
+                const event = await _this.executeQuery(getEventTeacherSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+        } else if (role == 'st') {
+            const getEventStudentSQL = `
+                SELECT *
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE is_ended = 0 AND groupstudent.group_id = 
+                    (SELECT group_id FROM student WHERE student_id =  ${user.student_id})
 
-        const getEventSQL = `
-            SELECT *
-            FROM meeting
-            INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE is_ended = 0 AND teacher_id = ${data.teacher_id}
-        `
-        // WHEN teacher.id = ${data}
-
-        try {
-            const event = await _this.executeQuery(getEventSQL)
-            result(event)
-        } catch (err) {
-            console.error('Error:', err);
-            throw err;
+            `
+            try {
+                const event = await _this.executeQuery(getEventStudentSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
         }
     }
 
@@ -282,7 +324,7 @@ class Meeting {
             const meeting = await _this.executeQuery(endMeetingSQL)
             result(meeting)
         }
-        catch(err) {
+        catch (err) {
             console.error('Error: ', err)
             throw err
         }

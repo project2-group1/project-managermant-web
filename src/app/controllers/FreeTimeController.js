@@ -4,6 +4,7 @@ const Meeting = require('../models/Meeting.js')
 class CalendarController {
     // [GET] /calender
     async show(req, res, next) {
+        const role = req.query.r // role te = teacher / st = student
         const id = req.session.user.teacher_id;
         FreeTime.getByTeacherId(id, function (data, err) {
             if (err) {
@@ -20,6 +21,7 @@ class CalendarController {
                     libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
                     handle: '/js/freetime.js',
                     data: responseData,
+                    teacher: role == 'te',
                 })
             }
         })

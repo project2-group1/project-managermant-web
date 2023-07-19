@@ -1,3 +1,4 @@
+import { fetchData } from '../services/fetchData.js'
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -5,11 +6,48 @@ const $$ = document.querySelectorAll.bind(document);
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
 const add_free_time = $('.add-free.container')
+let btnSubmit
+let makeCalendarModal
+let formCalendarModal
+
+const btnAvatarNav = $('.btn-avatar')
+const avatarNav = $('.avatar-nav')
+const avatarImg = $('.avatar-img>img')
+
+const btnNotification = $('.btn-notification')
+const iconNotification = $('.btn-notification>i')
+const boxNotification = $('.box-notification')
+
+const urlParams = new URLSearchParams(window.location.search);
+const roleParam = urlParams.get('r');
+
+const btnLogoPage = $('.btn-logo')
+
+let allMeetingsData
+let generalData
 
 const modalAddCalendar = {
     inputStartTime: null,
     inputEndTime: null,
     inputReportTime: null,
+    API: async function() {
+        async function getData(URL) {
+            try {
+                const responseData = await fetchData(URL)
+                return responseData
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+
+        // courseId and Term in Database
+        generalData = await getData(`/meeting/api/general`)
+
+        // allMeetingsData dùng trực tiếp ko try catch (nguy hiểm)
+        // chứa 2 bảng kiểu object là groupstudent và meeting
+        allMeetingsData = await fetchData('/meeting/api/all')
+    },
     config: function () {
         var text = `
         <div class="modal">
@@ -18,7 +56,7 @@ const modalAddCalendar = {
                 <button class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/create">
+                <form class="make-calendar-form" method="POST" action="/create/?r=${roleParam}">
                     <div class="row">
                         <h4>Tiêu đề</h4>
                         <div class="input-group input-group-icon">
@@ -32,23 +70,16 @@ const modalAddCalendar = {
                             <div class="col-third">
                                 <select id="term" name="term" required>
                                     <option value="" disabled selected>Kỳ</option>
-                                    <option value="20221">20221</option>
-                                    <option value="20222">20222</option>
-                                    <option value="20231">20231</option>
                                 </select>
                             </div>
                             <div class="col-third">
                                 <select id="course_id" name="course_id" required>
                                     <option value="" disabled selected>Học phần</option>
-                                    <option value="IT3931">IT3931 - Project II</option>
                                 </select>
                             </div>
                             <div class="col-third">
                                 <select id="group_id" name="group_id" required>
                                     <option value="" disabled selected>Nhóm</option>
-                                    <option value="20222001"> Nhóm 1 </option>
-                                    <option value="20222002"> Nhóm 2 </option>
-                                    <option value="20222003"> Nhóm 3 </option>
                                 </select>
                             </div>
                         </div>
@@ -81,6 +112,9 @@ const modalAddCalendar = {
         </div>
      `
         make_calendar_container.innerHTML = text;
+        makeCalendarModal = $('.make-calendar .modal')
+        formCalendarModal = $('.make-calendar-form')
+        btnSubmit = $('.make-calendar .submit')
 
         this.inputStartTime = flatpickr('.input-time.start_time', {
             enableTime: true,
@@ -123,20 +157,123 @@ const modalAddCalendar = {
             make_calendar_container.classList.remove('show');
         })
 
-        const btnAvatarNav = $('.btn-avatar')
-        btnAvatarNav.onclick = function () {
-            const avatarNav = this.children
-            for (let i = 0; i < avatarNav.length; i++) {
-                if (avatarNav[i].classList.contains('avatar-nav')) {
-                    avatarNav[i].classList.toggle('show')
-                }
+        btnLogoPage.addEventListener('click', function() {
+            window.location.href = `/?r=${roleParam}`
+        })
+
+        btnNotification.addEventListener('click', function(e) {
+            boxNotification.classList.toggle('show')
+        })
+
+        btnAvatarNav.addEventListener('click', function(e) {
+            avatarNav.classList.toggle('show')
+        })
+
+        document.addEventListener('click', function(event) {
+            const target = event.target
+
+            if (!boxNotification.contains(target) && !target.closest('.btn-notification')) {
+                boxNotification.classList.remove('show')
             }
+
+            if (!avatarNav.contains(target) && !target.closest('.btn-avatar')) {
+                avatarNav.classList.remove('show')
+            }
+        })
+
+        make_calendar_container.addEventListener('click', function(event) {
+            const target = event.target
+            if(!makeCalendarModal.contains(target)) {
+                make_calendar_container.classList.remove('show')
+            }
+        })
+        
+    },
+    render: function() {
+        const _this = this
+
+        const termSelectTag = makeCalendarModal.querySelector('#term')
+        const courseIdSelectTag = makeCalendarModal.querySelector('#course_id')
+        const groupIdSelectTag = makeCalendarModal.querySelector('#group_id')
+        let selectedTerm
+        let selectedCourseId
+        let selectedGroupId
+
+        for (let i = 0; i < generalData.termDB.length; i++) {
+            let optionElement = document.createElement("option")
+            optionElement.text = generalData.termDB[i].term
+            optionElement.value = generalData.termDB[i].term
+            termSelectTag.add(optionElement)
         }
 
+        termSelectTag.addEventListener('change', function () {
+            courseIdSelectTag.innerHTML = `
+                <option value="" disabled selected>Học phần</option>
+            `
+            selectedTerm = termSelectTag.options[termSelectTag.selectedIndex]
+            console.log("Term: " + selectedTerm.value)
+
+            for (let i = 0; i < generalData.courseIdDB.length; i++) {
+                let optionElement = document.createElement("option")
+                if (generalData.courseIdDB[i].term == selectedTerm.value) {
+                    optionElement.text = generalData.courseIdDB[i].course_id
+                    optionElement.value = generalData.courseIdDB[i].course_id
+                    courseIdSelectTag.add(optionElement)
+                }
+            }
+        })
+
+        courseIdSelectTag.addEventListener('change', function () {
+            groupIdSelectTag.innerHTML = `
+                <option value="" disabled selected>Nhóm</option>
+            `
+            selectedCourseId = courseIdSelectTag.options[courseIdSelectTag.selectedIndex]
+            console.log("Course: " + selectedCourseId.value)
+
+            for (let i = 0; i < allMeetingsData.groupstudent.length; i++) {
+                let optionElement = document.createElement("option")
+                if (allMeetingsData.groupstudent[i].course_id == selectedCourseId.value) {
+                    optionElement.text = allMeetingsData.groupstudent[i].group_id
+                    optionElement.value = allMeetingsData.groupstudent[i].group_id
+                    groupIdSelectTag.add(optionElement)
+                }
+            }
+        })
+
+        groupIdSelectTag.addEventListener('change', function () {
+            selectedGroupId = groupIdSelectTag.options[groupIdSelectTag.selectedIndex]
+            console.log("Group: " + selectedGroupId.value)
+        })
+
+        // btnSubmit.addEventListener('click', function(e) {
+        //     e.preventDefault()
+        //     formCalendarModal.submit()
+        //     window.location.href = `/?r=${roleParam}`
+        // })
+
+        // formCalendarModal.addEventListener('submit', function(e) {
+        //     e.preventDefault()
+
+        //     const formData = new FormData(formCalendarModal)
+
+        //     fetch(formCalendarModal.action, {
+        //         method: 'POST',
+        //         body: formData,
+        //       })
+        //       .then(response => {
+        //         window.location.href = `/?r=${roleParam}`;
+        //       })
+        //       .catch(error => {
+        //         console.error(error);
+        //       });
+        // })
+
     },
-    start: function () {
+    start: async function () {
+        await this.API()
         this.config()
         this.handle()
+        this.render()
     }
 }
 
