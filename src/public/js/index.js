@@ -4,6 +4,13 @@ const $$ = document.querySelectorAll.bind(document);
 const wrapperSidebar = document.querySelector('.wrapper-sidebar')
 const wrapperContent = document.querySelector('.wrapper-content')
 const btnSidebar = document.querySelector('.btn-sidebar');
+const btnAvatarNav = $('.btn-avatar')
+const avatarNav = $('.avatar-nav')
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const role_param = urlParams.get('r'); // role
+console.log(role_param);
 
 const monthMapping = {
     jan: '1',
@@ -50,6 +57,7 @@ function formatDate(dateTime) {
 
     return date + '/' + month + '/' + year + ' ' + hourAndMinutes
 }
+
 
 
 

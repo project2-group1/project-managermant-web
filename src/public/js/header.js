@@ -5,6 +5,15 @@ const $$ = document.querySelectorAll.bind(document);
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
 const add_free_time = $('.add-free.container')
+let makeCalendarModal
+
+const btnAvatarNav = $('.btn-avatar')
+const avatarNav = $('.avatar-nav')
+const avatarImg = $('.avatar-img>img')
+
+const btnNotification = $('.btn-notification')
+const iconNotification = $('.btn-notification>i')
+const boxNotification = $('.box-notification')
 
 const modalAddCalendar = {
     inputStartTime: null,
@@ -81,6 +90,7 @@ const modalAddCalendar = {
         </div>
      `
         make_calendar_container.innerHTML = text;
+        makeCalendarModal = $('.make-calendar .modal')
 
         this.inputStartTime = flatpickr('.input-time.start_time', {
             enableTime: true,
@@ -123,16 +133,34 @@ const modalAddCalendar = {
             make_calendar_container.classList.remove('show');
         })
 
-        const btnAvatarNav = $('.btn-avatar')
+        btnNotification.addEventListener('click', function(e) {
+            boxNotification.classList.toggle('show')
+        })
+
         btnAvatarNav.onclick = function () {
-            const avatarNav = this.children
-            for (let i = 0; i < avatarNav.length; i++) {
-                if (avatarNav[i].classList.contains('avatar-nav')) {
-                    avatarNav[i].classList.toggle('show')
-                }
-            }
+            avatarNav.classList.toggle('show')
         }
 
+        document.addEventListener('click', function(event) {
+            const target = event.target
+
+            if (!boxNotification.contains(target) && !target.closest('.btn-notification')) {
+                boxNotification.classList.remove('show')
+            }
+
+            if (!avatarNav.contains(target) && !target.closest('.btn-avatar')) {
+                avatarNav.classList.remove('show')
+            }
+        })
+
+        make_calendar_container.addEventListener('click', function(event) {
+            const target = event.target
+            console.log(target);
+            if(!makeCalendarModal.contains(target)) {
+                make_calendar_container.classList.remove('show')
+            }
+        })
+        
     },
     start: function () {
         this.config()

@@ -100,6 +100,7 @@ class Meeting {
     getAllMeetings(user, result) { // data = req.session.user
         const responseData = {}
         console.log(user);
+
         const meetingSQL = `
             SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
             coursename, projectname, starttime, endtime, require_meeting, note, 
@@ -272,36 +273,39 @@ class Meeting {
 
     //data = user ID
     async getAllEvents(user, role, result) {
-        // console.log(user);
+        console.log(user);
+        console.log(role);
         const _this = this
-
-        const getEventTeacherSQL = `
-            SELECT *
-            FROM meeting
-            INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
-        `
-
-        const getEventStudentSQL = `
-            SELECT *
-            FROM meeting
-            INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE is_ended = 0 AND groupstudent.group_id = 
-                (SELECT group_id FROM student WHERE student_id =  ${user.student_id})
-
-        `
-
-        try {
-            let event
-            if(role == 'te') {
-                event = await _this.executeQuery(getEventTeacherSQL)
-            } else if (role == 'st'){
-                event = await _this.executeQuery(getEventStudentSQL)
+        if (role == 'te') {
+            const getEventTeacherSQL = `
+                SELECT *
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
+            `
+            try {
+                const event = await _this.executeQuery(getEventTeacherSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
             }
-            result(event)
-        } catch (err) {
-            console.error('Error:', err);
-            throw err;
+        } else if (role == 'st') {
+            const getEventStudentSQL = `
+                SELECT *
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE is_ended = 0 AND groupstudent.group_id = 
+                    (SELECT group_id FROM student WHERE student_id =  ${user.student_id})
+
+            `
+            try {
+                const event = await _this.executeQuery(getEventStudentSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
         }
     }
 

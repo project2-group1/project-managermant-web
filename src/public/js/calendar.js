@@ -20,6 +20,7 @@ const datePicker = flatpickr('.btn-change-week', {
 })
 
 
+
 const currentDays = [
     $('.works[name="monday"]'),
     $('.works[name="tuesday"]'),
@@ -37,7 +38,7 @@ const calendar = {
     API: async function() {
         async function getEvents() {
             try{
-                const event = await fetchData(`/event/api/?r=st`) //[NEED TO FIX]
+                const event = await fetchData(`/event/api/?r=${role_param}`) //[NEED TO FIX]
                 return 
             } catch (err) {
                 console.log(err)
