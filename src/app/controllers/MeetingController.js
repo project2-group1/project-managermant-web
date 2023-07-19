@@ -4,7 +4,7 @@ class MeetingController {
  
     // [GET] /
     async show(req, res, next) {
-        let role = req.query.r // te = teacher || st = student
+        const role = req.query.r // te = teacher || st = student
         try {
             const responseData = await new Promise((resolve, reject) => {
                 Meeting.getAllEvents(req.session.user, role, function (data, err) {
@@ -26,6 +26,7 @@ class MeetingController {
                 handle: '/js/calendar.js',
                 data: responseData,
                 role: role,
+                teacher: role == 'te',
             })
         } catch (err) {
             res.status(500).send(err);
@@ -59,6 +60,7 @@ class MeetingController {
 
     // [GET] /meeting/:id - Get meeting by id access though Model
     getMeetingById(req, res, next) {
+        const role = req.query.r // te = teacher || st = student
         Meeting.getById(req.query.id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
@@ -79,7 +81,8 @@ class MeetingController {
                 libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
                 handle: '/js/meeting.js',
                 displayBtn: true,
-                addMeeting: true,
+                teacher: role == 'te',
+                btnAddMeeting: true,
                 meetings: data.meeting,
                 students: data.groupstudent,
             })
@@ -113,15 +116,16 @@ class MeetingController {
         })
     }
 
-    // [POST] /create -> redirect to /
+    // [POST] /create/:r -> redirect to /:r
     create(req, res, next) {
+        let role = req.query.r // role
         Meeting.createMeeting(function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
             }
-            res.redirect('/')
-        }, req.body, req.session.user)
+            res.redirect(`/?r=${role}`)
+        }, req.body, req.session.user, role)
         // res.json(req.body)
     }
 

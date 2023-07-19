@@ -38,7 +38,7 @@ const calendar = {
     API: async function() {
         async function getEvents() {
             try{
-                const event = await fetchData(`/event/api/?r=${role_param}`) //[NEED TO FIX]
+                const event = await fetchData(`/event/api/?r=${roleParam}`) //[NEED TO FIX]
                 return 
             } catch (err) {
                 console.log(err)
@@ -264,7 +264,7 @@ const calendar = {
 
         events.forEach(function (event) {
             event.addEventListener('click', () =>
-                window.location.href = `/meeting/?id=${event.getAttribute('id')}`
+                window.location.href = `/meeting/?r=${roleParam}&id=${event.getAttribute('id')}`
             )
 
             let curHeight

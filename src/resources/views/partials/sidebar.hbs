@@ -30,42 +30,44 @@
                 </div>
             </div>
         </div>
-        <div class="sidebar-item sidebar-studentlist">
-            <button class="btn-sidebar-item">
+        {{#if teacher}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-studentlist">
                 <i class="fa-regular fa-rectangle-list"></i>
-                <a href="/list/">Danh sách sinh viên</a>
+                <a href="#">Danh sách sinh viên</a>
             </button>
         </div>
-        <div class="sidebar-item sidebar-assignment">
-            <button class="btn-sidebar-item">
-                <i class="fa-solid fa-tasks-alt"></i>
-                <a href="/assignment/">Bài tập</a>
-            </button>
-        </div>
-        <div class="sidebar-item sidebar-teacher">
-            <button class="btn-sidebar-item">
-                <i class="fa-solid fa-laptop"></i>
-                <a href="/freetime">Lịch rảnh</a>
-            </button>
-        </div>
-        {{#if addMeeting}}
-        <div class="sidebar-item sidebar-add-meeting">
-            <button class="btn-sidebar-item">
+        {{#if btnAddMeeting}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-add-meeting">
                 <i class="fa-solid fa-add"></i>
                 <a href="#">Thêm cuộc gặp</a>
             </button>
         </div>
         {{/if}}
-        <div class="sidebar-item sidebar-recent">
-            <button class="btn-sidebar-item">
+        {{/if}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-assignment">
+                <i class="fa-solid fa-tasks-alt"></i>
+                <a href="#">Bài tập</a>
+            </button>
+        </div>
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-freetime">
+                <i class="fa-solid fa-laptop"></i>
+                <a href="#">Lịch rảnh</a>
+            </button>
+        </div>
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-recent">
                 <i class="fa-solid fa-arrow-rotate-right "></i>
                 <a href="#">Mở gần đây</a>
             </button>
             <ul class="sidebar-recent-list mside-12">
             </ul>
         </div>
-        <div class="sidebar-item sidebar-stored">
-            <button class="btn-sidebar-item">
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-stored">
                 <i class="fa-solid fa-box"></i>
                 <a href="#">Lưu trữ</a>
             </button>
@@ -73,10 +75,12 @@
             </ul>
         </div>
 
-        <!-- <div class="sidebar-item sidebar-student">
-                    <button class="btn-sidebar-item">
+        <!-- <div class="sidebar-item">
+                    <button class="btn-sidebar-item sidebar-student">
                         <p>Gửi yêu cầu meeting (sinh viên)</p>
                     </button>
                 </div> -->
     </div>
 </div>
+
+<script type="module" src="/js/sidebar.js"></script>

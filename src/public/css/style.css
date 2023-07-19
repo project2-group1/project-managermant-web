@@ -144,6 +144,7 @@ button {
 
 .header-start .btn-logo {
     height: 40px;
+    cursor: pointer;
 }
 
 .header-start .btn-logo img {
@@ -229,11 +230,11 @@ button {
 .container-notification .box-notification {
     width: 350px;
     position: absolute;
-    margin-top: 9px;
+    margin-top: 8px;
     top: 50%;
     right: -4px;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.137);
+    /* border: 1px solid rgba(0, 0, 0, 0.137); */
     border-radius: 10px;
     background-color: var(--backgr-color-light);
     box-shadow: 0px 4px 4px var(--box-shadow-color);
@@ -257,6 +258,7 @@ button {
 }
 .container-notification .notification {
     width: 350px;
+    height: 100px;
     padding: 0 16px;
     display: flex;
     align-items: center;
@@ -271,9 +273,18 @@ button {
     border-radius: 50%;
     margin-right: 8px;
 }
+
 .container-notification .notification .text p {
+    text-align: start;
+    line-height: 20px;
     font-size: 14px;
 }
+
+.container-notification .notification .text p:first-child {
+  height: 60px;
+  
+}
+
 .container-notification .notification .text p span {
     font-weight: 700;
 }
@@ -716,7 +727,7 @@ button {
   transition: all 0.35s ease-in-out;
 }
 
-.modal-body .container {
+.make-calendar .modal-body .container {
   max-width: 38em;
   padding: 1em 3em 2em 3em;
   margin: 0em auto;
@@ -725,7 +736,7 @@ button {
   box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
 }
 
-.modal-body .submit {
+.make-calendar .modal-body .submit {
     float: right;
     width: 25%;
     padding: 10px;
@@ -736,7 +747,7 @@ button {
     cursor: pointer;
 }
 
-.modal-body .submit:hover {
+.make-calendar .modal-body .submit:hover {
     opacity: 1;
     scale: 0.98;
 }

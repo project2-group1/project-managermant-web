@@ -9,8 +9,8 @@ const avatarNav = $('.avatar-nav')
 
 
 const urlParams = new URLSearchParams(window.location.search);
-const role_param = urlParams.get('r'); // role
-console.log(role_param);
+const roleParam = urlParams.get('r'); // role
+console.log(roleParam);
 
 const monthMapping = {
     jan: '1',
@@ -56,20 +56,4 @@ function formatDate(dateTime) {
     let hourAndMinutes = dateTime.substring(16, 21)
 
     return date + '/' + month + '/' + year + ' ' + hourAndMinutes
-}
-
-
-
-
-// chuyển hướng ds sinh viên
-/*const studentList = $('body > div > div.wrapper-sidebar > div > div.sidebar-item.sidebar-studentlist > button');
-studentList.onclick = function () {
-    window.location.href = "./dssinhvien.html"
-}
-*/
-
-/* # Ngọc: START */
-const logo_page = document.querySelector('.logo-page')
-logo_page.onclick = function () {
-    window.location.href = "/"
 }

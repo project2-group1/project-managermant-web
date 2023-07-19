@@ -147,42 +147,43 @@ class Meeting {
             });
     }
 
-    async createMeeting(result, meetingData, user) {
+    async createMeeting(result, meetingData, user, role) {
         const _this = this
 
-        const tearcherId = user.teacher_id;
-        console.log(meetingData);
-        const maxMeetingIdSQL = `
-            SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, meeting.starttime, meeting.endtime
-            FROM meeting
-            WHERE meeting.meeting_id = (
-                SELECT MAX(meeting.meeting_id) 
-                FROM meeting 
-                WHERE meeting.group_id = ${meetingData.group_id}
-                );
-        `
+        console.log('creating a meeting')
+        if (role == 'te') {
+            const tearcherId = user.teacher_id;
+            console.log(meetingData);
+            const maxMeetingIdSQL = `
+                SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, meeting.starttime, meeting.endtime
+                FROM meeting
+                WHERE meeting.meeting_id = (
+                    SELECT MAX(meeting.meeting_id) 
+                    FROM meeting 
+                    WHERE meeting.group_id = ${meetingData.group_id}
+                    );
+            `
 
-        async function getMeetingInfo() {
-            try {
-                // executeQuery return Array so we neet to destructuring
-                // this array by [meeting]
-                const [meeting] = await _this.executeQuery(maxMeetingIdSQL)
-                if (meeting) {
-                    return meeting
-                } else {
-                    return null
+            async function getMeetingInfo() {
+                try {
+                    // executeQuery return Array so we neet to destructuring
+                    // this array by [meeting]
+                    const [meeting] = await _this.executeQuery(maxMeetingIdSQL)
+                    if (meeting) {
+                        return meeting
+                    } else {
+                        return null
+                    }
+
+                } catch (err) {
+                    console.error('Error:', err);
+                    // throw err;
                 }
-
-            } catch (err) {
-                console.error('Error:', err);
-                // throw err;
             }
-        }
 
-        const curMeetingData = await getMeetingInfo()
+            const curMeetingData = await getMeetingInfo()
 
-
-        const insertTheFirstMeetingSQL = `
+            const insertTheFirstMeetingSQL = `
             INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
@@ -206,9 +207,9 @@ class Meeting {
                 NULL,   
                 NULL
                 );
-        `
+            `
 
-        const insertMeetingSQL = `
+            const insertMeetingSQL = `
             INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
@@ -234,47 +235,47 @@ class Meeting {
                 '${curMeetingData == null ? 0 : curMeetingData.meeting_id}', 
                 NULL
                 );
-        `
+            `
 
+            function formatDate(dateTime) {
+                const year = dateTime.substring(0, 4)
+                const month = dateTime.substring(5, 7)
+                const date = dateTime.substring(8, 10)
 
+                const hour = dateTime.substring(11, 13)
+                const minutes = dateTime.substring(14, 16)
 
-        function formatDate(dateTime) {
-            const year = dateTime.substring(0, 4)
-            const month = dateTime.substring(5, 7)
-            const date = dateTime.substring(8, 10)
+                return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
+            }
 
-            const hour = dateTime.substring(11, 13)
-            const minutes = dateTime.substring(14, 16)
+            if (curMeetingData) {
+                Promise.all([_this.executeQuery(insertMeetingSQL)])
+                    .then(([insertData]) => {
+                        result(insertData, null)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        result(null, err);
+                    })
+            } else {
+                Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
+                    .then(([insertData]) => {
+                        result(insertData, null)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        result(null, err);
+                    })
+            }
 
-            return year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"
         }
-
-        if (curMeetingData) {
-            Promise.all([_this.executeQuery(insertMeetingSQL)])
-                .then(([insertData]) => {
-                    result(insertData, null)
-                })
-                .catch((err) => {
-                    console.log(err)
-                    result(null, err);
-                })
-        } else {
-            Promise.all([_this.executeQuery(insertTheFirstMeetingSQL)])
-                .then(([insertData]) => {
-                    result(insertData, null)
-                })
-                .catch((err) => {
-                    console.log(err)
-                    result(null, err);
-                })
-        }
-
+        console.log('finish created');
     }
 
     //data = user ID
     async getAllEvents(user, role, result) {
-        console.log(user);
-        console.log(role);
+        console.log("get All Events of : " + user.fullname);
+        console.log("role: " + role);
         const _this = this
         if (role == 'te') {
             const getEventTeacherSQL = `
