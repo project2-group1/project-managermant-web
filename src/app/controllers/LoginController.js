@@ -1,5 +1,4 @@
 const { name } = require('ejs');
-const List = require('../models/List');
 const Teacher = require('../models/Teacher');
 const Student = require('../models/Student');
 class LoginController {
@@ -20,7 +19,7 @@ class LoginController {
                     res.redirect('/auth');
                 } else {
                     // console.log(data);
-                    const user = data[0];
+                    let user = data[0];
                     user.role = role
                     if (data[0] && data[0].password == password) {
                         req.session.loggedin = true;
@@ -41,7 +40,7 @@ class LoginController {
                 if(err) {
                     res.redirect('auth')
                 } else {
-                    // console.log(data)
+                    console.log(data[0]);
                     let user = data[0]
                     user.role = role
                     if(data[0] && data[0].password == password) {
