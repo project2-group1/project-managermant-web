@@ -7,8 +7,14 @@ const handlebars = require('express-handlebars')
 const path = require('path') // lib của nodejs để lấy địa chỉ
 const mysql = require('./config/db/index.js');
 const multer = require('multer'); // middleware để đọc json
-
+const initSocket = require('./middlewares/socket.js');
 const app = express()
+
+
+const http = require('http').createServer(app);
+const io = initSocket(http);
+
+
 const port = 3000
 const bodyParser = require('body-parser');// middleware để đọc json
 

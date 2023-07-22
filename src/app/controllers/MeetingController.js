@@ -4,16 +4,17 @@ class MeetingController {
  
     // [GET] /
     async show(req, res, next) {
-        const role = req.query.r // te = teacher || st = student
+        console.log(req.session.user)
+        const user = req.session.user
         try {
             const responseData = await new Promise((resolve, reject) => {
-                Meeting.getAllEvents(req.session.user, role, function (data, err) {
+                Meeting.getAllEvents(user, function (data, err) {
                     if (err) {
                         reject(err);
                     } else {
                         resolve(data);
                     }
-                });
+                })
             })
             // console.log(responseData);
             res.render('calendar.hbs', {
@@ -25,17 +26,18 @@ class MeetingController {
                 libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
                 handle: '/js/calendar.js',
                 data: responseData,
-                role: role,
-                teacher: role == 'te',
+                role: user.role,
+                teacher: user.role == 'giang_vien',
             })
         } catch (err) {
             res.status(500).send(err);
         }
     }
 
-    // [GET] /event/api
+    // [GET] /event/api/:r
     getAllEvents(req, res, next) {
-        Meeting.getAllEvents(req.session.user, req.query.r, function (data, err) {
+        const user = req.session.user
+        Meeting.getAllEvents(user, function (data, err) {
             if(err) {
                 res.status(500).send(err)
                 return
@@ -46,7 +48,8 @@ class MeetingController {
 
     // [GET] /meeting/api/:id
     getDataMeetingByID(req, res ,next) {
-        console.log(req.query.id)
+        console.log(req.session.user)
+        const user = req.session.user
         Meeting.getDataMeeting(req.query.id , function (data, err) {
             if(err) {
                 res.status(500).send(err)
@@ -60,7 +63,7 @@ class MeetingController {
 
     // [GET] /meeting/:id - Get meeting by id access though Model
     getMeetingById(req, res, next) {
-        const role = req.query.r // te = teacher || st = student
+        const user = req.session.user
         Meeting.getById(req.query.id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
@@ -81,7 +84,7 @@ class MeetingController {
                 libraryJS: '//cdn.quilljs.com/1.3.6/quill.min.js',
                 handle: '/js/meeting.js',
                 displayBtn: true,
-                teacher: role == 'te',
+                teacher: user.role == 'giang_vien',
                 btnAddMeeting: true,
                 meetings: data.meeting,
                 students: data.groupstudent,
@@ -103,7 +106,7 @@ class MeetingController {
         })
     }
 
-    // [GET] /meeting/api/modal
+    // [GET] /meeting/api/gerenal
     getGeneralData(req, res, next) {
         Meeting.getGeneralData(req.session.user, function (data, err) {
             if (err) {
@@ -116,16 +119,16 @@ class MeetingController {
         })
     }
 
-    // [POST] /create/:r -> redirect to /:r
+    // [POST] /create/ -> redirect to /
     create(req, res, next) {
-        let role = req.query.r // role
+        const user = req.session.user
         Meeting.createMeeting(function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
             }
-            res.redirect(`/?r=${role}`)
-        }, req.body, req.session.user, role)
+            res.redirect('/')
+        }, req.body, user)
         // res.json(req.body)
     }
 

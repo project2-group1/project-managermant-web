@@ -14,7 +14,6 @@ class LoginController {
     async login(req, res, next) {
         let { role, id, password } = req.body;
 
-        let query;
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
                 if (err) {
@@ -22,10 +21,12 @@ class LoginController {
                 } else {
                     // console.log(data);
                     const user = data[0];
-                    if (data[0].password == password) {
+                    user.role = role
+                    if (data[0] && data[0].password == password) {
                         req.session.loggedin = true;
                         req.session.user = user;
-                        res.redirect('/?r=te'); // send a param: role = teacher
+                        // res.render()
+                        res.redirect('/'); // send a param: role = teacher
                         console.log("Login success");
                     } else {
                         const conflictError = 'User credentials are not valid.';
@@ -41,10 +42,12 @@ class LoginController {
                     res.redirect('auth')
                 } else {
                     // console.log(data)
-                    if(data[0].password == password) {
+                    let user = data[0]
+                    user.role = role
+                    if(data[0] && data[0].password == password) {
                         req.session.loggedin = true
-                        req.session.user = data[0]
-                        res.redirect('/?r=st') // send a param: role = student
+                        req.session.user = user
+                        res.redirect('/') // send a param: role = student
                     } else {
                         res.redirect('/auth')
                     }

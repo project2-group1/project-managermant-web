@@ -104,15 +104,15 @@ class Meeting {
         const meetingSQL = `
             SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
             coursename, projectname, starttime, endtime, require_meeting, note, 
-            previous_meeting_id, next_meeting_id, report
+            previous_meeting_id, next_meeting_id, report, created_at
             FROM meeting
             INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
             WHERE meeting.is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
+            ORDER BY created_at DESC
         `
         const groupstudentSQL = `
             SELECT term, groupstudent.group_id, course_id
             FROM groupstudent
-            
         `
 
         Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)])
@@ -147,11 +147,11 @@ class Meeting {
             });
     }
 
-    async createMeeting(result, meetingData, user, role) {
+    async createMeeting(result, meetingData, user) {
         const _this = this
 
         console.log('creating a meeting')
-        if (role == 'te') {
+        if (user.role == 'giang_vien') {
             const tearcherId = user.teacher_id;
             console.log(meetingData);
             const maxMeetingIdSQL = `
@@ -273,11 +273,10 @@ class Meeting {
     }
 
     //data = user ID
-    async getAllEvents(user, role, result) {
-        console.log("get All Events of : " + user.fullname);
-        console.log("role: " + role);
+    async getAllEvents(user, result) {
         const _this = this
-        if (role == 'te') {
+
+        if (user.role == 'giang_vien') {
             const getEventTeacherSQL = `
                 SELECT *
                 FROM meeting
@@ -291,7 +290,7 @@ class Meeting {
                 console.error('Error:', err);
                 throw err;
             }
-        } else if (role == 'st') {
+        } else if (user.role == 'sinh_vien') {
             const getEventStudentSQL = `
                 SELECT *
                 FROM meeting
