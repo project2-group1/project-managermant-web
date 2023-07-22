@@ -28,7 +28,7 @@ class Teacher {
             result(event)
         } catch (err) {
             console.error('Error:', err);
-            throw err;
+            // throw err;
         }
 
     }

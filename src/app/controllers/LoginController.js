@@ -1,6 +1,7 @@
 const { name } = require('ejs');
 const Teacher = require('../models/Teacher');
 const Student = require('../models/Student');
+const { NULL } = require('node-sass');
 class LoginController {
 
     showLoginForm(req, res, next) {
@@ -12,17 +13,16 @@ class LoginController {
     //[POST] /auth/login
     async login(req, res, next) {
         let { role, id, password } = req.body;
-
         if (role == "giang_vien") {
             Teacher.getById(id, function (data, err) {
                 if (err) {
                     res.redirect('/auth');
                 } else {
-                    // console.log(data);
+                    console.log(data);
                     let user = data[0];
-                    user.role = role
-                    if (data[0] && data[0].password == password) {
+                    if (data[0] && (data[0].password == password)) {
                         req.session.loggedin = true;
+                        user.role = role;
                         req.session.user = user;
                         // res.render()
                         res.redirect('/'); // send a param: role = teacher
@@ -42,9 +42,9 @@ class LoginController {
                 } else {
                     console.log(data[0]);
                     let user = data[0]
-                    user.role = role
-                    if(data[0] && data[0].password == password) {
-                        req.session.loggedin = true
+                    if(data[0] && (data[0].password == password)) {
+                        req.session.loggedin = true;
+                        user.role = role;
                         req.session.user = user
                         res.redirect('/') // send a param: role = student
                     } else {
