@@ -39,7 +39,7 @@ btnSidebar.onclick = function () {
     }
 }
 
-// format Date from UTC to Local
+// format Date from UTC to Local (yyyy-mm-ddThh:mm:ss.sssZ)
 function formatDateFromUTCToLocal(dataTime) {
     const time = new Date(dataTime)
     const timezoneOffset = time.getTimezoneOffset()

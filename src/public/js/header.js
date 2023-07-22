@@ -13,6 +13,10 @@ let formCalendarModal
 const btnAvatarNav = $('.btn-avatar')
 const avatarNav = $('.avatar-nav')
 const avatarImg = $('.avatar-img>img')
+const avatarNavAccount = $('.avatar-nav-account')
+const avatarNavLogout = $('.avatar-nav-logout')
+const avatarNavSetting = $('.avatar-nav-setting')
+const avatarNavCalendar = $('.avatar-nav-calendar')
 
 const btnNotification = $('.btn-notification')
 const iconNotification = $('.btn-notification>i')
@@ -30,7 +34,7 @@ const modalAddCalendar = {
     inputStartTime: null,
     inputEndTime: null,
     inputReportTime: null,
-    API: async function() {
+    API: async function () {
         async function getData(URL) {
             try {
                 const responseData = await fetchData(URL)
@@ -56,7 +60,7 @@ const modalAddCalendar = {
                 <button class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <form class="make-calendar-form" method="POST" action="/create/?r=${roleParam}">
+                <form class="make-calendar-form" method="POST" action="/create">
                     <div class="row">
                         <h4>Tiêu đề</h4>
                         <div class="input-group input-group-icon">
@@ -157,19 +161,37 @@ const modalAddCalendar = {
             make_calendar_container.classList.remove('show');
         })
 
-        btnLogoPage.addEventListener('click', function() {
-            window.location.href = `/?r=${roleParam}`
+        btnLogoPage.addEventListener('click', function () {
+            window.location.href = `/`
         })
 
-        btnNotification.addEventListener('click', function(e) {
+        btnNotification.addEventListener('click', function (e) {
             boxNotification.classList.toggle('show')
         })
 
-        btnAvatarNav.addEventListener('click', function(e) {
+        btnAvatarNav.addEventListener('click', function (e) {
             avatarNav.classList.toggle('show')
         })
 
-        document.addEventListener('click', function(event) {
+        avatarNavAccount.addEventListener('click', function() {
+            window.location.href = `me/account`
+        })
+
+        avatarNavCalendar.addEventListener('click', function() {
+            window.location.href = `/`
+        })
+
+        avatarNavSetting.addEventListener('click', function() {
+            window.location.href = `me/setting`
+        })
+
+        avatarNavLogout.addEventListener('click', function() {
+            window.location.href = `/auth/logout`
+        })
+
+
+
+        document.addEventListener('click', function (event) {
             const target = event.target
 
             if (!boxNotification.contains(target) && !target.closest('.btn-notification')) {
@@ -181,15 +203,15 @@ const modalAddCalendar = {
             }
         })
 
-        make_calendar_container.addEventListener('click', function(event) {
+        make_calendar_container.addEventListener('click', function (event) {
             const target = event.target
-            if(!makeCalendarModal.contains(target)) {
+            if (!makeCalendarModal.contains(target)) {
                 make_calendar_container.classList.remove('show')
             }
         })
-        
+
     },
-    render: function() {
+    render: function () {
         const _this = this
 
         const termSelectTag = makeCalendarModal.querySelector('#term')
@@ -248,7 +270,7 @@ const modalAddCalendar = {
         // btnSubmit.addEventListener('click', function(e) {
         //     e.preventDefault()
         //     formCalendarModal.submit()
-        //     window.location.href = `/?r=${roleParam}`
+        //     window.location.href = `/`
         // })
 
         // formCalendarModal.addEventListener('submit', function(e) {
@@ -261,13 +283,50 @@ const modalAddCalendar = {
         //         body: formData,
         //       })
         //       .then(response => {
-        //         window.location.href = `/?r=${roleParam}`;
+        //         window.location.href = `/`;
         //       })
         //       .catch(error => {
         //         console.error(error);
         //       });
         // })
 
+    },
+    renderNotification: function () {
+        
+        var notificationHTML = `
+            <div class="notification">
+                <img src="" alt=""/>
+                    <div class="text">
+                        <p>
+                            <span class="name">Nhóm 12 - Đồ án Tốt nghiệp</span>
+                            yêu cầu meeting
+                        </p>
+                        <p class="time">1 giờ trước</p>
+                </div>
+            </div>
+        `
+
+        const meetings = allMeetingsData.meeting
+
+        for (let i = 0; i < meetings.length; i++) {
+            let createdTime = formatDate(formatDateFromUTCToLocal(meetings[i].created_at))
+            console.log(createdTime)
+
+            let notificationHTML = `
+            <div class="notification">
+                <img src="" alt=""/>
+                    <div class="text">
+                        <p>
+                            <span class="name">Group ${meetings[i].group_id % 100} - ${meetings[i].coursename}</span>
+                            yêu cầu meeting
+                        </p>
+                        <p class="time">1 giờ trước</p>
+                </div>
+            </div>
+            `
+        }
+
+        
     },
     start: async function () {
         await this.API()
@@ -323,7 +382,7 @@ const modalAddFreeTime = {
         })
 
         this.form = flatpickr('.addfreetime', {
-            
+
         });
     },
     handle: function () {

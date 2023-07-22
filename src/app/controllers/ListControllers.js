@@ -1,18 +1,18 @@
 const List = require('../models/List');
 const Group = require('../models/Group');
 const XLSX = require('xlsx');
-// const { mutipleMongooseToObject } = require('../../util/mongoose')
+
 class ListController {
     // [GET] /news
     show(req, res, next) {
-        const role = req.query.r // te = teacher || st = student
+        const user = req.session.user
         res.render('list/list', {
             title: 'Danh sách sinh viên',
             css: [
                 '/css/list_student.css'
             ],
             handle: '/js/list_student.js',
-            teacher: role == 'te',
+            teacher: user.role == 'giang_vien',
         });
     }
     // [POST] /list/importexcel

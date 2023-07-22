@@ -23,8 +23,8 @@ class Student {
         const studentGetByIdSQL = `SELECT * FROM student WHERE student_id = ${id};`
 
         try {
-            const event = await this.executeQuery(studentGetByIdSQL)
-            result(event)
+            const student = await this.executeQuery(studentGetByIdSQL)
+            result(student)
         } catch (err) {
             console.error('Error:', err);
             throw err;
@@ -37,8 +37,8 @@ class Student {
 
 
         try {
-            const event = await this.executeQuery(studentChangePasswordSQL)
-            result(event)
+            const password = await this.executeQuery(studentChangePasswordSQL)
+            result(password)
         } catch (err) {
             console.error('Error:', err);
             throw err;
