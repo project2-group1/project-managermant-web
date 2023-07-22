@@ -4,7 +4,7 @@ var con = mysql.createPool({
     host: "127.0.0.1",
     user: "root",
     password: "",
-    database: "project_ii_ver06"
+    database: "project_ii_ver07"
 })
 
 con.on("connection", connection => {

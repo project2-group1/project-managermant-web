@@ -342,7 +342,7 @@ const modalAddFreeTime = {
     form: null,
     config: function () {
         var text = `
-        <form method="POST" action="freetime/create" class="addfreetime">
+        <form method="POST" action="create" class="addfreetime">
             <div class="row">
                 <h4>Thời gian</h4>
                 <div class="row">
