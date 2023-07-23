@@ -49,7 +49,7 @@ class List {
             db.query(`INSERT INTO student 
             VALUES(${student.student_id}, ${student.group_id}, '${student.fullname}',
             '${student.password}', '${student.email}', 
-            ${student.phonenumber}, '${student.birthday}')`,
+            ${student.phonenumber}, '${student.birthday}', NULL)`,
                 function (err, res) {
                     if (err) {
                         console.log('Error Insert student: ', err);
@@ -65,12 +65,12 @@ class List {
 
     }
     // xóa 1 sinh viên
-    static deleteStudent(student_id) {
+    static deleteStudent(student_id, group_id) {
   
 
         return new Promise((resolve, reject) => {
             db.query(`DELETE FROM student 
-            WHERE student_id = ${student_id}`,
+            WHERE student_id = ${student_id} AND group_id=${group_id}`,
                 function (err, res) {
                     if (err) {
                         console.log('Error delete student: ', err);
@@ -82,13 +82,13 @@ class List {
         })
     }
     // sửa 1 sinh viên 
-    static editStudent(oldStudentId, newStudent) {
+    static editStudent(newStudent) {
         return new Promise((resolve, reject) => {
             db.query(`UPDATE student 
             SET student_id=${newStudent.student_id}, group_id=${newStudent.group_id}, fullname='${newStudent.fullname}',
              email='${newStudent.email}', 
             phonenumber=${newStudent.phonenumber}, birthday='${newStudent.birthday}'
-            WHERE student_id=${newStudent.oldStudentId}`,
+            WHERE student_id=${newStudent.oldStudentId} AND group_id=${newStudent.oldGroupId}`,
                 function (err, res) {
                     if (err) {
                         console.log('Error Insert: ', err);

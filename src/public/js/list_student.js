@@ -96,7 +96,6 @@ function renderTable(groupList) {
             <td>${student[fullname]}</td><td>${student[phonenumber]}</td>
             <td>${student[email]}</td><td>${student[birthday]}</td>`;
             row.addEventListener('click', clickRowStudent);
-            row.addEventListener('click', clickRowStudent);
             tableBody.appendChild(row);
         })
     })
@@ -247,8 +246,9 @@ function manipulateStudent(student) {
         editStudent(student)
     };
     manipulate_student.querySelector('.delete').onclick = e => {
-        if(window.confirm('xác nhận xóa student: ' + student.student_id)) {
-            fetch(`/list/deletestudent?student_id=${student.student_id}`)
+        if(window.confirm('xác nhận xóa student: ' + student.student_id +
+        ' , group id: ' + student.group_id)) {
+            fetch(`/list/deletestudent?student_id=${student.student_id}&group_id=${student.group_id}`)
             .then(response => response.text())
             .then(serverResponse => {
                 alert(serverResponse); // Hiển thị thông báo với chuỗi nhận được từ máy chủ
@@ -267,6 +267,8 @@ function editStudent(student) {
     form.querySelector('#student_id').value = student.student_id;
     form.querySelector('#old_id').value = student.student_id;
     form.querySelector('#old_id').style.display = 'block';
+    form.querySelector('#old_group_id').value = student.group_id;
+    form.querySelector('#old_group_id').style.display = 'block';
     form.querySelector('#group_id').value = student.group_id;
     form.querySelector('#fullname').value = student.fullname;
     form.querySelector('#email').value = student.email;
@@ -286,6 +288,7 @@ function addStudent(event) {
     form.querySelector('#student_id').value = "";
     form.querySelector('#old_id').value = "";
     form.querySelector('#old_id').style.display = 'none';
+    form.querySelector('#old_group_id').style.display = 'none';
     form.querySelector('#group_id').value = "";
     form.querySelector('#fullname').value = "";
     form.querySelector('#email').value = "";

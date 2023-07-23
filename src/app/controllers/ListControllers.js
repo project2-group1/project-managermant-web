@@ -26,7 +26,7 @@ class ListController {
             res.send('mã sinh viên không hợp lệ');
             return;
         }
-        List.editStudent(data.oldStudentId, data)
+        List.editStudent(data)
         .then(result => {
             res.send('số sinh viên đã sửa: ' + result.affectedRows)
         })
@@ -37,7 +37,8 @@ class ListController {
     // xóa
     deleteStudent(req, res, next) {
         const student_id = req.query.student_id;
-        List.deleteStudent(student_id)
+        const group_id = req.query.group_id;
+        List.deleteStudent(student_id, group_id)
         .then(result => {
             res.send('số sinh viên đã xóa: ' + result.affectedRows)
         })
@@ -76,9 +77,11 @@ class ListController {
     }
     // lấy ds nhóm và sinh viên theo kỳ học
     async getTerm(req, res, next) {
+        const teacher_id = req.session.user.teacher_id;
+        console.log(teacher_id);
         let term = req.query.term;
         // lấy ds nhóm
-        let group = await Group.getGroupsByTerm(term);
+        let group = await Group.getGroupsByTerm(term, teacher_id);
         if (group) {
         let size = group.length;
         // thêm sinh viên ứng với nhóm
@@ -95,7 +98,9 @@ class ListController {
     }
     // thêm nhóm
     addGroup(req, res, next) {
+        const teacher_id = req.session.user.teacher_id;
         const data = req.body;
+        data.teacher_id=teacher_id;
         if (!Number(data.group_id)){
             res.send('mã nhóm không hợp lệ');
             return;
@@ -110,9 +115,11 @@ class ListController {
     }
     // thêm nhiều nhóm bằng excel
     addGroups(req, res, next) {
+        const teacher_id = req.session.user.teacher_id;
         const data = req.body;
         console.log(typeof data);
         data.forEach(element => {
+            element.teacher_id=teacher_id;
             Group.addGroup(element)
             .then(result => {
 

@@ -21,7 +21,7 @@ class Group {
         return db.query(sql)
     }
     // lấy danh sách nhóm theo kì
-    static getGroupsByTerm(term) {
+    static getGroupsByTerm(term, teacher_id) {
         let checkTerm = Number(term);
         // kiem tra dau vao khong phai so
         if (Number.isNaN(checkTerm)) {
@@ -31,7 +31,7 @@ class Group {
             db.query(
                 `SELECT group_id, term, projectname, course_id, coursename
                 FROM groupstudent
-                WHERE term = ${checkTerm}
+                WHERE term = ${checkTerm} AND teacher_id = ${teacher_id}
                 ORDER BY group_id DESC
                 `, function (err, res) {
                 if (err) {
@@ -52,7 +52,7 @@ class Group {
                 `INSERT INTO groupstudent
                 VALUES(${group.group_id}, '${group.course_id}',
                     '${group.projectname}', '${group.coursename}',
-                    ${group.term} )`,
+                    ${group.term}, ${group.teacher_id} )`,
                     function (err, res) {
                         if (err) {
                             console.log("Error Insert group: ", err);
