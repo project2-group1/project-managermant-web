@@ -71,11 +71,12 @@ class Group {
             return false;
         return new Promise((resolve, reject) => {
             db.query(
-                `DELETE FROM groupstudent
+                `
+                DELETE FROM groupstudent
                 WHERE group_id=${group_id}`,
                     function (err, res) {
                         if (err) {
-                            console.log("Error Insert group: ", err);
+                            console.log("Error delete group: ", err);
                             reject(err);
                             return;
                         } else {
@@ -85,6 +86,23 @@ class Group {
 
         });
     }
+    // sửa `1 liên kết
+    static edit_gr_st(oldGroupId, newGr) {
+        return new Promise((resolve, reject) => {
+            db.query(`
+            UPDATE gr_st
+            SET group_id=${newGr.group_id}
+            WHERE group_id=${oldGroupId};`,
+                function (err, res) {
+                    if (err) {
+                        console.log('Error Insert: ', err);
+                        reject(err);
+                    } else {
+                        resolve(res);
+                    }
+                })
+        })
+    }
     // sửa nhóm
     static editGroup(oldGroupId, newGr) {
         return new Promise((resolve, reject) => {
@@ -92,7 +110,7 @@ class Group {
             SET group_id=${newGr.group_id}, course_id='${newGr.course_id}',
             projectname='${newGr.projectname}', coursename='${newGr.coursename}',
             term=${newGr.term}
-            WHERE group_id=${oldGroupId}`,
+            WHERE group_id=${oldGroupId};`,
                 function (err, res) {
                     if (err) {
                         console.log('Error Edit: ', err);

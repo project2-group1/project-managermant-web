@@ -1,0 +1,21 @@
+DELETE FROM `student` WHERE 1;
+DELETE FROM `groupstudent` WHERE 1;
+DROP TABLE `student`;
+CREATE TABLE `student` (
+  `student_id` int(8) NOT NULL,
+  `fullname` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `phonenumber` int(12) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `avatar` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    PRIMARY KEY(student_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+CREATE TABLE gr_st (
+    group_id INT(8),
+    student_id INT(8),
+    PRIMARY KEY(group_id, student_id)
+);
+ALTER TABLE `gr_st`
+ADD FOREIGN KEY(`student_id`) REFERENCES student(`student_id`),
+ADD FOREIGN KEY(`group_id`) REFERENCES groupstudent(`group_id`);

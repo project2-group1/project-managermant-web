@@ -28,7 +28,10 @@ class ListController {
         }
         List.editStudent(data)
         .then(result => {
-            res.send('số sinh viên đã sửa: ' + result.affectedRows)
+            List.edit_gr_st(data)
+            .then(rs => {
+                res.send('số sinh sinh viên đã sửa: ' + rs.affectedRows)
+            })
         })
         .catch(err => {
             res.send('đã xảy ra lỗi' + err);
@@ -38,12 +41,19 @@ class ListController {
     deleteStudent(req, res, next) {
         const student_id = req.query.student_id;
         const group_id = req.query.group_id;
-        List.deleteStudent(student_id, group_id)
+        List.delete_gr_st(student_id, group_id)
         .then(result => {
-            res.send('số sinh viên đã xóa: ' + result.affectedRows)
+            List.deleteStudent(student_id, group_id)
+            .then(result => {
+                res.send('số sinh viên đã xóa: ' + result.affectedRows)
+            })
+            .catch(err => {
+                res.send('lỗi xóa sinh viên: ' + err);
+            })
+
         })
         .catch(err => {
-            res.send('lỗi xóa sinh viên: ' + err);
+            res.send('lỗi xóa liên kết: ' + err)
         })
     }
     // thêm student
@@ -57,22 +67,48 @@ class ListController {
             data.password = '123456';
         }
         List.insertStudent(data)
-        .then(result => {
-            res.send('số sinh viên đã thêm: ' + result.affectedRows)
-        })
-        .catch(err => {
-            res.send('đã xảy ra lỗi' + err);
-        });
+            .then(result => {
+                List.gr_sv(data)
+                .then(result => {
+                    res.send('sv đã thêm: ' + result.affectedRows)
+                })
+                .catch(err => {
+                    res.send('lỗi thêm liên két sinh viên - nhóm: ' + err);
+                })
+            })
+            .catch(err => {
+                res.send('lỗi thêm sv: ' + err);
+                List.gr_sv(data)
+                .then(result => {
+                    res.send('số liên kết đã thêm: ' + result.affectedRows)
+                })
+                .catch(err => {
+                    res.send('lỗi thêm liên két sinh viên - nhóm: ' + err);
+                })
+            });
+
+        
     }
     // them nhieu sinh vien
     insertStudents(req, res, next) {
         const data = req.body;
         console.log(typeof data);
         data.forEach(element => {
-            element.password = '123456';
             List.insertStudent(element)
-            .then(result => {})
-            .catch(err => {})
+            .then(result => {
+                List.gr_sv(element)
+                .then(result => {
+                })
+                .catch(err => {
+                })
+            })
+            .catch(err => {
+                List.gr_sv(element)
+                .then(result => {
+                })
+                .catch(err => {
+                })
+            })
         })
     }
     // lấy ds nhóm và sinh viên theo kỳ học
@@ -149,7 +185,10 @@ class ListController {
         }
         Group.editGroup(data.oldGroupId, data)
         .then(result => {
-            res.send('số nhóm đã sửa: ' + result.affectedRows)
+            Group.edit_gr_st(data.oldGroupId, data)
+            .then(rs => {
+                res.send('Số nhóm đã sửa : ' + rs.affectedRows);
+            })
         })
         .catch(err => {
             res.send('đã xảy ra lỗi' + err);
