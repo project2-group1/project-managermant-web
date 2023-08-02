@@ -748,6 +748,4 @@ const calendar = {
     },
 }
 
-
-
 calendar.start()

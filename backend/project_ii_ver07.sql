@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2023 at 10:42 AM
+-- Generation Time: Aug 02, 2023 at 11:50 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -103,6 +103,16 @@ CREATE TABLE `gr_st` (
   `student_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `gr_st`
+--
+
+INSERT INTO `gr_st` (`group_id`, `student_id`) VALUES
+(20222001, 20204501),
+(20222001, 20204765),
+(20222001, 20204767),
+(20222001, 20204769);
+
 -- --------------------------------------------------------
 
 --
@@ -122,21 +132,42 @@ CREATE TABLE `meeting` (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `previous_meeting_id` int(10) DEFAULT NULL,
   `require_meeting` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `is_ended` tinyint(1) DEFAULT 0,
   `note_teacher` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `state` varchar(20) NOT NULL,
+  `is_read` int(1) NOT NULL DEFAULT 0,
+  `reason_reschedule` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Dumping data for table `meeting`
 --
 
-INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`, `previous_meeting_id`, `require_meeting`, `is_ended`, `note_teacher`, `created_at`) VALUES
-(2022200101, 20222001, 19990131, '2023-07-14 09:00:00', '2023-07-14 00:30:00', '', NULL, NULL, '2023-07-14 09:30:00', 'title', NULL, 'require', 0, NULL, '2023-07-30 08:27:28'),
-(2022200102, 20222001, 19990131, '2023-07-15 08:00:00', '2023-07-15 00:30:00', '', NULL, NULL, '2023-07-15 09:30:00', 'buổi gặp lần thứ 2', 2022200101, 'yêu cầu mô tả chi tiết', 0, NULL, '2023-07-30 08:27:28'),
-(2022200103, 20222001, 19990131, '2023-07-20 11:30:00', '2023-07-20 00:00:00', '', NULL, NULL, '2023-07-20 12:00:00', 'title 1 18/7', 2022200102, 'require 1 18/7', 0, NULL, '2023-07-30 08:27:28'),
-(2022200201, 20222002, 19990131, '2023-07-13 09:30:00', '2023-07-13 00:00:00', '', NULL, NULL, '2023-07-13 10:00:00', 'title', NULL, 'require', 0, NULL, '2023-07-30 08:27:28'),
-(2022200202, 20222002, 19990131, '2023-07-20 09:00:00', '2023-07-20 00:30:00', '', NULL, NULL, '2023-07-20 09:30:00', 'title 2', 2022200201, 'require 2', 0, NULL, '2023-07-30 08:27:28');
+INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`, `previous_meeting_id`, `require_meeting`, `note_teacher`, `created_at`, `state`, `is_read`, `reason_reschedule`) VALUES
+(2022200102, 20222001, 19990131, '2023-08-04 10:30:00', '2023-08-04 17:00:00', '', NULL, NULL, '2023-08-04 11:30:00', 'Định hướng sản phẩm', 2022200101, '- Phân tích thiết kế\r\n- Thiết kế Database\r\n- Cấu trúc code', NULL, '2023-08-02 08:48:30', 'reschedule', 0, NULL),
+(2022200103, 20222001, 19990131, '2023-08-06 09:30:00', '2023-08-06 00:00:00', '', NULL, NULL, '2023-08-06 10:30:00', 'title', 2022200102, 'require', NULL, '2023-08-02 09:12:31', 'pending', 0, NULL),
+(2022200104, 20222001, 19990131, '2023-08-05 08:30:00', '2023-08-05 00:00:00', '', NULL, NULL, '2023-08-05 09:00:00', '1', 2022200103, '1', NULL, '2023-08-02 09:12:57', 'pending', 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `request_reschedule`
+--
+
+CREATE TABLE `request_reschedule` (
+  `meeting_id` int(10) NOT NULL,
+  `starttime` datetime NOT NULL,
+  `endtime` datetime NOT NULL,
+  `reason_reschedule` varchar(255) DEFAULT NULL,
+  `reportdeadline` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `request_reschedule`
+--
+
+INSERT INTO `request_reschedule` (`meeting_id`, `starttime`, `endtime`, `reason_reschedule`, `reportdeadline`) VALUES
+(2022200102, '2023-08-05 10:30:00', '2023-08-05 11:30:00', 'đi viện', '2023-08-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -163,6 +194,7 @@ INSERT INTO `student` (`student_id`, `fullname`, `password`, `email`, `phonenumb
 (20183782, 'Trần Khánh Lê', '123456', 'le.tk183782@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
 (20183847, 'Nguyễn Phi Trường', '123456', 'truong.np183847@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
 (20183850, 'Đỗ Quang Tùng', '123456', 'tung.dq183850@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
+(20184095, 'Trần Thị Thu Hiền', '123456', 'hien.ttt184095@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
 (20184095, 'Trần Thị Thu Hiền', '123456', 'hien.ttt184095@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
 (20184235, 'Nguyễn Thành Vinh', '123456', 'vinh.nt184235@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
 (20184235, 'Nguyễn Thành Vinh', '123456', 'vinh.nt184235@sis.hust.edu.vn', 123456789, '0000-00-00', NULL),
@@ -269,61 +301,20 @@ ALTER TABLE `meeting`
   ADD KEY `FK_TeacherID` (`teacher_id`);
 
 --
--- Indexes for table `student`
+-- Indexes for table `request_reschedule`
 --
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`student_id`);
-
---
--- Indexes for table `teacher`
---
-ALTER TABLE `teacher`
-  ADD PRIMARY KEY (`teacher_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `freetime`
---
-ALTER TABLE `freetime`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+ALTER TABLE `request_reschedule`
+  ADD KEY `FK_MeetingID` (`meeting_id`);
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `freetime`
+-- Constraints for table `request_reschedule`
 --
-ALTER TABLE `freetime`
-  ADD CONSTRAINT `freetime_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
-
---
--- Constraints for table `groupstudent`
---
-ALTER TABLE `groupstudent`
-  ADD CONSTRAINT `FK_GS_to_Teacher` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
-
---
--- Constraints for table `gr_st`
---
-ALTER TABLE `gr_st`
-  ADD CONSTRAINT `gr_st_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`),
-  ADD CONSTRAINT `gr_st_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groupstudent` (`group_id`);
-
---
--- Constraints for table `meeting`
---
-ALTER TABLE `meeting`
-  ADD CONSTRAINT `FK_MeetingID_To_GroupID` FOREIGN KEY (`group_id`) REFERENCES `groupstudent` (`group_id`),
-  ADD CONSTRAINT `FK_TeacherID` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`);
-
---
--- Constraints for table `student`
---
-
+ALTER TABLE `request_reschedule`
+  ADD CONSTRAINT `FK_MeetingID` FOREIGN KEY (`meeting_id`) REFERENCES `meeting` (`meeting_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

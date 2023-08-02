@@ -437,8 +437,6 @@ button {
     color: var(--text-color-light);
 }
 
-.sidebar-week {}
-
 .sidebar-week-days {
     display: flex;
 }
@@ -608,7 +606,6 @@ button {
   display: inline-block;
   width: 50%;
   text-align: center;
-  float: left;
   border-radius: 0;
 }
 
