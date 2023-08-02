@@ -48,7 +48,7 @@ class MeetingController {
     // [GET] /meeting/api/:id
     getDataMeetingByID(req, res ,next) {
         const user = req.session.user
-        Meeting.getDataMeeting(req.query.id , function (data, err) {
+        Meeting.getDataMeeting(req.params.id , function (data, err) {
             if(err) {
                 res.status(500).send(err)
                 return
@@ -177,7 +177,7 @@ class MeetingController {
         })
     }
     
-    // [PUT] /meeting/:id/end
+    // [PUT] /meeting/end/:id
     endMeeting(req, res, next) {
         console.log(req.body);
         Meeting.endMeeting(req.body, function(data, err) {

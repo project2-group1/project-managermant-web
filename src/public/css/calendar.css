@@ -151,10 +151,21 @@
 .event:hover {
   transform: scale(1.1);
   z-index: 2;
+  opacity: 1;
 }
 
 .event.active {
-  display: flex; }
+  display: flex; 
+}
+
+.active.finished {
+  background-color: #e5faff;
+  opacity: 0.8;
+}
+
+.active.reschedule {
+  background-color: #fff7aa;
+}
 
 .event.freetime {
   background-color: var(--event-freetime);

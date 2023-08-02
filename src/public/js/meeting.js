@@ -180,6 +180,7 @@ var addMeetingHTML = `
         </div>
     `
 
+    console.log(window.location.href.slice(-10));
 
 const meeting = {
     API: async function () {
@@ -192,7 +193,7 @@ const meeting = {
             }
         }
 
-        [meetingData] = await getData(`/meeting/api/?id=${window.location.href.slice(-10)}`) // destructuring 
+        [meetingData] = await getData(`/meeting/api/${window.location.href.slice(-10)}`) // destructuring 
 
         // courseId and Term in Database
         generalData = await getData(`/meeting/api/general`)
@@ -275,16 +276,20 @@ const meeting = {
             })
         })
 
+        console.log(meetingData);
         // End meeting button: PUT Request to store note and end meeting
+        console.log(btnModalEndMeeting);
         btnModalEndMeeting.addEventListener('click', btn => {
             btn.preventDefault()
-
-            const formData = new FormData(meetingForm)
             const meetingNote = editors[0].firstChild.innerHTML
 
-            formData.append('note', meetingNote)
+            let requestData = {
+                meeting_id: meetingData.meeting_id,
+                note_teacher: meetingNote
+            }
 
-            sendRequest(`/meeting/${meetingData.meeting_id}/end`, 'PUT', formData)
+
+            sendRequest(`/meeting/end/${meetingData.meeting_id}`, 'PUT', JSON.stringify(requestData))
 
             window.location.href = '/'
 

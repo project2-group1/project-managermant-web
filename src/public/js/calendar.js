@@ -266,6 +266,18 @@ const calendar = {
 
         eventInCurWeek.forEach(function (event) {
             event.classList.add('active')
+
+            for (let i = 0; i < eventsAPI.length; i++) {
+                const e = eventsAPI[i];
+                if (event.getAttribute('id') == e.meeting_id) {
+                    if (e.state == 'finished') {
+                        event.classList.add('finished')
+                    }
+                    else if (e.state == 'reschedule') {
+                        event.classList.add('reschedule')
+                    }
+                }
+            }
         })
 
         events.forEach(function (event) {
@@ -276,7 +288,7 @@ const calendar = {
                     const stateModalMap = {
                         pending: 'chưa bắt đầu',
                         ongoing: '',
-                        finished: '',
+                        finished: 'đã kết thúc',
                         reschedule: 'yêu cầu thay đổi lịch hẹn'
                     }
 
@@ -546,6 +558,45 @@ const calendar = {
 
                                 })
                             }
+                            else if (element.state == 'finished') {
+                                let modalMeetingOptionsHTML = `
+                                    <div class="modal-meeting-options">
+                                        <div class="modal-header">
+                                            <h3 class="title">Thông tin cuộc họp</h3>
+                                            <button class="btn btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <h4>Nhóm ${element.group_id % 1000} - ${element.coursename} - ${element.projectname} - #${element.meeting_id % 100}</h4>
+                                            </div>
+                                            <div class="row">
+                                                <p>Thời gian ban đầu: ${formatDate(startTime)} - ${formatDate(endTime)}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p>Thời hạn báo cáo: ${formatDate(reportTime)}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p>Tiêu đề: ${element.title}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p>Yêu cầu</p>
+                                                <textarea class="require readonly" readonly>${element.require_meeting}</textarea>
+                                            </div>
+                                            <div class="row">
+                                                <p>Trạng thái: ${stateModalMap[element.state]}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `
+                                modalMeetingOptionsContainer.innerHTML = modalMeetingOptionsHTML
+                                modalMeetingOptionsContainer.classList.add('show')
+
+                                const btnCloseModal = $('.btn-close-modal')
+
+                                btnCloseModal.addEventListener('click', () => {
+                                    modalMeetingOptionsContainer.classList.remove('show')
+                                })
+                            }
                         }
                     }
                 }
@@ -710,7 +761,7 @@ const calendar = {
 
 
                                 if (isValid) {
-                                    
+
                                     sendRequest(`/meeting/reqchange/${element.meeting_id}`, 'PUT', JSON.stringify(requestData))
                                     window.location.href = '/'
                                 }
@@ -719,18 +770,18 @@ const calendar = {
                     }
                 }
 
+            })
 
-                let curHeight
-                event.addEventListener('mouseenter', (e) => {
-                    curHeight = e.target.clientHeight
-                    if (e.target.scrollHeight > e.target.clientHeight) {
-                        e.target.style.height = e.target.scrollHeight + 'px'
-                    }
-                })
+            let curHeight
+            event.addEventListener('mouseenter', (e) => {
+                curHeight = e.target.clientHeight
+                if (e.target.scrollHeight > e.target.clientHeight) {
+                    e.target.style.height = e.target.scrollHeight + 'px'
+                }
+            })
 
-                event.addEventListener('mouseleave', (e) => {
-                    e.target.style.height = curHeight + 'px'
-                })
+            event.addEventListener('mouseleave', (e) => {
+                e.target.style.height = curHeight + 'px'
             })
         })
 

@@ -65,6 +65,7 @@ class Meeting {
 
     }
 
+    //[GET] /meeting/api/:id
     async getDataMeeting(meeting_id, result) {
         const meetingInfoSQL = `
             SELECT *
@@ -464,15 +465,15 @@ class Meeting {
             }
     }
 
-    //[PUT] /meeting/:id/end
+    //[PUT] /meeting/end/:id
     async endMeeting(data, result) {
         const _this = this
 
         const endMeetingSQL = `
             UPDATE meeting
-            SET meeting.note = '${data.note}',
-                meeting.state = finished
-            WHERE meeting.meeting_id = ${data.meeting_id} 
+            SET note_teacher = '${data.note_teacher}',
+                state = 'finished'
+            WHERE meeting_id = ${data.meeting_id} 
         `
 
         try {
