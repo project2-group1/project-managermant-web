@@ -255,6 +255,8 @@ button {
 }
 .container-notification .content {
     width: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
 }
 .container-notification .notification {
     width: 350px;
@@ -264,6 +266,11 @@ button {
     align-items: center;
     transition: all ease-out 0.3s;
 }
+
+.container-notification .notification.un-read {
+    background-color: var(--btn-color-hover-blue);
+}
+
 .container-notification .notification:hover {
     background-color: var(--backgr-color-hover);
 }
@@ -280,12 +287,12 @@ button {
     font-size: 14px;
 }
 
-.container-notification .notification .text p:first-child {
+/* .container-notification .notification .text p:first-child {
   height: 60px;
   
-}
+} */
 
-.container-notification .notification .text p span {
+.container-notification .notification .text p .name {
     font-weight: 700;
 }
 .container-notification .notification .text .time {
@@ -530,13 +537,36 @@ button {
   display: block;
 }
 
-.modal-body .note {
+.modal-body .btn-send-request {
+  width: 120px !important;
+  color: white;
+  font-size: 16px;
+  background-color: var(--btn-color-hover-blue);
+}
+
+.modal-body .input-reason {
+  width: 256px;
+  padding: 10px 0 10px 10px;
+}
+
+.modal-body .require {
   width: 100%;
   padding: 5px;
   height: 80px;
   font-size: 16px;
   box-sizing: border-box;
   border-radius: 5px;
+  resize: vertical;
+}
+
+.modal-body .require.readonly {
+  resize: none;
+  overflow-y: scroll;
+}
+
+.modal-body .require.readonly:focus {
+  outline: unset;
+  cursor: unset;
 }
 
 .modal-body input,
@@ -802,3 +832,125 @@ button {
 
 /*End make calendar*/
 
+/* START modal meeting options */
+
+.modal-meeting-options-container{
+  height: 100vh;
+  background: var(--backgr-color-blur);
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+}
+
+.modal-meeting-options-container.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-meeting-options {
+  width: 80%;
+  position: relative;
+  background-color: var(--backgr-color-light);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 #ccc;
+}
+
+.modal-meeting-options .row {
+  padding: 10px 0;
+}
+
+.modal-meeting-options .modal-footer {
+  padding: 20px;
+  border-top: solid 1px #ccc;
+}
+
+.modal-meeting-options .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options .start {
+  background-color: rgb(196, 255, 202);
+
+}
+
+.options .change {
+  background-color: rgb(255 252 189);
+  
+}
+
+.options .delete {
+  background-color: rgb(255, 198, 198);
+}
+
+.options .accept {
+  background-color: rgb(206 253 255)
+}
+
+.options .refuse {
+  background-color: rgb(224 224 255)
+}
+
+.modal-meeting-options .button {
+  width: 25%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  opacity: 0.8;
+  transition: all 0.3s;
+}
+
+.modal-meeting-options .button:hover {
+  opacity: 1;
+  scale: 1.05;
+}
+
+.modal-meeting-options .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid;
+  border-bottom-color: var(--border-color-light);
+}
+
+.modal-meeting-options .modal-body {
+  margin: 20px;
+}
+
+.modal-meeting-options .modal-body  h4 {
+color: var(--text-color-blue);
+}
+
+.modal-meeting-options .modal-body .p-time {
+width: 100px;
+font-size: var(--text-font-size-14);
+left: 10px;    
+line-height: 44px;
+position: absolute;
+display: block;
+}
+
+.modal-reqest-change-meeting {
+  display: none;
+}
+
+.modal-reqest-change-meeting.show {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  padding: 20px;
+  border-radius: 8px;
+  border: solid 1px #ccc;
+  box-shadow: 0px 0px 5px 0 #ccc;
+  background-color: #fff;
+}
+
+.modal-reqest-change-meeting .row{
+  padding: 5px 0;
+}

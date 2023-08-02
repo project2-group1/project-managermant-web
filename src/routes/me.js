@@ -6,6 +6,7 @@ const authMiddleware = require('../middlewares/Authorization.js');
 const SettingController = require('../app/controllers/SettingControllers.js');
 
 router.get('/setting', authMiddleware.loggedin, MeController.setting);
+router.get('/user', authMiddleware.loggedin, MeController.user);
 router.post('/changepassword', authMiddleware.loggedin, SettingController.changepassword);
 router.get('/account', authMiddleware.loggedin, MeController.account);
 

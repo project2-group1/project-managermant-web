@@ -31,10 +31,11 @@ class Meeting {
             WHERE meeting.meeting_id = ${meeting_id}
         `
         const groupstudentSQL = `
-            SELECT fullname, student_id
-            FROM groupstudent
-            INNER JOIN student ON student.group_id = groupstudent.group_id
-            WHERE groupstudent.group_id = ${meeting_id.substring(0, 8)}
+            SELECT fullname, student.student_id
+            FROM groupstudent, student, gr_st
+            WHERE student.student_id = gr_st.student_id
+            AND gr_st.group_id = groupstudent.group_id
+            AND groupstudent.group_id = ${meeting_id.substring(0, 8)}
         `
 
         Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)]) // .all to run multiples query
@@ -97,34 +98,62 @@ class Meeting {
         }
     }
 
-    getAllMeetings(user, result) { // data = req.session.user
+    // [GET] /meeting/api/all
+    getAllMeetings(user, result) {
         const responseData = {}
         console.log(user);
+        if (user.role == 'giang_vien') {
+            const meetingSQL = `
+                SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
+                coursename, projectname, title, starttime, endtime, reportdeadline, require_meeting, note, 
+                previous_meeting_id, next_meeting_id, report, state, created_at, is_read
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE meeting.teacher_id = ${user.teacher_id}
+                ORDER BY created_at ASC
+            `
+            const groupstudentSQL = `
+                SELECT term, groupstudent.group_id, course_id
+                FROM groupstudent
+            `
 
-        const meetingSQL = `
-            SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
-            coursename, projectname, starttime, endtime, require_meeting, note, 
-            previous_meeting_id, next_meeting_id, report, created_at
-            FROM meeting
-            INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-            WHERE meeting.is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
-            ORDER BY created_at DESC
-        `
-        const groupstudentSQL = `
-            SELECT term, groupstudent.group_id, course_id
-            FROM groupstudent
-        `
+            Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)])
+                .then(([meetingData, groupstudentData]) => {
+                    responseData.meeting = meetingData;
+                    responseData.groupstudent = groupstudentData;
+                    result(responseData, null); // null indicates no error, passing the retrieved data (responseData) back to the caller
+                })
+                .catch((err) => {
+                    console.error('Error:', err);
+                    result(err);
+                });
+        }
+        else if (user.role == 'sinh_vien') {
+            const meetingSQL = `
+                SELECT meeting.meeting_id, meeting.group_id, meeting.teacher_id, course_id,
+                coursename, projectname, title, starttime, endtime, require_meeting, note, 
+                previous_meeting_id, next_meeting_id, report, state, created_at, is_read
+                FROM meeting
+                INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
+                WHERE meeting.state = 'pending' AND meeting.group_id = 
+                    (SELECT group_id FROM gr_st WHERE student_id = ${user.student_id})
+                ORDER BY created_at ASC
+            `
+            const groupstudentSQL = `
+                SELECT term, groupstudent.group_id, course_id
+                FROM groupstudent
+            `
 
-        Promise.all([this.executeQuery(meetingSQL), this.executeQuery(groupstudentSQL)])
-            .then(([meetingData, groupstudentData]) => {
-                responseData.meeting = meetingData;
-                responseData.groupstudent = groupstudentData;
-                result(responseData, null); // null indicates no error, passing the retrieved data (responseData) back to the caller
-            })
-            .catch((err) => {
-                console.error('Error:', err);
-                result(err);
-            });
+            Promise.all([this.executeQuery(meetingSQL)])
+                .then(([meetingData]) => {
+                    responseData.meeting = meetingData;
+                    result(responseData, null); // null indicates no error, passing the retrieved data (responseData) back to the caller
+                })
+                .catch((err) => {
+                    console.error('Error:', err);
+                    result(err);
+                });
+        }
     }
 
     getGeneralData(data, result) {
@@ -194,7 +223,8 @@ class Meeting {
                     reportdeadline, 
                     require_meeting, 
                     next_meeting_id, 
-                    report)
+                    report,
+                    state)
             VALUES (
                 '${meetingData.group_id + '01'}', 
                 '${meetingData.group_id}', 
@@ -205,7 +235,8 @@ class Meeting {
                 '${formatDate(meetingData.dl_report_time)}', 
                 '${meetingData.require_meeting}', 
                 NULL,   
-                NULL
+                NULL,
+                'pending'
                 );
             `
 
@@ -221,7 +252,8 @@ class Meeting {
                     require_meeting,
                     next_meeting_id, 
                     previous_meeting_id, 
-                    report)
+                    report,
+                    state)
             VALUES (
                 '${curMeetingData == null ? 0 : curMeetingData.meeting_id + 1}', 
                 '${meetingData.group_id}', 
@@ -233,7 +265,8 @@ class Meeting {
                 '${meetingData.require_meeting}',
                 NULL,   
                 '${curMeetingData == null ? 0 : curMeetingData.meeting_id}', 
-                NULL
+                NULL,
+                'pending'
                 );
             `
 
@@ -272,7 +305,7 @@ class Meeting {
         console.log('finish created');
     }
 
-    //data = user ID
+    //[GET] /event/api/
     async getAllEvents(user, result) {
         const _this = this
 
@@ -281,7 +314,7 @@ class Meeting {
                 SELECT *
                 FROM meeting
                 INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-                WHERE is_ended = 0 AND meeting.teacher_id = ${user.teacher_id}
+                WHERE meeting.teacher_id = ${user.teacher_id}
             `
             try {
                 const event = await _this.executeQuery(getEventTeacherSQL)
@@ -295,9 +328,8 @@ class Meeting {
                 SELECT *
                 FROM meeting
                 INNER JOIN groupstudent ON groupstudent.group_id = meeting.group_id
-                WHERE is_ended = 0 AND groupstudent.group_id = 
-                    (SELECT group_id FROM student WHERE student_id =  ${user.student_id})
-
+                WHERE groupstudent.group_id = 
+                    (SELECT group_id FROM gr_st WHERE student_id =  ${user.student_id})
             `
             try {
                 const event = await _this.executeQuery(getEventStudentSQL)
@@ -309,13 +341,137 @@ class Meeting {
         }
     }
 
+    //[PUT] /meeting/reschedule/:id - *FROM TEACHER
+    async rescheduleMeeting(data, result) {
+        const _this = this
+        console.log(data)
+        const acceptChangeMeetingSQL = `
+            UPDATE meeting SET
+            starttime = '${data.starttime}',
+            endtime = '${data.endtime}',
+            reportdeadline = '${data.reportdeadline}'
+            WHERE meeting_id = ${data.meeting_id}
+        `
+
+        try {
+                const res = _this.executeQuery(acceptChangeMeetingSQL)
+                result(res)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+    }
+    
+    //[GET] /meeting/reqchange/:id - *FROM TEACHER
+    async getRequestChangeMeeting(meeting_id, result) {
+        const _this = this
+        const getReqChangeMeetingSQL = `
+            SELECT * FROM request_reschedule
+            WHERE meeting_id = ${meeting_id}
+        `
+
+        try {
+            const req = await _this.executeQuery(getReqChangeMeetingSQL)
+            result(req)
+        } catch (error) {
+            console.error('Error:', err);
+            throw err;
+        }
+    }
+
+    //[PUT] /meeting/reqchange/:id - *FROM STUDENT
+    requestChangeMeeting(data, result) {
+        const _this = this
+        console.log(data)
+        const reqChangeMeetingSQL = `
+            INSERT INTO request_reschedule (
+                meeting_id, 
+                starttime, 
+                endtime, 
+                reportdeadline,
+                reason_reschedule) 
+            VALUES (
+                '${data.meeting_id}', 
+                '${data.start_time}', 
+                '${data.end_time}', 
+                '${data.report_time}',
+                '${data.reason}')
+        `
+
+        const updateStateMeetingSQL = `
+            UPDATE meeting 
+            SET state = 'reschedule' 
+            WHERE meeting.meeting_id = ${data.meeting_id}
+        `
+
+        try {
+                _this.executeQuery(updateStateMeetingSQL)
+                const res = _this.executeQuery(reqChangeMeetingSQL)
+                result(res)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+    }
+
+    //[PUT] /meeting/acceptchange/:id - *FROM TEACER
+    acceptChangeMeeting(data, result) {
+        const _this = this
+        console.log(data)
+        const acceptChangeMeetingSQL = `
+            UPDATE meeting SET
+            starttime = '${data.starttime}',
+            endtime = '${data.endtime}',
+            reportdeadline = '${data.reportdeadline}',
+            state = 'pending'
+            WHERE meeting_id = ${data.meeting_id}
+        `
+
+        const deleteReqSQL = `
+            DELETE FROM request_reschedule
+            WHERE meeting_id = ${data.meeting_id}
+        `
+        try {
+                _this.executeQuery(deleteReqSQL)
+                const res = _this.executeQuery(acceptChangeMeetingSQL)
+                result(res)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+    }
+
+    //[PUT] /meeting/refusechange/:id - *FROM TEACER
+    refuseChangeMeeting(meeting_id, result) {
+        const _this = this
+        const refuseChangeMeetingSQL = `
+            UPDATE meeting SET
+            state = 'pending'
+            WHERE meeting_id = ${meeting_id}
+        `
+
+        const deleteReqSQL = `
+            DELETE FROM request_reschedule
+            WHERE meeting_id = ${meeting_id}
+        `
+        try {
+                _this.executeQuery(deleteReqSQL)
+                const res = _this.executeQuery(refuseChangeMeetingSQL)
+                result(res)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+    }
+
+    //[PUT] /meeting/:id/end
     async endMeeting(data, result) {
         const _this = this
 
         const endMeetingSQL = `
             UPDATE meeting
             SET meeting.note = '${data.note}',
-                meeting.is_ended = 1
+                meeting.state = finished
             WHERE meeting.meeting_id = ${data.meeting_id} 
         `
 
@@ -329,13 +485,16 @@ class Meeting {
         }
     }
 
+    //[DELETE] /meeting/delete/:id
     async deleteMeeting(data, result) {
         const _this = this
+        console.log('\nDELETE Meeting\n');
+        console.log(data);
 
         const deleteMeetingSQL = `
             DELETE
             FROM meeting
-            WHERE meeting.meeting_id = ${data.meeting_id}
+            WHERE meeting.meeting_id = ${data}
         `
 
         try {

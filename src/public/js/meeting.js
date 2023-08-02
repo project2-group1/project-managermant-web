@@ -1,5 +1,5 @@
 import { fetchData } from '../services/fetchData.js'
-import { putRequest } from '../services/putRequest.js'
+import { sendRequest } from '../services/sendRequest.js'
 import { modalAddCalendar } from './header.js'
 
 // selector
@@ -17,7 +17,7 @@ let meetings = Array.from($$('.meeting'))
 let btnsOut = Array.from($$('.btn-out'))
 let dateTime = Array.from($$('.date'))
 let editors = Array.from($$('.editor'))
-let meetingId = $('input[name="meeting_id"]').getAttribute('value')
+// let meetingId = $('input[name="meeting_id"]').getAttribute('value')
 let displayedMeetingIds = []
 let note = []
 let btnAcceptNewMeeting
@@ -192,7 +192,7 @@ const meeting = {
             }
         }
 
-        [meetingData] = await getData(`/meeting/api/?id=${meetingId}`) // destructuring 
+        [meetingData] = await getData(`/meeting/api/?id=${window.location.href.slice(-10)}`) // destructuring 
 
         // courseId and Term in Database
         generalData = await getData(`/meeting/api/general`)
@@ -284,7 +284,7 @@ const meeting = {
 
             formData.append('note', meetingNote)
 
-            putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
+            sendRequest(`/meeting/${meetingData.meeting_id}/end`, 'PUT', formData)
 
             window.location.href = '/'
 
@@ -301,7 +301,7 @@ const meeting = {
 
             formData.append('note', meetingNote)
 
-            putRequest(`/meeting/${meetingData.meeting_id}/end`, formData)
+            sendRequest(`/meeting/${meetingData.meeting_id}/end`, 'PUT',formData)
 
             const btnAddMeeting = $('.make-calendar.container')
             btnAddMeeting.classList.add('show')

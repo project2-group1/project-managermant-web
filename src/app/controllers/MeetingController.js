@@ -4,7 +4,6 @@ class MeetingController {
  
     // [GET] /
     async show(req, res, next) {
-        console.log(req.session.user)
         const user = req.session.user
         try {
             const responseData = await new Promise((resolve, reject) => {
@@ -34,7 +33,7 @@ class MeetingController {
         }
     }
 
-    // [GET] /event/api/:r
+    // [GET] /event/api/
     getAllEvents(req, res, next) {
         const user = req.session.user
         Meeting.getAllEvents(user, function (data, err) {
@@ -48,7 +47,6 @@ class MeetingController {
 
     // [GET] /meeting/api/:id
     getDataMeetingByID(req, res ,next) {
-        console.log(req.session.user)
         const user = req.session.user
         Meeting.getDataMeeting(req.query.id , function (data, err) {
             if(err) {
@@ -63,16 +61,13 @@ class MeetingController {
 
     // [GET] /meeting/:id - Get meeting by id access though Model
     getMeetingById(req, res, next) {
+        console.log(req.params.id);
         const user = req.session.user
-        Meeting.getById(req.query.id, function (data, err) {
+        Meeting.getById(req.params.id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
             }
-            // Check fetch data
-            // res.send(data)
-            // res.send(data.meeting)
-            // res.send(data.groupstudent)
 
             // Render data
             res.render('meeting/meeting', {
@@ -101,8 +96,6 @@ class MeetingController {
                 return
             }
             res.send(data)
-            // res.send(data.meeting)
-            // res.send(data.groupstudent)
         })
     }
 
@@ -114,8 +107,6 @@ class MeetingController {
                 return
             }
             res.send(data)
-            // res.send(data.meeting)
-            // res.send(data.groupstudent)
         })
     }
 
@@ -133,6 +124,59 @@ class MeetingController {
     }
 
     
+    // [PUT] /meeting/reschedule/:id
+    rescheduleMeeting(req, res, next) {
+        Meeting.rescheduleMeeting(req.body, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+        })
+    }
+    
+    
+    // [GET] /meeting/reqchange/:id
+    getRequestChangeMeeting(req, res, next) {
+        console.log(req.params.id)
+        Meeting.getRequestChangeMeeting(req.params.id, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+        })
+    }
+
+    // [PUT] /meeting/reqchange/:id
+    requestChangeMeeting(req, res, next) {
+        Meeting.requestChangeMeeting(req.body, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+        })
+    }
+
+    // [PUT] /meeting/acceptchange/:id
+    acceptChangeMeeting(req, res, next) {
+        Meeting.acceptChangeMeeting(req.body, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+        })
+    }
+
+    // [PUT] /meeting/acceptchange/:id
+    refuseChangeMeeting(req, res, next) {
+        Meeting.refuseChangeMeeting(req.params.id, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+        })
+    }
+    
     // [PUT] /meeting/:id/end
     endMeeting(req, res, next) {
         console.log(req.body);
@@ -146,8 +190,16 @@ class MeetingController {
         // res.json(req.body)
     }
 
+    //[DELETE] /meeting/delete/:id
     deleteMeeting(req, res, next) {
+        Meeting.deleteMeeting(req.params.id, function(data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
 
+            // res.redirect('/')
+        })
     }
 
     

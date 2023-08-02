@@ -17,7 +17,9 @@
             {{#if displayBtn}}
             <button class="btn btn-display"><i class="fa-solid fa-display"></i></button>
             {{/if}}
+            {{#if teacher}}
             <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+            {{/if}}
             <button class="btn btn-notification">
                 <i class="fa-regular fa-bell"></i>
                 <div class="container-notification">
@@ -26,38 +28,7 @@
                             <p>Notifications</p>
                             <a href="#">See all</a>
                         </div>
-                        <div class="content">
-                            <div class="notification">
-                                <img src="harry.jpg" alt="" />
-                                <div class="text">
-                                    <p>
-                                        <span class="name">Nhóm 1 - Project II</span>
-                                        gửi bài tập.
-                                    </p>
-                                    <p class="time">1 giờ trước</p>
-                                </div>
-                            </div>
-                            <div class="notification">
-                                <img src="ron.jpg" alt="" />
-                                <div class="text">
-                                    <p>
-                                        <span class="name">Nhóm 2 - Project I</span>
-                                        yêu cầu hủy lịch.
-                                    </p>
-                                    <p class="time">1 giờ trước</p>
-                                </div>
-                            </div>
-                            <div class="notification">
-                                <img src="hermione.jpg" alt="" />
-                                <div class="text">
-                                    <p>
-                                        <span class="name">Nhóm 12 - Đồ án Tốt nghiệp</span>
-                                        yêu cầu meeting
-                                    </p>
-                                    <p class="time">1 giờ trước</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="content"></div>
                     </div>
                 </div>
             </button>
@@ -98,6 +69,7 @@
 
 <div class="make-calendar container"></div>
 <div class="container display-new-meeting"></div>
+<div class="modal-meeting-options-container"></div>
 <div class="add-free container"></div>
 
 <script type="module" src="/js/header.js"></script>

@@ -12,7 +12,7 @@ const app = express()
 
 
 const http = require('http').createServer(app);
-const io = initSocket(http);
+const io = initSocket(http); // kết nối tới socket
 
 
 const port = 3000
@@ -33,6 +33,7 @@ app.use(
         extended: true,
     }),
 );
+
 app.use(bodyParser.json());
 
 app.use(session({
@@ -96,4 +97,4 @@ app.set('views', path.join(__dirname, 'resources/views'))
 
 route(app)
 
-app.listen(port, () => console.log(`app listening at https://localhost:${port}`))
+http.listen(port, () => console.log(`app listening at https://localhost:${port}`))

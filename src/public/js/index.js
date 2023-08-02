@@ -7,10 +7,7 @@ const btnSidebar = document.querySelector('.btn-sidebar');
 const btnAvatarNav = $('.btn-avatar')
 const avatarNav = $('.avatar-nav')
 
-
-const urlParams = new URLSearchParams(window.location.search);
-const roleParam = urlParams.get('r'); // role
-console.log(roleParam);
+// const socket = io()
 
 const monthMapping = {
     jan: '1',
@@ -49,6 +46,7 @@ function formatDateFromUTCToLocal(dataTime) {
 
 // Format date from Date object to dd/mm/yyyy_hh:mm
 function formatDate(dateTime) {
+    dateTime = dateTime.toString()
     let year = dateTime.substring(11, 16)
     let month = dateTime.substring(4, 7).toLowerCase()
     month = monthMapping[month]
@@ -56,4 +54,15 @@ function formatDate(dateTime) {
     let hourAndMinutes = dateTime.substring(16, 21)
 
     return date + '/' + month + '/' + year + ' ' + hourAndMinutes
+}
+
+function formatDateSendToDatabase(dateTime) {
+    dateTime = dateTime.toString()
+    let year = dateTime.substring(11, 15)
+    let month = dateTime.substring(4, 7).toLowerCase()
+    month = monthMapping[month] 
+    let date = dateTime.substring(8, 10)
+    let hourAndMinutes = dateTime.substring(16, 21)
+
+    return year + '-' + ((month < 10) ? ('0' + month) : month) + '-' + date + ' ' + hourAndMinutes
 }

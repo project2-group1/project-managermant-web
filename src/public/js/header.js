@@ -2,6 +2,7 @@ import { fetchData } from '../services/fetchData.js'
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+const socket = io()
 // XỬ lý add calendar
 const btn_add_calendar = $('.btn.btn-add-calendar');
 const make_calendar_container = $('.make-calendar.container');
@@ -21,19 +22,41 @@ const avatarNavCalendar = $('.avatar-nav-calendar')
 const btnNotification = $('.btn-notification')
 const iconNotification = $('.btn-notification>i')
 const boxNotification = $('.box-notification')
+const contentBoxNotification = $('.box-notification .content')
 
-const urlParams = new URLSearchParams(window.location.search);
-const roleParam = urlParams.get('r');
+let startTime
+let endTime
 
 const btnLogoPage = $('.btn-logo')
 
+const currentDay = new Date();
+
 let allMeetingsData
 let generalData
+let user
+
+function countTime(time) {
+    let displayTime = currentDay - formatDateFromUTCToLocal(time) // milliseconds
+    
+    displayTime = displayTime/1000/60 // minutes
+    
+    if(displayTime < 60) {
+        return (Math.ceil(displayTime) > 0 ? Math.ceil(displayTime) : 1) + ' phút trước'
+    }
+    else if(displayTime <= 24*60) {
+        return Math.floor(displayTime/60) + ' giờ trước'
+    }
+    else {
+        return Math.floor(displayTime/60/24) + ' ngày trước'
+    }
+
+}
 
 const modalAddCalendar = {
     inputStartTime: null,
     inputEndTime: null,
     inputReportTime: null,
+    selectedStartTime: null,
     API: async function () {
         async function getData(URL) {
             try {
@@ -46,13 +69,17 @@ const modalAddCalendar = {
 
 
         // courseId and Term in Database
-        generalData = await getData(`/meeting/api/general`)
+        generalData = await getData(`/meeting/api/general`) 
 
         // allMeetingsData dùng trực tiếp ko try catch (nguy hiểm)
         // chứa 2 bảng kiểu object là groupstudent và meeting
         allMeetingsData = await fetchData('/meeting/api/all')
+
+        user = await getData('/me/user') // user info
     },
     config: function () {
+        const _this = this
+
         var text = `
         <div class="modal">
             <div class="modal-header">
@@ -65,7 +92,7 @@ const modalAddCalendar = {
                         <h4>Tiêu đề</h4>
                         <div class="input-group input-group-icon">
                             <div class="input-icon"><i class="fa-solid fa-server"></i></div>
-                            <input class="input-text" type="text" name="title" placeholder="Tiêu đề"/>
+                            <input class="input-title" type="text" name="title" placeholder="Tiêu đề" required/>
                         </div>
                     </div>
                     <div class="row">
@@ -106,7 +133,7 @@ const modalAddCalendar = {
                     </div>
                     <div class="row mt-8">
                         <h4>Yêu cầu</h4>
-                        <textarea class="note" name="require_meeting" placeholder="Yêu cầu"></textarea>
+                        <textarea class="require" name="require_meeting" placeholder="Yêu cầu"></textarea>
                     </div>
                     <div class="row">
                         <input type="submit"  class="submit" value="Thêm cuộc họp mới">
@@ -124,6 +151,9 @@ const modalAddCalendar = {
             enableTime: true,
             defaultDate: "today",
             dateFormat: "Y-m-d H:i",
+            onChange: function (selectedDate, dateStr, instance) {
+                _this.selectedStartTime = dateStr
+            },
             minuteIncrement: 30,
             minTime: "7:00",
             maxTime: "18:00"
@@ -146,6 +176,9 @@ const modalAddCalendar = {
             dateFormat: "Y-m-d H:i",
             minuteIncrement: 30
         })
+
+        startTime = $('.start_time')
+        endTime = $('.end_time')
 
     },
     handle: function () {
@@ -267,63 +300,43 @@ const modalAddCalendar = {
             console.log("Group: " + selectedGroupId.value)
         })
 
-        // btnSubmit.addEventListener('click', function(e) {
-        //     e.preventDefault()
-        //     formCalendarModal.submit()
-        //     window.location.href = `/`
-        // })
-
-        // formCalendarModal.addEventListener('submit', function(e) {
-        //     e.preventDefault()
-
-        //     const formData = new FormData(formCalendarModal)
-
-        //     fetch(formCalendarModal.action, {
-        //         method: 'POST',
-        //         body: formData,
-        //       })
-        //       .then(response => {
-        //         window.location.href = `/`;
-        //       })
-        //       .catch(error => {
-        //         console.error(error);
-        //       });
-        // })
-
     },
     renderNotification: function () {
-        
-        var notificationHTML = `
-            <div class="notification">
-                <img src="" alt=""/>
-                    <div class="text">
-                        <p>
-                            <span class="name">Nhóm 12 - Đồ án Tốt nghiệp</span>
-                            yêu cầu meeting
-                        </p>
-                        <p class="time">1 giờ trước</p>
-                </div>
-            </div>
-        `
 
         const meetings = allMeetingsData.meeting
 
-        for (let i = 0; i < meetings.length; i++) {
-            let createdTime = formatDate(formatDateFromUTCToLocal(meetings[i].created_at))
-            console.log(createdTime)
+        const stateCommentMapping = {
+            pending: 'đã tạo một cuộc hẹn',
+            ongoing: '',
+            finished: '',
+            reschedule: 'yêu cầu thay đổi lịch hẹn'
+        }
 
-            let notificationHTML = `
-            <div class="notification">
-                <img src="" alt=""/>
+        for (let i = 0; i < meetings.length; i++) {
+            const e = meetings[i]
+            
+            const stateComment = stateCommentMapping[e.state]
+            const time = countTime(e.created_at)
+
+            const notiHTML = `
+                <div class="notification">
+                    <img src="/img/avatar.png" alt="" />
                     <div class="text">
                         <p>
-                            <span class="name">Group ${meetings[i].group_id % 100} - ${meetings[i].coursename}</span>
-                            yêu cầu meeting
+                            <span class="name">Nhóm ${e.group_id % 100} - ${e.coursename}</span>
+                            <span class="state">${stateComment}</span>
                         </p>
-                        <p class="time">1 giờ trước</p>
+                        <p class="project-name">Đề tài: ${e.projectname}</p>
+                        <p class="title">${e.title}</p>
+                        <p class="time">${time}</p>
+                    </div>
                 </div>
-            </div>
-            `
+                `
+
+            const tempElement = document.createElement('div')
+            tempElement.innerHTML = notiHTML
+
+            contentBoxNotification.insertBefore(tempElement.firstElementChild, contentBoxNotification.firstElementChild)
         }
 
         
@@ -333,6 +346,7 @@ const modalAddCalendar = {
         this.config()
         this.handle()
         this.render()
+        this.renderNotification()
     }
 }
 
@@ -341,7 +355,7 @@ const modalAddFreeTime = {
     inputEndTime: null,
     form: null,
     config: function () {
-        var text = `
+        const text = `
         <form method="POST" action="create" class="addfreetime">
             <div class="row">
                 <h4>Thời gian</h4>
@@ -400,7 +414,7 @@ const modalAddFreeTime = {
     }
 }
 
-modalAddFreeTime.start();
+modalAddFreeTime.start()
 modalAddCalendar.start()
 
 export { modalAddCalendar, modalAddFreeTime }

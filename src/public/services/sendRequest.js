@@ -1,7 +1,8 @@
-export function putRequest(URL, request) {
+export function sendRequest(URL, method, request) {
     fetch(URL, {
-        method: 'PUT',
+        method: method,
         headers: {
+            'Content-Type': 'application/json',
         },
         body: request
     })

@@ -41,6 +41,11 @@ class MeController {
         console.log(req.body);
         res.render('calendar');
     }
+
+    // [GET] /me/user
+    user(req, res ,next) {
+        res.send(req.session.user)
+    }
 }
 
 module.exports = new MeController();
