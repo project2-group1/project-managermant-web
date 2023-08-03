@@ -71,6 +71,7 @@ class MeetingController {
                 return
             }
 
+            console.log(data.meeting);
             // Render data
             res.render('meeting/meeting', {
                 title: 'Cuộc hẹn',
@@ -208,7 +209,7 @@ class MeetingController {
                 res.status(500).send(err)
                 return
             }
-            // res.redirect('/')
+            res.redirect('/')
         })
         // res.json(req.body)
     }

@@ -965,10 +965,6 @@ const calendar = {
                                 minuteIncrement: 30,
                             })
 
-                            const requestStartTime = $('.request-start-time')
-                            const requestEndTime = $('.request-end-time')
-                            const requestReportTime = $('.request-report-time')
-
                             inputStartChangeTime.setDate(startTime)
                             inputEndChangeTime.setDate(endTime)
                             inputReportChangeTime.setDate(startTime)
@@ -1009,18 +1005,18 @@ const calendar = {
                 }
                 else if (user.role == 'giang_vien') {
 
+                    let isReq = false
+
                     for (let i = 0; i < reqAddMeeting.length; i++) {
-                        const element = reqAddMeeting[i];
-                        console.log(element);
+                        const element = reqAddMeeting[i]
                         if (element.id == e.getAttribute('id')) {
 
                             make_calendar_container.classList.add('show')
-                            const btnCloseCalendar = $('.btn-close-calendar')
-                            const title = $('.make-calendar-form .title')
-                            const inputTitle = $('.input-title')
-                            const btnAccept = $('.submit')
                             const makeCalendarForm = $('.make-calendar-form')
-                            // makeCalendarForm.action = '/freetime/acceptreqmeeting'
+                            const btnCloseCalendar = $('.btn-close-calendar')
+                            const inputTitle = $('.input-title')
+
+                            // render Title
                             inputTitle.value = element.req_reason
 
                             // render time into flatpickr
@@ -1028,7 +1024,7 @@ const calendar = {
                             modalAddCalendar.inputEndTime[0].setDate(element.endtime)
                             modalAddCalendar.inputReportTime.setDate(element.starttime)
 
-                            // Create hidden input element
+                            // Create hidden input element contains freetime_id and isReq
                             let freetimeId = document.createElement('input');
                             freetimeId.type = 'hidden';
                             freetimeId.name = 'freetime_id';
@@ -1038,6 +1034,7 @@ const calendar = {
                             isReq.type = 'hidden';
                             isReq.name = 'isReq';
                             isReq.value = `1`;
+                            isReq = true
 
                             // Thêm phần tử trường ẩn vào biểu mẫu
                             makeCalendarForm.appendChild(freetimeId);
@@ -1048,7 +1045,6 @@ const calendar = {
                             for (let i = 0; i < groupData.length; i++) {
                                 const curGroup = groupData[i]
                                 if (curGroup.group_id == element.group_id) {
-                                    console.log(curGroup)
                                     const event = new Event('change', { bubbles: true });
 
                                     const termSelect = make_calendar_container.querySelector('#term')
@@ -1086,6 +1082,53 @@ const calendar = {
                             })
 
                         }
+                    }
+
+                    if (isReq == false) {
+                        const modalFreetimeContainer = $('.modal-freetime-container')
+                        const modalFreetimeHTML = `
+                            <div class="modal-meeting modal-meeting-freetime">
+                                <div class="modal-header">
+                                    <h3 class="title">Lịch rảnh</h3>
+                                    <button class="btn btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <h4>Thời gian</h4>
+                                    </div>
+                                    <div class="row">
+                                        <input class="input-time freetime-start-time disable" type="text" id="start_time" name="start_time">
+                                    </div>
+                                    <div class="row">
+                                        <button class="button btn-freetime-delete">Xóa lịch rảnh</button>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        modalFreetimeContainer.innerHTML = modalFreetimeHTML
+                        modalFreetimeContainer.classList.add('show')
+                        const btnCloseModal = $('.btn-close-modal')
+
+                        const startTime = this.getAttribute('starttime').replace('.5',':30')
+                        const endTime = this.getAttribute('endtime').replace('.5',':30')
+                        const displayTime = this.getAttribute('date') + '   ' + startTime + ' - ' + endTime
+                        const freetimeStartTime = $('.freetime-start-time')
+                        const btnFreetimeDelete = $('.btn-freetime-delete')
+                        
+                        freetimeStartTime.value = displayTime
+
+                        btnFreetimeDelete.addEventListener('click', () => {
+                            let requestData = {
+                                id: this.getAttribute('id'),
+                            }
+
+                            sendRequest('/freetime/delete', 'DELETE', JSON.stringify(requestData))
+                            window.location.href = '/'
+                        })
+
+                        btnCloseModal.addEventListener('click', () => {
+                            modalFreetimeContainer.classList.remove('show')
+                        })
                     }
                 }
             })

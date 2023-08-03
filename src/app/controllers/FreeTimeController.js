@@ -50,10 +50,9 @@ class CalendarController {
         })
     }
 
-    // [GET] /freetime/:id/end
+    // [GET] /freetime/delete
     delete(req, res, next) {
-        const id = req.params.id;
-        FreeTime.deleteById(id, function (data, err) {
+        FreeTime.deleteById(req.body.id, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
