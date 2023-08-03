@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 11:50 AM
+-- Generation Time: Aug 03, 2023 at 06:38 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,20 +31,19 @@ CREATE TABLE `freetime` (
   `id` int(11) NOT NULL,
   `teacher_id` int(8) NOT NULL,
   `starttime` datetime NOT NULL,
-  `endtime` datetime DEFAULT NULL
+  `endtime` datetime DEFAULT NULL,
+  `reportdeadline` datetime DEFAULT NULL,
+  `req_reason` varchar(255) DEFAULT NULL,
+  `group_id` int(8) DEFAULT NULL,
+  `isReq` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `freetime`
 --
 
-INSERT INTO `freetime` (`id`, `teacher_id`, `starttime`, `endtime`) VALUES
-(2, 19990131, '2023-07-06 07:30:00', '2023-07-06 08:00:00'),
-(3, 19990131, '2023-07-07 07:30:00', '2023-07-07 08:00:00'),
-(6, 19990131, '2023-07-06 10:00:00', '2023-07-06 10:30:00'),
-(8, 19990131, '2023-07-09 11:00:00', '2023-07-09 11:30:00'),
-(24, 19990131, '2023-07-08 08:30:00', '2023-07-08 09:00:00'),
-(25, 19990131, '2023-07-08 09:30:00', '2023-07-08 10:00:00');
+INSERT INTO `freetime` (`id`, `teacher_id`, `starttime`, `endtime`, `reportdeadline`, `req_reason`, `group_id`, `isReq`) VALUES
+(2, 19990131, '2023-08-04 11:00:00', '2023-08-04 11:30:00', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -144,9 +143,10 @@ CREATE TABLE `meeting` (
 --
 
 INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `reportdeadline`, `note`, `next_meeting_id`, `report`, `endtime`, `title`, `previous_meeting_id`, `require_meeting`, `note_teacher`, `created_at`, `state`, `is_read`, `reason_reschedule`) VALUES
-(2022200102, 20222001, 19990131, '2023-08-04 10:30:00', '2023-08-04 17:00:00', '', NULL, NULL, '2023-08-04 11:30:00', 'Định hướng sản phẩm', 2022200101, '- Phân tích thiết kế\r\n- Thiết kế Database\r\n- Cấu trúc code', NULL, '2023-08-02 08:48:30', 'reschedule', 0, NULL),
+(2022200102, 20222001, 19990131, '2023-08-05 10:30:00', '2023-08-05 00:00:00', '', NULL, NULL, '2023-08-05 11:30:00', 'Định hướng sản phẩm', 2022200101, '- Phân tích thiết kế\r\n- Thiết kế Database\r\n- Cấu trúc code', '<p>kết thúc</p>', '2023-08-02 08:48:30', 'finished', 0, NULL),
 (2022200103, 20222001, 19990131, '2023-08-06 09:30:00', '2023-08-06 00:00:00', '', NULL, NULL, '2023-08-06 10:30:00', 'title', 2022200102, 'require', NULL, '2023-08-02 09:12:31', 'pending', 0, NULL),
-(2022200104, 20222001, 19990131, '2023-08-05 08:30:00', '2023-08-05 00:00:00', '', NULL, NULL, '2023-08-05 09:00:00', '1', 2022200103, '1', NULL, '2023-08-02 09:12:57', 'pending', 0, NULL);
+(2022200104, 20222001, 19990131, '2023-08-05 08:30:00', '2023-08-05 00:00:00', '', NULL, NULL, '2023-08-05 09:00:00', '1', 2022200103, '1', NULL, '2023-08-02 09:12:57', 'reschedule', 0, NULL),
+(2022200105, 20222001, 19990131, '2023-08-03 10:00:00', '2023-08-03 10:00:00', '', NULL, NULL, '2023-08-03 11:00:00', 'Em muốn gặp cô để trình bày ý tưởng mới', 2022200104, 'Mô tả sản phẩm', NULL, '2023-08-03 04:29:08', 'pending', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -155,19 +155,21 @@ INSERT INTO `meeting` (`meeting_id`, `group_id`, `teacher_id`, `starttime`, `rep
 --
 
 CREATE TABLE `request_reschedule` (
-  `meeting_id` int(10) NOT NULL,
+  `meeting_id` int(10) DEFAULT NULL,
   `starttime` datetime NOT NULL,
   `endtime` datetime NOT NULL,
   `reason_reschedule` varchar(255) DEFAULT NULL,
-  `reportdeadline` datetime NOT NULL
+  `reportdeadline` datetime NOT NULL,
+  `group_id` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request_reschedule`
 --
 
-INSERT INTO `request_reschedule` (`meeting_id`, `starttime`, `endtime`, `reason_reschedule`, `reportdeadline`) VALUES
-(2022200102, '2023-08-05 10:30:00', '2023-08-05 11:30:00', 'đi viện', '2023-08-05 00:00:00');
+INSERT INTO `request_reschedule` (`meeting_id`, `starttime`, `endtime`, `reason_reschedule`, `reportdeadline`, `group_id`) VALUES
+(2022200104, '2023-08-03 08:30:00', '2023-08-03 09:00:00', 'tôi bận', '2023-08-03 00:00:00', NULL),
+(NULL, '2023-08-03 09:00:00', '2023-08-03 11:00:00', 'Em muốn gặp cô để trình bày ý tưởng mới', '2023-08-03 09:00:00', 20222001);
 
 -- --------------------------------------------------------
 
@@ -305,6 +307,16 @@ ALTER TABLE `meeting`
 --
 ALTER TABLE `request_reschedule`
   ADD KEY `FK_MeetingID` (`meeting_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `freetime`
+--
+ALTER TABLE `freetime`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
