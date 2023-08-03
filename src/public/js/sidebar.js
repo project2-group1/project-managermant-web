@@ -5,7 +5,6 @@ const sidebarStudentList = $('.sidebar-studentlist')
 const sidebarWeek = $('.sidebar-week')
 const sidebarAddMeeting = $('.sidebar-add-meeting')
 const sidebarAssignment = $('.sidebar-assignment')
-const sidebarFreetime = $('.sidebar-freetime')
 const sidebarRecent = $('.sidebar-recent')
 const sidebarStored = $('.sidebar-stored')
 
@@ -34,12 +33,6 @@ const sideBar = {
         sidebarAssignment.addEventListener('click', function(e) {
             e.preventDefault()
             window.location.href = `/assignment`
-        })
-
-        if(sidebarFreetime)
-        sidebarFreetime.addEventListener('click', function(e) {
-            e.preventDefault()
-            window.location.href = `/freetime`
         })
 
         if(sidebarRecent)

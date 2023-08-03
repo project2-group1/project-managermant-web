@@ -212,29 +212,29 @@ const meeting = {
         editors = Array.from($$('.editor'))
         btnCloseDisplayMeeting = $('.btn-close-display-meeting')
         // Render quill note for each meeting
-        for (let i = 0; i < meetings.length; i++) {
+        // for (let i = 0; i < meetings.length; i++) {
 
-            editors.map((editor, index) => {
-                editor.classList.add('editor' + index)
-            })
+        //     editors.map((editor, index) => {
+        //         editor.classList.add('editor' + index)
+        //     })
 
-            var quill = new Quill('.editor' + i, {
-                modules: {
-                    toolbar: [
-                        [{ header: [1, 2, false, 3] }],
-                        ['bold', 'italic', 'underline'],
-                        [{ 'list': 'ordered' },
-                        { 'list': 'bullet' },
-                        { 'align': [] }],
-                        [{ 'color': [] }, { 'background': [] }],// dropdown with defaults from theme
-                        ['image', 'code-block'],
-                    ]
-                },
-                debug: 'info',
-                placeholder: 'Note something...',
-                theme: 'snow',
-            })
-        }
+        //     var quill = new Quill('.editor' + i, {
+        //         modules: {
+        //             toolbar: [
+        //                 [{ header: [1, 2, false, 3] }],
+        //                 ['bold', 'italic', 'underline'],
+        //                 [{ 'list': 'ordered' },
+        //                 { 'list': 'bullet' },
+        //                 { 'align': [] }],
+        //                 [{ 'color': [] }, { 'background': [] }],// dropdown with defaults from theme
+        //                 ['image', 'code-block'],
+        //             ]
+        //         },
+        //         debug: 'info',
+        //         placeholder: 'Note something...',
+        //         theme: 'snow',
+        //     })
+        // }
 
 
     },

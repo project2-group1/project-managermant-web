@@ -1,7 +1,7 @@
 <div class="wrapper-content">
     <div class="meeting-container">
         {{#each meetings}}
-        <form method="POST" class="form-meeting">
+        <form method="POST" class="form-meeting" action="/meeting/end/{{this.meeting_id}}">
             <input type="hidden" name="meeting_id" value="{{this.meeting_id}}">
             <div class="meeting">
                 <div class="meeting-header">
@@ -58,7 +58,9 @@
                 </div>
 
                 <div class="meeting-content">
-                    <div class="editor"></div>
+                    <div class="editor">
+                        <textarea class="note" name="note" id="" cols="30" rows="10"></textarea>
+                    </div>
                 </div>
                 <div class="meeting-end">
                     <div class="container-select-modal ">

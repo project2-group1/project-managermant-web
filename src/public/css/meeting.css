@@ -371,6 +371,12 @@
     outline: none;
 }
 
+.editor .note {
+    width: calc(100% - 20px);
+    resize: vertical;
+    padding: 10px;
+}
+
 .meeting-content .ql-editor {
     height: 200px;
 }
