@@ -20,14 +20,30 @@ class FreeTime {
         })
     }
 
-    async getByTeacherId(id, result) {
-        const teacherSQL = `SELECT * FROM freetime WHERE teacher_id = ${id};`
-        try {
-            const event = await this.executeQuery(teacherSQL)
-            result(event)
-        } catch (err) {
-            console.error('Error:', err);
-            throw err;
+    async getByTeacherId(user, result) {
+        if(user.role == 'giang_vien') {
+
+            const teacherSQL = `SELECT * FROM freetime WHERE teacher_id = ${user.teacher_id};`
+            try {
+                const event = await this.executeQuery(teacherSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+        }
+        else if(user.role == 'sinh_vien') {
+
+            const teacherSQL = `SELECT * FROM freetime WHERE teacher_id = (
+                SELECT teacher_id FROM groupstudent WHERE group_id = (
+                    SELECT group_id FROM gr_st WHERE student_id = ${user.student_id}))`
+            try {
+                const event = await this.executeQuery(teacherSQL)
+                result(event)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
         }
 
     }

@@ -179,9 +179,24 @@ class Meeting {
 
     async createMeeting(result, meetingData, user) {
         const _this = this
-
+        console.log(meetingData);
         console.log('creating a meeting')
         if (user.role == 'giang_vien') {
+
+            if (meetingData.isReq = 1) {
+                const maxMeetingIdSQL = `
+                DELETE FROM freetime
+                WHERE id = ${meetingData.freetime_id}
+                `
+
+                try {
+                    _this.executeQuery(maxMeetingIdSQL)
+                } catch (error) {
+                    console.error('Error:', err);
+                    throw err;
+                }
+            }
+
             const tearcherId = user.teacher_id;
             console.log(meetingData);
             const maxMeetingIdSQL = `
@@ -192,7 +207,7 @@ class Meeting {
                     FROM meeting 
                     WHERE meeting.group_id = ${meetingData.group_id}
                     );
-            `
+                    `
 
             async function getMeetingInfo() {
                 try {
@@ -214,35 +229,35 @@ class Meeting {
             const curMeetingData = await getMeetingInfo()
 
             const insertTheFirstMeetingSQL = `
-            INSERT INTO meeting 
+                INSERT INTO meeting 
                 (meeting_id, 
-                    group_id, 
-                    teacher_id,
-                    title, 
-                    starttime, 
-                    endtime, 
-                    reportdeadline, 
-                    require_meeting, 
-                    next_meeting_id, 
-                    report,
-                    state)
-            VALUES (
-                '${meetingData.group_id + '01'}', 
-                '${meetingData.group_id}', 
-                '${tearcherId}', 
-                '${meetingData.title}', 
-                '${formatDate(meetingData.start_time)}', 
-                '${formatDate(meetingData.end_time)}', 
-                '${formatDate(meetingData.dl_report_time)}', 
-                '${meetingData.require_meeting}', 
-                NULL,   
-                NULL,
-                'pending'
-                );
-            `
+                group_id, 
+                teacher_id,
+                title, 
+                starttime, 
+                endtime, 
+                reportdeadline, 
+                require_meeting, 
+                next_meeting_id, 
+                report,
+                state)
+                VALUES (
+                    '${meetingData.group_id + '01'}', 
+                    '${meetingData.group_id}', 
+                    '${tearcherId}', 
+                    '${meetingData.title}', 
+                    '${formatDate(meetingData.start_time)}', 
+                    '${formatDate(meetingData.end_time)}', 
+                    '${formatDate(meetingData.dl_report_time)}', 
+                    '${meetingData.require_meeting}', 
+                    NULL,   
+                    NULL,
+                    'pending'
+                    );
+                `
 
             const insertMeetingSQL = `
-            INSERT INTO meeting 
+                INSERT INTO meeting 
                 (meeting_id, 
                     group_id, 
                     teacher_id,
@@ -255,21 +270,21 @@ class Meeting {
                     previous_meeting_id, 
                     report,
                     state)
-            VALUES (
-                '${curMeetingData == null ? 0 : curMeetingData.meeting_id + 1}', 
-                '${meetingData.group_id}', 
-                '${tearcherId}', 
-                '${meetingData.title}',
-                '${formatDate(meetingData.start_time)}', 
-                '${formatDate(meetingData.end_time)}', 
-                '${formatDate(meetingData.dl_report_time)}', 
-                '${meetingData.require_meeting}',
-                NULL,   
-                '${curMeetingData == null ? 0 : curMeetingData.meeting_id}', 
-                NULL,
-                'pending'
-                );
-            `
+                    VALUES (
+                        '${curMeetingData == null ? 0 : curMeetingData.meeting_id + 1}', 
+                        '${meetingData.group_id}', 
+                        '${tearcherId}', 
+                        '${meetingData.title}',
+                        '${formatDate(meetingData.start_time)}', 
+                        '${formatDate(meetingData.end_time)}', 
+                        '${formatDate(meetingData.dl_report_time)}', 
+                        '${meetingData.require_meeting}',
+                        NULL,   
+                        '${curMeetingData == null ? 0 : curMeetingData.meeting_id}', 
+                        NULL,
+                        'pending'
+                        );
+                    `
 
             function formatDate(dateTime) {
                 const year = dateTime.substring(0, 4)
@@ -301,6 +316,7 @@ class Meeting {
                         result(null, err);
                     })
             }
+
 
         }
         console.log('finish created');
@@ -355,14 +371,59 @@ class Meeting {
         `
 
         try {
-                const res = _this.executeQuery(acceptChangeMeetingSQL)
-                result(res)
-            } catch (err) {
-                console.error('Error:', err);
-                throw err;
-            }
+            const res = _this.executeQuery(acceptChangeMeetingSQL)
+            result(res)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
     }
-    
+
+    // [POST] /meeting/reqaddmeeting/:id *FROM STUDENT
+    async sendReqAddMeeting(data, result) {
+        console.log(data)
+        const _this = this
+
+        const sendReqMeetingSQL = `
+            UPDATE freetime SET
+                teacher_id = (SELECT teacher_id FROM groupstudent WHERE group_id = ${data.group_id}),
+                group_id = ${data.group_id},
+                starttime = '${data.start_time}',
+                endtime = '${data.end_time}',
+                reportdeadline = '${data.report_time}',
+                req_reason = '${data.reason}',
+                isReq = 1
+                WHERE id = ${data.id}
+        `
+
+
+        try {
+            const req = await _this.executeQuery(sendReqMeetingSQL)
+            result(req)
+        } catch (error) {
+            console.error('Error:', err);
+            throw err;
+        }
+    }
+
+    // [GET] /meeting/getreqaddmeeting *FROM TEACHER
+    async getReqAddMeeting(data, result) {
+        const _this = this
+        const getReqMeetingSQL = `
+            SELECT * FROM freetime
+            WHERE teacher_id = ${data.teacher_id}
+            AND isReq = 1
+        `
+
+        try {
+            const responseData = await _this.executeQuery(getReqMeetingSQL)
+            result(responseData)
+        } catch (error) {
+            console.error('Error:', err);
+            throw err;
+        }
+    }
+
     //[GET] /meeting/reqchange/:id - *FROM TEACHER
     async getRequestChangeMeeting(meeting_id, result) {
         const _this = this
@@ -406,13 +467,13 @@ class Meeting {
         `
 
         try {
-                _this.executeQuery(updateStateMeetingSQL)
-                const res = _this.executeQuery(reqChangeMeetingSQL)
-                result(res)
-            } catch (err) {
-                console.error('Error:', err);
-                throw err;
-            }
+            _this.executeQuery(updateStateMeetingSQL)
+            const res = _this.executeQuery(reqChangeMeetingSQL)
+            result(res)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
     }
 
     //[PUT] /meeting/acceptchange/:id - *FROM TEACER
@@ -433,13 +494,13 @@ class Meeting {
             WHERE meeting_id = ${data.meeting_id}
         `
         try {
-                _this.executeQuery(deleteReqSQL)
-                const res = _this.executeQuery(acceptChangeMeetingSQL)
-                result(res)
-            } catch (err) {
-                console.error('Error:', err);
-                throw err;
-            }
+            _this.executeQuery(deleteReqSQL)
+            const res = _this.executeQuery(acceptChangeMeetingSQL)
+            result(res)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
     }
 
     //[PUT] /meeting/refusechange/:id - *FROM TEACER
@@ -456,13 +517,13 @@ class Meeting {
             WHERE meeting_id = ${meeting_id}
         `
         try {
-                _this.executeQuery(deleteReqSQL)
-                const res = _this.executeQuery(refuseChangeMeetingSQL)
-                result(res)
-            } catch (err) {
-                console.error('Error:', err);
-                throw err;
-            }
+            _this.executeQuery(deleteReqSQL)
+            const res = _this.executeQuery(refuseChangeMeetingSQL)
+            result(res)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
     }
 
     //[PUT] /meeting/end/:id
@@ -501,6 +562,30 @@ class Meeting {
         try {
             const event = await _this.executeQuery(deleteMeetingSQL)
             result(event)
+        } catch (err) {
+            console.error('Error:', err);
+            throw err;
+        }
+    }
+
+    //[GET] /api/groupstudent
+    async getGroupStudent(data, result) {
+        const _this = this
+
+        console.log('\n\n');
+        console.log(data);
+        const getGroupStudentSQL = `
+        SELECT *
+        FROM groupstudent
+        WHERE group_id = (
+            SELECT group_id 
+            FROM gr_st 
+            WHERE student_id = ${data.student_id})
+        `
+
+        try {
+            const responseData = await _this.executeQuery(getGroupStudentSQL)
+            result(responseData)
         } catch (err) {
             console.error('Error:', err);
             throw err;

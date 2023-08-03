@@ -254,3 +254,31 @@
   margin-top: 8px; }
 
 /* ------------------- End: Calender-content ------------------ */
+
+.freetime-event {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  text-align: start;
+  margin-top: 1px;
+  padding: 8px;
+  border-radius: 10px;
+  border: unset;
+  background-color: #cdf6ff;
+  overflow: hidden;
+  transform: scale(1);
+  transition: all ease-out 0.3s;
+  cursor: pointer;
+}
+
+.freetime-event.active {
+  display: flex;
+}
+
+.request-start-time.disable,
+.request-end-time.disable,
+.request-report-time.disable {
+  pointer-events: none;
+}
+

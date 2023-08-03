@@ -28,8 +28,7 @@ class CalendarController {
     }
     // [GET] /freetime/api
     getFreeTime(req, res, next) {
-        const id = req.session.user.teacher_id;
-        FreeTime.getByTeacherId(id, function (data, err) {
+        FreeTime.getByTeacherId(req.session.user, function (data, err) {
             if (err) {
                 res.status(500).send(err)
                 return
@@ -47,7 +46,7 @@ class CalendarController {
                 res.status(500).send(err)
                 return
             }
-            res.redirect('/freetime')
+            res.redirect('/')
         })
     }
 

@@ -53,7 +53,7 @@ function formatDate(dateTime) {
     let date = dateTime.substring(8, 10)
     let hourAndMinutes = dateTime.substring(16, 21)
 
-    return date + '/' + month + '/' + year + ' ' + hourAndMinutes
+    return date + '/' + ((month < 10) ? ('0' + month) : month) + '/' + year + ' ' + hourAndMinutes
 }
 
 function formatDateSendToDatabase(dateTime) {

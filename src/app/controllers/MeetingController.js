@@ -23,7 +23,9 @@ class MeetingController {
                     '/css/calendar.css',
                 ],
                 libraryJS: 'https://cdn.jsdelivr.net/npm/flatpickr',
-                handle: '/js/calendar.js',
+                handle: [
+                    '/js/calendar.js'
+                ],
                 data: responseData,
                 role: user.role,
                 teacher: user.role == 'giang_vien',
@@ -134,7 +136,28 @@ class MeetingController {
         })
     }
     
-    
+    // [POST] /meeting/reqaddmeeting/:id
+    reqAddMeeting(req, res, next) {
+        Meeting.sendReqAddMeeting(req.body, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+        })
+    }
+
+    // [GET] /meeting/getreqaddmeeting/:id
+    getReqAddMeeting(req, res, next) {
+        Meeting.getReqAddMeeting(req.session.user, function(data, err) {
+            if(err) {
+                res.status(500).send(err)
+                return
+            }
+            res.send(data)
+        })
+    }
+
+
     // [GET] /meeting/reqchange/:id
     getRequestChangeMeeting(req, res, next) {
         console.log(req.params.id)
@@ -199,6 +222,18 @@ class MeetingController {
             }
 
             // res.redirect('/')
+        })
+    }
+
+    //[GET] /api/groupstudent
+    getGroupStudent(req, res, next) {
+        Meeting.getGroupStudent(req.session.user, function(data, err) {
+            if (err) {
+                res.status(500).send(err)
+                return
+            }
+
+            res.send(data)
         })
     }
 

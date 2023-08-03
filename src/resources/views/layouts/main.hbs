@@ -28,7 +28,10 @@
     
     <script src="/services/client-dist/socket.io.js"></script>
     <script src="/js/index.js"></script>
-    <script type="module" src="{{ handle }}"></script>
+    {{#each handle}}
+    <script type="module" src="{{ this }}"></script>
+    {{/each}}
+
 </body>
 
 </html>

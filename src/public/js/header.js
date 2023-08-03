@@ -10,6 +10,10 @@ const add_free_time = $('.add-free.container')
 let btnSubmit
 let makeCalendarModal
 let formCalendarModal
+let optAddFreetime
+let optAddMeeting
+let btnOptAddMeeting
+let btnOptAddFreetime
 
 const btnAvatarNav = $('.btn-avatar')
 const avatarNav = $('.avatar-nav')
@@ -37,17 +41,17 @@ let user
 
 function countTime(time) {
     let displayTime = currentDay - formatDateFromUTCToLocal(time) // milliseconds
-    
-    displayTime = displayTime/1000/60 // minutes
-    
-    if(displayTime < 60) {
+
+    displayTime = displayTime / 1000 / 60 // minutes
+
+    if (displayTime < 60) {
         return (Math.ceil(displayTime) > 0 ? Math.ceil(displayTime) : 1) + ' phút trước'
     }
-    else if(displayTime <= 24*60) {
-        return Math.floor(displayTime/60) + ' giờ trước'
+    else if (displayTime <= 24 * 60) {
+        return Math.floor(displayTime / 60) + ' giờ trước'
     }
     else {
-        return Math.floor(displayTime/60/24) + ' ngày trước'
+        return Math.floor(displayTime / 60 / 24) + ' ngày trước'
     }
 
 }
@@ -57,7 +61,9 @@ const modalAddCalendar = {
     inputEndTime: null,
     inputReportTime: null,
     selectedStartTime: null,
+    allMeetingsDataInstance: null,
     API: async function () {
+
         async function getData(URL) {
             try {
                 const responseData = await fetchData(URL)
@@ -69,12 +75,12 @@ const modalAddCalendar = {
 
 
         // courseId and Term in Database
-        generalData = await getData(`/meeting/api/general`) 
+        generalData = await getData(`/meeting/api/general`)
 
         // allMeetingsData dùng trực tiếp ko try catch (nguy hiểm)
         // chứa 2 bảng kiểu object là groupstudent và meeting
         allMeetingsData = await fetchData('/meeting/api/all')
-
+        this.allMeetingsDataInstance = allMeetingsData
         user = await getData('/me/user') // user info
     },
     config: function () {
@@ -83,13 +89,14 @@ const modalAddCalendar = {
         var text = `
         <div class="modal">
             <div class="modal-header">
-                <h3 class="title">Thêm cuộc họp mới</h3>
+                <button class="opt-header btn-opt-add-meeting"><h3 class="title">Thêm cuộc họp</h3></button>
+                <button class="opt-header btn-opt-add-freetime"><h3 class="title">Thêm lịch rảnh</h3></button>
                 <button class="btn btn-close-calendar"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body opt-add-meeting">
                 <form class="make-calendar-form" method="POST" action="/create">
                     <div class="row">
-                        <h4>Tiêu đề</h4>
+                        <h4 class="title">Tiêu đề</h4>
                         <div class="input-group input-group-icon">
                             <div class="input-icon"><i class="fa-solid fa-server"></i></div>
                             <input class="input-title" type="text" name="title" placeholder="Tiêu đề" required/>
@@ -140,12 +147,35 @@ const modalAddCalendar = {
                     </div>
                 </form>
             </div>
+            <div class="modal-body opt-add-freetime">
+                <form class="make-calendar-form" method="POST" action="/freetime/create">
+                    <div class="row">
+                        <h4>Thời gian</h4>
+                        <div class="row">
+                            <p class="p-time">Bắt đầu</p>
+                            <input class="input-time start_time" type="text" id="start_time" name="start_time">
+                            <div class="modal-flatpickr"></div>
+                        </div>
+                        <div class="row">
+                            <p class="p-time">Kết thúc</p>
+                            <input class="input-time end_time" type="text" id="end_time" name="end_time">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit"  class="submit" value="Thêm lịch rảnh">
+                    </div>
+                </form>
+            </div>
         </div>
      `
         make_calendar_container.innerHTML = text;
         makeCalendarModal = $('.make-calendar .modal')
         formCalendarModal = $('.make-calendar-form')
+        optAddMeeting = $('.opt-add-meeting')
+        optAddFreetime = $('.opt-add-freetime')
         btnSubmit = $('.make-calendar .submit')
+        btnOptAddMeeting = $('.btn-opt-add-meeting')
+        btnOptAddFreetime = $('.btn-opt-add-freetime')
 
         this.inputStartTime = flatpickr('.input-time.start_time', {
             enableTime: true,
@@ -206,19 +236,19 @@ const modalAddCalendar = {
             avatarNav.classList.toggle('show')
         })
 
-        avatarNavAccount.addEventListener('click', function() {
+        avatarNavAccount.addEventListener('click', function () {
             window.location.href = `me/account`
         })
 
-        avatarNavCalendar.addEventListener('click', function() {
+        avatarNavCalendar.addEventListener('click', function () {
             window.location.href = `/`
         })
 
-        avatarNavSetting.addEventListener('click', function() {
+        avatarNavSetting.addEventListener('click', function () {
             window.location.href = `me/setting`
         })
 
-        avatarNavLogout.addEventListener('click', function() {
+        avatarNavLogout.addEventListener('click', function () {
             window.location.href = `/auth/logout`
         })
 
@@ -243,9 +273,33 @@ const modalAddCalendar = {
             }
         })
 
+        
+        btnOptAddMeeting.addEventListener('click', (e) => {
+            if(!btnOptAddMeeting.classList.contains('active')) {
+                btnOptAddMeeting.classList.add('active')
+                btnOptAddFreetime.classList.remove('active')
+
+                optAddMeeting.classList.add('show')
+                optAddFreetime.classList.remove('show')
+            }
+        })
+
+        btnOptAddFreetime.addEventListener('click', (e) => {
+            if(!btnOptAddFreetime.classList.contains('active')) {
+                btnOptAddMeeting.classList.remove('active')
+                btnOptAddFreetime.classList.add('active')
+
+                optAddMeeting.classList.remove('show')
+                optAddFreetime.classList.add('show')
+            }
+        })
+
     },
     render: function () {
         const _this = this
+
+        btnOptAddMeeting.classList.add('active')
+        optAddMeeting.classList.add('show')
 
         const termSelectTag = makeCalendarModal.querySelector('#term')
         const courseIdSelectTag = makeCalendarModal.querySelector('#course_id')
@@ -314,7 +368,7 @@ const modalAddCalendar = {
 
         for (let i = 0; i < meetings.length; i++) {
             const e = meetings[i]
-            
+
             const stateComment = stateCommentMapping[e.state]
             const time = countTime(e.created_at)
 
@@ -339,7 +393,7 @@ const modalAddCalendar = {
             contentBoxNotification.insertBefore(tempElement.firstElementChild, contentBoxNotification.firstElementChild)
         }
 
-        
+
     },
     start: async function () {
         await this.API()
@@ -399,6 +453,9 @@ const modalAddFreeTime = {
 
         });
     },
+    render: function() {
+        
+    },
     handle: function () {
         const workBoxes = Array.from($$('.work-box'));
         // workBoxes.forEach(function (workBox) {
@@ -407,10 +464,12 @@ const modalAddFreeTime = {
         //        form.submit();
         //     })
         // })
+
     },
     start: function () {
-        this.config();
-        this.handle();
+        this.config()
+        this.render()
+        this.handle()
     }
 }
 
