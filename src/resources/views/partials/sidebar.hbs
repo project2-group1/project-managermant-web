@@ -1,0 +1,80 @@
+<div class="wrapper-sidebar">
+    <!-- box & box open icon -->
+    <div class="sidebar">
+        <div class="sidebar-item ">
+            <button class="btn-sidebar-item sidebar-week">
+                <i class="fa-regular fa-clipboard"></i>
+                <a href="#">Lịch trong tuần</a>
+            </button>
+            <div class="sidebar-week-days mside-12">
+                <div class="sidebar-day sidebar-day-passed">
+                    <p>T2</p>
+                </div>
+                <div class="sidebar-day sidebar-day-passed">
+                    <p>T3</p>
+                </div>
+                <div class="sidebar-day">
+                    <p>T4</p>
+                </div>
+                <div class="sidebar-day">
+                    <p>T5</p>
+                </div>
+                <div class="sidebar-day">
+                    <p>T6</p>
+                </div>
+                <div class="sidebar-day">
+                    <p>T7</p>
+                </div>
+                <div class="sidebar-day">
+                    <p>CN</p>
+                </div>
+            </div>
+        </div>
+        {{#if teacher}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-studentlist">
+                <i class="fa-regular fa-rectangle-list"></i>
+                <a href="#">Danh sách sinh viên</a>
+            </button>
+        </div>
+        {{#if btnAddMeeting}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-add-meeting">
+                <i class="fa-solid fa-add"></i>
+                <a href="#">Thêm cuộc gặp</a>
+            </button>
+        </div>
+        {{/if}}
+        {{/if}}
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-assignment">
+                <i class="fa-solid fa-tasks-alt"></i>
+                <a href="#">Bài tập</a>
+            </button>
+        </div>
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-recent">
+                <i class="fa-solid fa-arrow-rotate-right "></i>
+                <a href="#">Mở gần đây</a>
+            </button>
+            <ul class="sidebar-recent-list mside-12">
+            </ul>
+        </div>
+        <div class="sidebar-item">
+            <button class="btn-sidebar-item sidebar-stored">
+                <i class="fa-solid fa-box"></i>
+                <a href="#">Lưu trữ</a>
+            </button>
+            <ul class="sidebar-stored-list mside-12">
+            </ul>
+        </div>
+
+        <!-- <div class="sidebar-item">
+                    <button class="btn-sidebar-item sidebar-student">
+                        <p>Gửi yêu cầu meeting (sinh viên)</p>
+                    </button>
+                </div> -->
+    </div>
+</div>
+
+<script type="module" src="/js/sidebar.js"></script>

@@ -1,0 +1,117 @@
+/* bảng student */
+/* .wrapper-content {
+    position: relative;
+} */
+.table-student {
+    max-height: 100%;
+    position: relative;
+    margin-bottom: 100px;
+}
+.wrapper-content .table-student table {
+    margin-top: 12px;
+    margin-right: 16px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-student th, .table-student td {
+    border: 1px solid #0e0101;
+    padding: 4px;
+    text-align: left;
+}
+
+.table-student tr:hover {
+    background-color: rgb(247, 228, 217);
+}
+/* sọc */
+.table-student tr:nth-child(even) {
+    background-color: #efebeb;
+}
+.table-student tr:nth-child(even):hover {
+    background-color: #f3e4e4;
+}
+
+.wrapper-content .list-button a {
+    display: block;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 12px;
+    text-decoration: none;
+}
+.wrapper-content .list-button a:hover {
+    background-color: rgb(6, 128, 243);
+    color: #ffffff;
+    border-radius: 5%;
+}
+/* hidden input file */
+.inputfile {
+    opacity: 0.5;
+}
+
+/* select term */
+.list-student .select-term a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px;
+    text-decoration: none;
+}
+.list-student .select-term a:hover {
+    background-color: rgb(6, 128, 243);
+    color: #ffffff;
+    border-radius: 5%;
+}
+
+.form-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    background-color: rgb(70, 231, 231);
+}
+.form-modal form label, .form-modal form input {
+    display: block;
+    margin: 12px;
+}
+.form-modal input[type=submit] {
+    padding: 10px;
+    margin: 10px;
+}
+.form-modal a, .manipulate i{
+    position: absolute;
+    text-align: center;
+    vertical-align: center;
+    font-size: larger;
+    padding: 8px 16px;
+    background-color: rgb(9, 158, 212);
+    right: 0;
+    top: -24px;
+}
+.form-modal a:hover, .manipulate i:hover{
+    background-color: red;
+}
+.manipulate{
+    width: 200px;
+    position: fixed;
+
+}
+.manipulate a, .manipulate .id {
+    display: block;
+    padding: 16px;
+    border: #0e0101 1px solid;
+    text-decoration: none;
+    text-align: center;
+    background-color: aqua;
+    width: 100%;
+
+}
+.manipulate .id {
+    width: 100%;
+}
+.manipulate a:hover {
+    background-color: aquamarine;
+    opacity: 0.8;
+}
+

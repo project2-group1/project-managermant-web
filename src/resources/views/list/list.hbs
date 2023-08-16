@@ -1,0 +1,132 @@
+{{!-- thư viện import exel --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.8/xlsx.full.min.js">
+</script>
+
+<div class="wrapper-content">
+    <!--Make list student-->
+    <div class="list-student">
+        {{!-- chọn học kỳ --}}
+        <div class="select-term">
+            <input type="text" value="20222" pattern="[0-9]{4}">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
+        <!-- Table -->
+        <div class="table-student" ; style="overflow-x:auto;">
+            <h1>Danh sách sinh viên</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã nhóm</th>
+                        <th>Học kỳ</th>
+                        <th>Tên đề tài</th>
+                        <th>Mã khóa học</th>
+                        <th>Tên khóa học</th>
+                        <th>Mã sinh viên</th>
+                        <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày sinh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Function button -->
+        <div class="list-button">
+            <a href="#"><label for="file"><i class="fa-solid fa-file-import"></i>Import Excel</label></a>
+            <a href="#" class="add-group"><i class="fa-solid fa-user-plus"></i>Thêm nhóm</a>
+            <a href="#" class="add-student"><i class="fa-solid fa-user-plus"></i>Thêm Sinh viên</a>
+            <input type="file" name="file" id="file" class="inputfile" ng-modal="csvFile" />
+        </div>
+        {{!-- thao tác với nhóm --}}
+        <div class="manipulate-group manipulate" style="display: none;">
+            <i class="fa-solid fa-xmark form-button"></i>    
+            <div class="group-id id"></div>
+            <a href="#" class="edit">Sửa</a>
+            <a href="#" class="delete">Xóa</a>
+            <a href="#" class="viewMeeting" >Xem danh sách lịch gặp</a>
+        </div>
+        {{!-- thao tác với sinh viên --}}
+        <div class="manipulate-student manipulate" style="display: none;">
+            <i class="fa-solid fa-xmark form-button"></i>    
+            <div class="student-id id"></div>
+            <a href="#" class="edit">Sửa</a>
+            <a href="#" class="delete">Xóa</a>
+            <a href="#" class="viewMeeting">Xem thông tin sinh viên</a>
+        </div>
+    </div>
+    {{!-- modal thông tin chi tiết nhóm --}}
+    <script>
+        function validateForm(e) {
+            setTimeout(() => {
+                location.reload();
+            }, 2000)
+        }
+    </script>
+    <div class="group-modal form-modal" style="display: none;">
+        <a href="#"><i class="fa-solid fa-xmark form-button"></i></a>        
+        <form action="/list/addgroup" method="POST" onsubmit="validateForm()" target="_blank">
+        
+            <label for="group_id" class="form__label">Mã nhóm</label>
+            <input name="group_id" type="number" placeholder="mã nhóm" id="group_id" required />
+
+            <label for="term" class="form__label">Học kỳ</label>
+            <input name="term" type="number" placeholder="Học kỳ" id="term" />
+
+            <label for="projectname" class="form__label">Tên project</label>
+            <input name="projectname" type="text" placeholder="Tên đề tài" id="projectname" />
+
+            <label for="course_id" class="form__label">Mã khóa học</label>
+            <input name="course_id" type="text" placeholder="Mã khóa học" id="course_id" />
+
+            <label for="coursename" class="form__label">Tên khóa học</label>
+            <input name="coursename" type="text" placeholder="Tên khóa học" id="coursename" />
+
+            <label class="form__label">Mã nhóm cũ</label>
+            <input name="oldGroupId" type="Number" id="old_id" readonly>
+
+            <input type="submit" class="form-button">
+        </form>
+     </div>
+    <!--End make list student-->
+    {{!-- modal form student --}}
+    <div class="student-modal form-modal" style="display: none;">
+        <a href="#"><i class="fa-solid fa-xmark form-button"></i></a>        
+        <form action="/list/addstudent" method="POST" onsubmit="validateForm()" target="_blank">
+        
+            <label for="student_id" class="form__label">Mã sinh viên</label>
+            <input name="student_id" type="number" placeholder="" id="student_id" required />
+
+            <label for="group_id" class="form__label">Mã nhóm</label>
+            <input name="group_id" type="number" placeholder="" id="group_id" required />
+
+            <label for="fullname" class="form__label">Tên sinh viên</label>
+            <input name="fullname" type="text" placeholder="" id="fullname" />
+
+            <label for="phonenumber" class="form__label">Số điện thoại</label>
+            <input name="phonenumber" type="number" placeholder="" id="phonenumber" />
+
+
+            <label for="email" class="form__label">Email</label>
+            <input name="email" type="text" placeholder="" id="email" />
+
+            <label for="birthday" class="form__label">Ngày sinh</label>
+            <input name="birthday" type="date" placeholder="" id="birthday" />
+
+            <label class="form__label">Mã số sinh viên cũ</label>
+            <input name="oldStudentId" type="Number" id="old_id" readonly>
+
+            <label class="form__label">Mã nhóm cũ</label>
+            <input name="oldGroupId" type="Number" id="old_group_id" readonly>
+
+            <input type="submit" class="form-button">
+        </form>
+     </div>
+<script src="/js/list_student.js"></script>
+</div>

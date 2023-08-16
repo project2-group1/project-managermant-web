@@ -2,9 +2,10 @@
   "name": "project-management-website",
   "version": "1.0.0",
   "description": "Project II - Group 1",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,24 @@
   },
   "homepage": "https://github.com/project2-group1/project-managermant-web#readme",
   "devDependencies": {
-    "flatpickr": "^4.6.13"
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "flatpickr": "^4.6.13",
+    "jsonwebtoken": "^9.0.0",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.7.1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express-handlebars": "^7.0.7",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "node-sass": "^9.0.0",
+    "xlsx": "^0.18.5"
   }
 }

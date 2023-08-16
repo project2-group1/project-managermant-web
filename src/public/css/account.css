@@ -1,0 +1,17 @@
+.personal-info {
+    width: 100;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}

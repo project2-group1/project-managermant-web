@@ -37,3 +37,8 @@ git branch -m master<br>
 # Các lỗi có thể gặp <br>
 1. lỗi master -> master (fetch first)
     - đã có người khác push code lên github trước bạn. bạn cần 'git pull' trước để cập nhật code của họ rồi mới 'git push'
+
+# Cách tạo database <br>
+1. Vào XXAMP, tạo 1 database mới tên 'project_ii'
+2. Chọn vào cơ sở dữ liệu vừa tạo, vào phần truy vấn và paste toàn bộ text từ file 'database.sql' vào
+3. Gửi truy vấ

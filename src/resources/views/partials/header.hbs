@@ -1,0 +1,77 @@
+<div class="wrapper-header">
+    <div class="header">
+        <div class="header-start">
+            <button class="btn btn-sidebar"><i class="fa-solid fa-bars"></i></button>
+            <div class="btn-logo">
+                <a class="logo-page"><img src="/img/logoSOICT.jpg" alt="logo"></a>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm" line-hight>
+                <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+        <div class="header-end">
+            <!--Thêm id cho button thêm lịch-->
+            {{#if displayBtn}}
+            <button class="btn btn-display"><i class="fa-solid fa-display"></i></button>
+            {{/if}}
+            {{#if teacher}}
+            <button class="btn btn-add-calendar "><i class="fa-regular fa-calendar-plus"></i></button>
+            {{/if}}
+            <button class="btn btn-notification">
+                <i class="fa-regular fa-bell"></i>
+                <div class="container-notification">
+                    <div class="box-notification">
+                        <div class="header">
+                            <p>Notifications</p>
+                            <a href="#">See all</a>
+                        </div>
+                        <div class="content"></div>
+                    </div>
+                </div>
+            </button>
+            <button class="btn btn-avatar">
+                <a class="avatar-img">
+                    <img src="/img/avatar.png" alt="">
+                </a>
+                <ul class="avatar-nav">
+                    <li class="avatar-nav-item avatar-nav-account">
+                        <i class="avatar-nav-icon fa-regular fa-user"></i>
+                        <a class="avatar-nav-btn" href="/me/account">Tài khoản</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-calendar">
+                        <i class="avatar-nav-icon fa-regular fa-calendar"></i>
+                        <a class="avatar-nav-btn" href="#">Lịch</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-theme">
+                        <i class="avatar-nav-icon fa-regular fa-moon"></i>
+                        <a class="avatar-nav-btn" href="#">Giao diện</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-languague">
+                        <i class="avatar-nav-icon fa-solid fa-language"></i>
+                        <a class="avatar-nav-btn" href="#">Ngôn ngữ</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-setting">
+                        <i class="avatar-nav-icon fa-solid fa-sliders"></i>
+                        <a class="avatar-nav-btn" href="/me/setting/">Cài đặt mật khẩu</a>
+                    </li>
+                    <li class="avatar-nav-item avatar-nav-logout">
+                        <i class="avatar-nav-icon fa-solid fa-arrow-up-from-bracket fa-rotate-90"></i>
+                        <a class="avatar-nav-btn" href="/auth/logout">Đăng xuất</a>
+                    </li>
+                </ul>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="make-calendar container"></div>
+<div class="container display-new-meeting"></div>
+<div class="modal-meeting-options-container"></div>
+<div class="modal-meeting-container modal-meeting-request"></div>
+<div class="modal-meeting-container modal-freetime-container"></div>
+<div class="add-free container"></div>
+
+<script type="module" src="/js/header.js"></script>

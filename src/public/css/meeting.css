@@ -1,0 +1,629 @@
+.meeting {
+    margin: 8px 0px 16px 4px;
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 8px);
+    transition: all ease-out 1s;
+}
+
+.meeting.double-screen {
+    float: left;
+    width: calc(50% - 16px);
+}
+
+.meeting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    overflow: hidden;
+}
+
+.meeting-header .title {
+    font-weight: 500;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.meeting-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.meeting-info .day {
+    /* width: 100px; */
+    height: 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #666666;
+}
+
+.meeting-info .info {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* TABLE info Student */
+.info-student th {
+    text-align: left;
+}
+
+.info-student th,
+.info-student td {
+    height: 24px;
+    border: 1px solid #ccc;
+    padding: 0 8px;
+} 
+
+.info-student .student {
+    width: 300px;
+}
+
+.student .student-name {
+    width: 200px;
+}
+
+.student .student-id {
+    width: 100px;
+}
+
+.info .file-report {
+    overflow: hidden;
+}
+
+.info .col-second {
+    width: 50%;
+}
+
+/* template */
+@font-face {
+    font-family: Poppins-Regular;
+    src: url(../fonts/poppins/Poppins-Regular.ttf)
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(../fonts/poppins/Poppins-Bold.ttf)
+}
+
+.wrapper-table {
+    display: flex;
+    margin-bottom: 4px;
+}
+
+.wrap-table:nth-child(1) {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.wrap-table:nth-child(2) {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.wrap-table a:focus {
+    outline: none !important
+}
+
+.wrap-table a:hover {
+    text-decoration: none
+}
+
+.wrap-table h1,
+.wrap-table h2,
+.wrap-table h3,
+.wrap-table h4,
+.wrap-table h5,
+.wrap-table h6 {
+    margin: 0
+}
+
+.wrap-table p {
+    margin: 0
+}
+
+.wrap-table ul,
+.wrap-table li {
+    margin: 0;
+    list-style-type: none
+}
+
+.wrap-table input {
+    display: block;
+    outline: none;
+    border: none !important
+}
+
+.wrap-table textarea {
+    display: block;
+    outline: none
+}
+
+.wrap-table textarea:focus,
+.wrap-table input:focus {
+    border-color: transparent !important
+}
+
+.wrap-table button {
+    outline: none !important;
+    border: none;
+    background: 0 0
+}
+
+.wrap-table button:hover {
+    cursor: pointer
+}
+
+.wrap-table iframe {
+    border: none !important
+}
+
+.wrap-table {
+    width: 50%;
+    overflow: hidden
+}
+
+.wrap-table .table {
+    width: 100%;
+    border-spacing: 0;
+    margin: 0
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .wrap-table .table {
+        display: block
+    }
+}
+
+.wrap-table .table-row {
+    display: table-row;
+    background: #fff
+}
+
+.wrap-table .table-header {
+    color: #fff;
+    background: #596ae8;
+    text-align: left;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .wrap-table .table-row {
+        display: block
+    }
+
+    .wrap-table .table-header {
+        padding: 0;
+        height: 0
+    }
+
+    .wrap-table .table-header .cell {
+        display: none
+    }
+
+    .wrap-table .table-row .cell:before {
+        font-family: Poppins-Bold;
+        font-size: 12px;
+        color: gray;
+        line-height: 1.2;
+        text-transform: uppercase;
+        font-weight: unset !important;
+        margin-bottom: 13px;
+        content: attr(data-title);
+        min-width: 98px;
+        display: block
+    }
+}
+
+.wrap-table .cell {
+    display: table-cell
+}
+
+@media screen and (max-width: 768px) {
+    .wrap-table .cell {
+        display: block
+    }
+}
+
+.wrap-table .cell {
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    color: #666;
+    line-height: 20px;
+    font-weight: unset !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f2f2f2;
+    border-spacing: 0;
+}
+
+.wrap-table .table-header .cell {
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    color: #fff;
+    line-height: 20px;
+    font-weight: unset !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.wrap-table .cell:nth-child(1) {
+    width: 30%;
+    padding-right: 8px;
+    padding-left: 20px;
+}
+
+.wrap-table .cell:nth-child(2) {
+    width: 15%;
+}
+
+.wrap-table .table-row:hover .cell:nth-child(1),
+.wrap-table .table-row:hover .cell:nth-child(2) {
+    background-color: #ececff;
+    cursor: pointer
+}
+
+.wrap-table .table,
+.wrap-table .table-row {
+    width: 100% !important
+}
+
+.wrap-table .cell.fullrow {
+    padding: 0 4px;
+}
+
+.wrap-table .report-link {
+    /* padding: 20px 0; */
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 100%;
+    display: inline-table;
+    text-decoration: none;
+    transition: all .4s;
+}
+
+
+
+.wrap-table .report-meeting:hover {
+    background-color: #ddddff;
+}
+
+
+@media(max-width: 768px) {
+    .wrap-table .table-row {
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: 18px;
+        padding-top: 30px;
+        padding-right: 15px;
+        margin: 0
+    }
+
+    .wrap-table .table-row .cell {
+        border: none;
+        padding-left: 30px;
+        padding-top: 16px;
+        padding-bottom: 16px
+    }
+
+    .wrap-table .table-row .cell:nth-child(1) {
+        padding-left: 30px
+    }
+
+    .wrap-table .table-row .cell {
+        font-family: Poppins-Regular;
+        font-size: 18px;
+        color: #555;
+        line-height: 1.2;
+        font-weight: unset !important
+    }
+
+    .wrap-table .table,
+    .wrap-table .table-row,
+    .wrap-table .cell {
+        width: 100% !important
+    }
+}
+/* End Table info student */
+.row {
+    margin-bottom: 12px;
+}
+
+
+
+
+/*-------------------Start: Meeting-content-------------------*/
+
+.meeting-content {
+    margin-top: 8px;
+    /* border: 1px solid var(--text-color-blue); */
+}
+/* Buttons in meeting box */
+.meeting .btn-note {
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--backgr-color-light);
+    transition: all 0.5s;
+}
+
+.meeting .btn-note:hover {
+    background-color: var(--backgr-color-hover-blue1);
+    color: var(--btn-color-hover-blue);
+}
+
+/* -------------------End: Quill CSS------------------- */
+
+.meeting-content .editor.focus{
+    border: 1px solid #3d75be !important;
+    outline: none;
+}
+
+.editor .note {
+    width: calc(100% - 20px);
+    resize: vertical;
+    padding: 10px;
+}
+
+.meeting-content .ql-editor {
+    height: 200px;
+}
+
+/* -------------------End: Meeting-content------------------- */
+
+/* -------------------Start: end meeting button------------------- */
+
+.meeting-end {
+    margin-top: 8px;
+    height: 40px;
+}
+
+.button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    width: 120px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: var(--backgr-color-light);
+    cursor: pointer;
+    transition: ease-out 0.3s;
+}
+
+.btn-end-meeting {
+    padding: 12px 24px;
+    float: right;
+    background-color: var(--backgr-color-light);
+}
+
+.btn-end-meeting:hover {
+    background-color: var(--backgr-color-hover-blue1);
+    color: var(--btn-color-hover-blue);
+}
+
+.pos-rb-corner {
+    /* position: absolute !important;
+    width: 100%;
+    bottom: 8px;
+    right: 20px; */
+}
+/* -------------------Start: Modal Display Meeting------------------- */
+.md-display-meeting.modal .modal-body{
+    min-height: 300px;
+}
+
+.md-display-meeting .btn-accept {
+    width: 100%;
+    padding: 16px;
+}
+
+.md-display-meeting .check-all-input {
+    line-height: 22px;
+}
+
+.md-display-meeting .wrap-table {
+    border-radius: 4px;
+    width: 100%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(1) {
+    padding: 0;
+    width: 3%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(2) {
+    width: 2%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(3) {
+    width: 25%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(4) {
+    width: 10%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(5) {
+    width: 10%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(6) {
+    width: 20%;
+}
+
+.md-display-meeting .wrap-table .cell:nth-child(7) {
+    width: 30%;
+}
+
+.md-display-meeting .wrap-table .table-row:hover .cell {
+    background-color: #ececff;
+}
+/* -------------------End: Modal Display Meeting------------------- */
+
+/* -------------------Start: Modal warning end button------------------- */
+
+*:before, *:after {
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 600px) {
+    .container-select-modal {
+        /* justify-content: center; */
+        /* align-items: center; */
+        display: block;
+        /* height: 100vh; */
+        /* font-size: 100%; */
+   }
+}
+
+.details-modal {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    left: 50%;
+    max-width: 90%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    text-align: left;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.details-modal .details-modal-close {
+    align-items: center;
+    color: #111827;
+    display: flex;
+    height: 64px;
+    width: 64px;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.details-modal .details-modal-close:hover {
+    background-color: var(--backgr-color-hover-blue1);
+    color: var(--btn-color-hover-blue);
+}
+.details-modal .details-modal-close svg {
+    display: block;
+}
+.details-modal .details-modal-title {
+    color: #111827;
+    padding: 20px;
+    pointer-events: all;
+    position: relative;
+    width: calc(100% - 80px);
+}
+
+.details-modal .details-modal-title h1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+}
+.details-modal .details-modal-content {
+    border-top: 1px solid #e0e0e0;
+    padding: 2em;
+    pointer-events: all;
+    overflow: auto;
+}
+
+.details-modal-content .modal-row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.details-modal-content .btn-add-meeting {
+    background-color: rgb(160, 255, 141);
+}
+
+.details-modal-content .btn-end {
+    background-color: rgb(255 155 138);
+}
+
+.details-modal-content .btn-cancel {
+    background-color: rgb(231, 231, 231);
+}
+
+.details-modal-content .btn-add-meeting:hover,
+.details-modal-content .btn-end:hover,
+.details-modal-content .btn-cancel:hover {
+    scale: 1.1;
+}
+.details-modal-overlay {
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+    background: rgba(15, 23, 42, 0.8);
+    position: fixed;
+    opacity: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+details[open] .details-modal-overlay {
+    pointer-events: all;
+    opacity: 0.5;
+}
+details summary {
+    list-style: none;
+}
+details summary:focus {
+    outline: none;
+}
+details summary::-webkit-details-marker {
+    display: none;
+}
+code {
+    font-family: Monaco, monospace;
+    line-height: 100%;
+    background-color: #2d2d2c;
+    padding: 0.1em 0.4em;
+    letter-spacing: -0.05em;
+    word-break: normal;
+    border-radius: 7px;
+    color: white;
+    font-weight: normal;
+    font-size: 1.75rem;
+    position: relative;
+    top: -2px;
+}
+
+.container-select-modal > h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: normal;
+    color: #111827;
+}
+.container-select-modal .details-modal-content p {
+    margin-bottom: 20px;
+}
+.container-select-modal sup {
+    font-size: 1rem;
+    margin-left: 0.25em;
+    opacity: 0.5;
+    position: relative;
+}
+
+
+
+/* -------------------End: Modal warning end button------------------- */
+
