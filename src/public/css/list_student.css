@@ -5,6 +5,7 @@
 .table-student {
     max-height: 100%;
     position: relative;
+    margin-bottom: 100px;
 }
 .wrapper-content .table-student table {
     margin-top: 12px;

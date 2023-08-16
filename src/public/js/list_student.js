@@ -221,9 +221,11 @@ function addGroup(event) {
 function manipulateGroup(group) {
     document.querySelector('.manipulate-group .group-id').innerText = group.group_id;
     manipulate_group.style.display = 'block';
+    // sửa
     manipulate_group.querySelector('.edit').onclick = e => {
         editGroup(group)
     };
+    // xóa
     manipulate_group.querySelector('.delete').onclick = e => {
         if(window.confirm('xác nhận xóa nhóm: ' + group.group_id)) {
             fetch(`/list/deletegroup?group_id=${group.group_id}`)
@@ -236,6 +238,9 @@ function manipulateGroup(group) {
                 console.error('Lỗi:', error);
             });
         }
+    }
+    manipulate_group.querySelector('.viewMeeting').onclick = e => {
+        window.location.href = `/assignment?group_id=${group.group_id}`
     }
 }
 // thao tac voi student
@@ -258,6 +263,9 @@ function manipulateStudent(student) {
                 console.error('Lỗi:', error);
             });
         }
+    }
+    manipulate_student.querySelector('.viewMeeting').onclick = e => {
+        window.location.href = `/assignment?group_id=${student.group_id}`
     }
 }
 

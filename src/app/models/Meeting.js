@@ -591,6 +591,26 @@ class Meeting {
             throw err;
         }
     }
+        //[GET] /api/groupstudent Phúc thêm
+        async getGroupStudentByGrId(group_id, result) {
+            const _this = this
+    
+            console.log('\n\n');
+            console.log(group_id);
+            const getGroupStudentSQL = `
+            SELECT *
+            FROM meeting
+            WHERE group_id = ${group_id}
+            `
+    
+            try {
+                const responseData = await _this.executeQuery(getGroupStudentSQL)
+                result(responseData)
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;
+            }
+        }
 }
 
 
